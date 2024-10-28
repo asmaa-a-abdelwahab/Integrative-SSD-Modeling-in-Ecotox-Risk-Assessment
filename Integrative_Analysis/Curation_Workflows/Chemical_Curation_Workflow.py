@@ -1,8 +1,9 @@
-import pandas as pd
-from rdkit import Chem
-from rdkit.Chem import Descriptors, AllChem
+from rdkit import Chem, DataStructs
+from rdkit.Chem import Descriptors, AllChem, rdFingerprintGenerator, SDWriter
 from rdkit.Chem.MolStandardize import rdMolStandardize
-from rdkit.Chem import SDWriter
+from sklearn.cluster import DBSCAN
+import pandas as pd
+import numpy as np
 import requests
 import logging
 import os
@@ -16,45 +17,77 @@ logging.basicConfig(
 
 class ChemicalCuration:
     """
-    A class to perform chemical data curation, including the removal of inorganics, organometallics, counterions,
-    structure normalization, handling tautomers and isomers, and final validation.
+    A class to perform chemical data curation, including duplicate removal, inorganics, organometallics, and mixtures,
+    structure normalization, tautomer and isomer handling, stereochemistry verification, and validation.
     """
 
     def __init__(self, df):
-        """
-        Initialize the ChemicalCuration class with a DataFrame.
-
-        Args:
-            df (pandas.DataFrame): DataFrame containing chemical data with at least an 'InChIKey' column.
-        """
         self.df = df
         self.cleaned_data = None
-        self.inchikey_smiles_map = {}
         self.df["Status"] = ""  # Initialize a Status column to track the curation steps
+        self.inchikey_smiles_map = {}  # Initialize the attribute to hold InChIKey to SMILES mapping
         logging.info(
             "ChemicalCuration initialized with DataFrame of shape %s", df.shape
         )
 
-    def inchikey_to_smiles(self, inchikey):
+    def remove_duplicates(self):
         """
-        Convert an InChIKey to SMILES by querying an external chemical database.
-
-        Args:
-            inchikey (str): The InChIKey to convert.
-
-        Returns:
-            str: The corresponding SMILES string, or None if retrieval fails.
+        Remove duplicates from the mapping dictionary based on InChIKey and canonicalized Cleaned_SMILES.
         """
         try:
-            url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/inchikey/{inchikey}/property/CanonicalSMILES/TXT"
-            response = requests.get(url)
-            response.raise_for_status()
-            smiles = response.text.strip()
-            logging.info("Retrieved SMILES for InChIKey %s", inchikey)
-            return smiles
+            if "Cleaned_SMILES" not in self.cleaned_data.columns:
+                logging.error("'Cleaned_SMILES' column not found in the dataset")
+                return
+
+            logging.info(
+                "Removing duplicates based on InChIKey and canonical Cleaned_SMILES..."
+            )
+
+            def update_status(idx, message):
+                self.cleaned_data.at[idx, "Status"] += f"{message}; "
+
+            # Function to canonicalize SMILES strings
+            def canonicalize_smiles(smiles):
+                try:
+                    mol = Chem.MolFromSmiles(smiles)
+                    if mol is None:
+                        logging.error(
+                            f"Invalid SMILES: '{smiles}' - RDKit failed to parse."
+                        )
+                        return None
+                    return Chem.MolToSmiles(mol, canonical=True)
+                except Exception as e:
+                    logging.error(f"Failed to canonicalize SMILES '{smiles}': {e}")
+                    return None
+
+            unique_mapping = {}
+
+            for inchikey, smiles in self.inchikey_smiles_map.items():
+                if pd.notna(smiles):
+                    canonical_smiles = canonicalize_smiles(smiles)
+                    if canonical_smiles is not None:
+                        if (inchikey, canonical_smiles) not in unique_mapping:
+                            unique_mapping[(inchikey, canonical_smiles)] = (
+                                canonical_smiles
+                            )
+
+            self.inchikey_smiles_map = {k[0]: v for k, v in unique_mapping.items()}
+
+            self.df["SMILES"] = self.df["InChIKey"].map(self.inchikey_smiles_map)
+            self.cleaned_data = self.df.dropna(subset=["SMILES"]).copy()
+
+            # Set the Cleaned_SMILES column to the canonical SMILES values and update status
+            for idx, row in self.cleaned_data.iterrows():
+                cleaned_smiles = canonicalize_smiles(row["SMILES"])
+                self.cleaned_data.at[idx, "Cleaned_SMILES"] = cleaned_smiles
+                update_status(idx, "Duplicate check and canonicalization completed")
+
+            logging.info(
+                f"Number of unique entries after duplicate removal: {len(self.cleaned_data)}"
+            )
+
         except Exception as e:
-            logging.error("Failed to retrieve SMILES for InChIKey %s: %s", inchikey, e)
-            return None
+            logging.error(f"An error occurred during duplicate removal: {e}")
 
     def remove_inorganics_and_mixtures(self):
         """
@@ -88,10 +121,39 @@ class ChemicalCuration:
 
         self.df["SMILES"] = self.df["InChIKey"].map(self.inchikey_smiles_map)
         self.cleaned_data = self.df.dropna(subset=["SMILES"]).copy()
+        self.cleaned_data["Cleaned_SMILES"] = None
+
         logging.info(
             "Removed inorganics, organometallics, counterions, biologics, and mixtures. Cleaned data shape: %s",
             self.cleaned_data.shape,
         )
+
+    def inchikey_to_smiles(self, inchikey):
+        """
+        Convert an InChIKey to SMILES by querying an external chemical database.
+
+        Args:
+            inchikey (str): The InChIKey to convert.
+
+        Returns:
+            str: The corresponding SMILES string, or None if retrieval fails.
+        """
+        try:
+            url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/inchikey/{inchikey}/property/CanonicalSMILES/TXT"
+            response = requests.get(url)
+            response.raise_for_status()
+            smiles = response.text.strip()
+            if smiles:
+                logging.info(f"Retrieved SMILES for InChIKey {inchikey}")
+                return smiles  # Return valid SMILES string
+            else:
+                logging.warning(
+                    f"No SMILES found for InChIKey {inchikey}. Returning empty string."
+                )
+                return ""  # Return empty string if no SMILES is found
+        except Exception as e:
+            logging.error(f"Failed to retrieve SMILES for InChIKey {inchikey}: {e}")
+            return ""  # Return empty string if there is an error
 
     def structural_cleaning(self):
         """
@@ -146,12 +208,16 @@ class ChemicalCuration:
                     Chem.SanitizeMol(mol)
                     update_status(idx, "Sanitization successful")
                 except Chem.MolSanitizeException:
-                    Chem.SanitizeMol(
-                        mol,
-                        sanitizeOps=Chem.SanitizeFlags.SANITIZE_ALL
-                        ^ Chem.SanitizeFlags.SANITIZE_PROPERTIES,
-                    )
-                    update_status(idx, "Sanitization corrected")
+                    try:
+                        Chem.SanitizeMol(
+                            mol,
+                            sanitizeOps=Chem.SanitizeFlags.SANITIZE_ALL
+                            ^ Chem.SanitizeFlags.SANITIZE_PROPERTIES,
+                        )
+                        update_status(idx, "Sanitization corrected")
+                    except Exception as e:
+                        update_status(idx, f"Sanitization error: {e}")
+                        return None
 
                 try:
                     if AllChem.MMFFOptimizeMolecule(mol) != 0:
@@ -168,20 +234,43 @@ class ChemicalCuration:
                     update_status(idx, f"Aromatization error: {e}")
 
                 normalizer = rdMolStandardize.Normalizer()
-                mol = normalizer.normalize(mol)
-                mol = apply_tautomer_rules(mol)
+                try:
+                    mol = normalizer.normalize(mol)
+                except Exception as e:
+                    update_status(idx, f"Normalization error: {e}")
+                    return None
 
-                cleaned_smiles = Chem.MolToSmiles(mol)
-                update_status(idx, "Structural cleaning successful")
-                return cleaned_smiles
+                try:
+                    mol = apply_tautomer_rules(mol)
+                except Exception as e:
+                    update_status(idx, f"Tautomer rules error: {e}")
+                    return None
+
+                if mol:
+                    try:
+                        cleaned_smiles = Chem.MolToSmiles(mol, canonical=True)
+                        update_status(idx, "Structural cleaning successful")
+                        return cleaned_smiles
+                    except Exception as e:
+                        update_status(idx, f"Failed to convert to SMILES: {e}")
+                        return None
+                else:
+                    update_status(idx, "Molecule is None after processing")
+                    return None
 
             except Exception as e:
                 update_status(idx, f"Cleaning failed: {e}")
                 return None
 
+        self.cleaned_data["Cleaned_SMILES"] = None
+
         for idx, row in self.cleaned_data.iterrows():
             cleaned_smiles = clean_structure(row["SMILES"], idx)
             self.cleaned_data.at[idx, "Cleaned_SMILES"] = cleaned_smiles
+
+        if "Cleaned_SMILES" not in self.cleaned_data.columns:
+            logging.error("Cleaned_SMILES column missing after structural cleaning.")
+            return
 
         self.cleaned_data.dropna(subset=["Cleaned_SMILES"], inplace=True)
         logging.info(
@@ -398,16 +487,11 @@ class ChemicalCuration:
     def curate_data(self):
         """
         Run the full curation workflow on the DataFrame.
-
         The workflow includes:
         - Removal of inorganics, organometallics, counterions, biologics, and mixtures.
         - Structural cleaning, including valence correction, bond optimization, and chemotype normalization.
-        - Tautomer and isomer handling.
+        - Duplicate removal based on InChIKey and Cleaned_SMILES.
         - Stereochemistry verification.
-        - Final review and validation.
-
-        Returns:
-            pandas.DataFrame: The curated chemical data.
         """
         logging.info("Starting data curation process.")
 
@@ -417,7 +501,10 @@ class ChemicalCuration:
         # Step 2: Structural Cleaning and Normalization
         self.structural_cleaning()
 
-        # Step 3: Stereochemistry Verification
+        # Step 3: Duplicate Removal
+        self.remove_duplicates()  # Add the duplicate removal step
+
+        # Step 4: Stereochemistry Verification
         self.verify_stereochemistry()
 
         logging.info("Data curation process completed.")
@@ -442,6 +529,85 @@ class ChemicalCuration:
         logging.info("SDF file generation complete.")
 
 
+class BiologicalCuration:
+    """
+    A class to perform additional biological curation, including activity cliffs identification.
+    """
+
+    def __init__(self, df):
+        self.df = df
+
+    def identify_activity_cliffs(self, threshold=0.5, activity_threshold=0.2):
+        """
+        Identify activity cliffs using structural similarity and bioactivity values.
+        Clustering compounds with similar structures and comparing their bioactivity.
+        """
+        try:
+            logging.info("Identifying activity cliffs...")
+
+            # Ensure "Cleaned_SMILES" column exists before proceeding
+            if "Cleaned_SMILES" not in self.df.columns:
+                logging.error("Missing 'Cleaned_SMILES' column in dataframe.")
+                return self.df
+
+            # Validate and generate fingerprints for all valid molecules
+            mols = self.df["Cleaned_SMILES"].apply(Chem.MolFromSmiles)
+            valid_mols = [mol for mol in mols if mol is not None]
+
+            if not valid_mols:
+                logging.warning(
+                    "No valid molecules found for activity cliff identification."
+                )
+                return self.df
+
+            fingerprints = rdFingerprintGenerator.GetFPs(valid_mols)
+
+            # Calculate similarity matrix using Tanimoto similarity
+            similarity_matrix = np.zeros((len(fingerprints), len(fingerprints)))
+            for i, fp1 in enumerate(fingerprints):
+                for j, fp2 in enumerate(fingerprints):
+                    similarity_matrix[i, j] = DataStructs.TanimotoSimilarity(fp1, fp2)
+
+            # Apply DBSCAN clustering to find potential activity cliffs
+            clustering = DBSCAN(eps=threshold, min_samples=2, metric="precomputed")
+            clusters = clustering.fit_predict(1 - similarity_matrix)
+
+            self.df.loc[
+                self.df["Cleaned_SMILES"].apply(Chem.MolFromSmiles).notnull(),
+                "Activity_Cluster",
+            ] = clusters
+
+            # Filter clusters based on bioactivity values if available
+            if "Bioactivity" not in self.df.columns:
+                logging.warning(
+                    "No 'Bioactivity' column found; skipping bioactivity-based cliff filtering."
+                )
+                return self.df
+
+            # Proceed with filtering based on bioactivity if the column exists
+            cliff_data = []
+            for cluster in set(clusters):
+                if cluster == -1:
+                    continue  # Skip noise points
+                cluster_df = self.df[self.df["Activity_Cluster"] == cluster]
+                bioactivity_range = (
+                    cluster_df["Bioactivity"].max() - cluster_df["Bioactivity"].min()
+                )
+                if bioactivity_range >= activity_threshold:
+                    cliff_data.append(cluster_df)
+
+            # Combine all the identified cliffs
+            activity_cliffs_df = (
+                pd.concat(cliff_data, ignore_index=True) if cliff_data else self.df
+            )
+
+            return activity_cliffs_df
+
+        except Exception as e:
+            logging.error(f"Failed to identify activity cliffs: {e}")
+            return self.df
+
+
 def main(input_file, csv_output_file, sdf_output_file, row_limit=None):
     try:
         # Validate input file existence
@@ -462,6 +628,17 @@ def main(input_file, csv_output_file, sdf_output_file, row_limit=None):
 
         # Run the data curation process
         curated_df = curator.curate_data()
+
+        # # Perform additional biological curation
+        bio_curator = BiologicalCuration(curated_df)
+        curated_df = bio_curator.identify_activity_cliffs()
+
+        # Check if the cleaned dataset has valid rows before saving
+        if curated_df.empty:
+            logging.warning(
+                "No valid entries found after curation. Skipping file generation."
+            )
+            return
 
         # Save the curated DataFrame to the specified output CSV file
         output_dir = os.path.dirname(csv_output_file)
