@@ -1,7 +1,6 @@
 import pandas as pd
 from rdkit import Chem
-from rdkit.Chem import Descriptors
-from rdkit.Chem import AllChem  # Import for bond length and angle optimization
+from rdkit.Chem import Descriptors, AllChem
 from rdkit.Chem.MolStandardize import rdMolStandardize
 from rdkit.Chem import SDWriter
 import requests
@@ -31,6 +30,7 @@ class ChemicalCuration:
         self.df = df
         self.cleaned_data = None
         self.inchikey_smiles_map = {}
+        self.df["Status"] = ""  # Initialize a Status column to track the curation steps
         logging.info(
             "ChemicalCuration initialized with DataFrame of shape %s", df.shape
         )
@@ -59,158 +59,10 @@ class ChemicalCuration:
     def remove_inorganics_and_mixtures(self):
         """
         Remove inorganic compounds, organometallics, counterions, biologics, and mixtures from the DataFrame.
-        Organic compounds must contain carbon and at least one other element, and should not contain metals, counterions, or multiple disconnected components.
         """
 
-        def is_organic(smiles):
-            """
-            Determine if a molecule is organic.
-
-            An organic molecule must contain carbon and at least one other element. It must not contain metals or be too small to be a typical organic compound.
-
-            Args:
-                smiles (str): SMILES string of the molecule.
-
-            Returns:
-                bool: True if the molecule is organic, False otherwise.
-            """
-            try:
-                mol = Chem.MolFromSmiles(smiles)
-                if mol is None:
-                    return False
-                elements = {atom.GetSymbol() for atom in mol.GetAtoms()}
-                metals = {
-                    "Li",
-                    "Be",
-                    "Na",
-                    "Mg",
-                    "Al",
-                    "K",
-                    "Ca",
-                    "Sc",
-                    "Ti",
-                    "V",
-                    "Cr",
-                    "Mn",
-                    "Fe",
-                    "Co",
-                    "Ni",
-                    "Cu",
-                    "Zn",
-                    "Ga",
-                    "Rb",
-                    "Sr",
-                    "Y",
-                    "Zr",
-                    "Nb",
-                    "Mo",
-                    "Tc",
-                    "Ru",
-                    "Rh",
-                    "Pd",
-                    "Ag",
-                    "Cd",
-                    "In",
-                    "Sn",
-                    "Sb",
-                    "Cs",
-                    "Ba",
-                    "La",
-                    "Hf",
-                    "Ta",
-                    "W",
-                    "Re",
-                    "Os",
-                    "Ir",
-                    "Pt",
-                    "Au",
-                    "Hg",
-                    "Tl",
-                    "Pb",
-                    "Bi",
-                }
-                # Check for presence of metals (indicating organometallics) or absence of carbon
-                if elements & metals or "C" not in elements or len(elements) <= 1:
-                    return False
-                return True
-            except Exception as e:
-                logging.error(f"Error processing SMILES {smiles}: {e}")
-                return False
-
-        def is_counterion(smiles):
-            """
-            Determine if a molecule is a counterion.
-
-            Counterions are typically small ions used to balance charges in salts. This function uses a molecular weight threshold to identify them.
-
-            Args:
-                smiles (str): SMILES string of the molecule.
-
-            Returns:
-                bool: True if the molecule is a counterion, False otherwise.
-            """
-            try:
-                mol = Chem.MolFromSmiles(smiles)
-                if mol is None:
-                    return False
-                # Molecules with a molecular weight less than 100 are considered counterions
-                return Descriptors.MolWt(mol) < 100
-            except Exception as e:
-                logging.error(
-                    f"Error processing SMILES {smiles} for counterion check: {e}"
-                )
-                return False
-
-        def is_biologic(smiles):
-            """
-            Determine if a molecule is a biologic.
-
-            Biologics often contain multiple peptide bonds and are larger, more complex molecules. This function uses a simple heuristic to detect them.
-
-            Args:
-                smiles (str): SMILES string of the molecule.
-
-            Returns:
-                bool: True if the molecule is a biologic, False otherwise.
-            """
-            try:
-                mol = Chem.MolFromSmiles(smiles)
-                if mol is None:
-                    return False
-                # Simple heuristic: biologics often contain many peptide bonds (C=O-NH)
-                peptide_bond_count = smiles.count("C(=O)N")
-                return (
-                    peptide_bond_count > 5
-                )  # Threshold for detecting potential biologics
-            except Exception as e:
-                logging.error(
-                    f"Error processing SMILES {smiles} for biologic check: {e}"
-                )
-                return False
-
-        def is_mixture(smiles):
-            """
-            Determine if a SMILES string represents a mixture.
-
-            A mixture is defined as a SMILES string containing multiple components, usually separated by a '.' character.
-
-            Args:
-                smiles (str): SMILES string of the molecule.
-
-            Returns:
-                bool: True if the SMILES string represents a mixture, False otherwise.
-            """
-            try:
-                mol = Chem.MolFromSmiles(smiles)
-                if mol is None:
-                    return False
-                # A dot in the SMILES string indicates multiple components (mixture)
-                return "." in smiles
-            except Exception as e:
-                logging.error(
-                    f"Error processing SMILES {smiles} for mixture check: {e}"
-                )
-                return False
+        def update_status(idx, message):
+            self.df.at[idx, "Status"] += f"{message}; "
 
         unique_inchikeys = self.df["InChIKey"].unique()
         logging.info(
@@ -218,23 +70,23 @@ class ChemicalCuration:
             len(unique_inchikeys),
         )
 
-        for inchikey in unique_inchikeys:
+        for idx, inchikey in enumerate(unique_inchikeys):
             smiles = self.inchikey_to_smiles(inchikey)
             if smiles:
-                # Perform checks in order: organic, not a counterion, not a biologic, and not a mixture
                 if (
-                    is_organic(smiles)
-                    and not is_counterion(smiles)
-                    and not is_biologic(smiles)
-                    and not is_mixture(smiles)
+                    self.is_organic(smiles)
+                    and not self.is_counterion(smiles)
+                    and not self.is_biologic(smiles)
+                    and not self.is_mixture(smiles)
                 ):
                     self.inchikey_smiles_map[inchikey] = smiles
+                    update_status(idx, "Passed organic checks")
                 else:
-                    logging.info(f"SMILES {smiles} removed: does not meet criteria.")
+                    update_status(idx, "Failed organic checks")
+            else:
+                update_status(idx, "Failed to retrieve SMILES")
 
-        # Map the remaining valid SMILES strings to their corresponding InChIKeys
         self.df["SMILES"] = self.df["InChIKey"].map(self.inchikey_smiles_map)
-        # Drop rows where SMILES is NaN (indicating removal)
         self.cleaned_data = self.df.dropna(subset=["SMILES"]).copy()
         logging.info(
             "Removed inorganics, organometallics, counterions, biologics, and mixtures. Cleaned data shape: %s",
@@ -243,17 +95,11 @@ class ChemicalCuration:
 
     def structural_cleaning(self):
         """
-        Perform comprehensive structural cleaning on the chemical dataset, including:
-        - Detection and correction of valence violations and extreme bond lengths/angles.
-        - Ring aromatization.
-        - Normalization of specific chemotypes.
-        - Standardization of tautomeric forms using custom SMIRKS rules.
-
-        Returns:
-            None: The function modifies the DataFrame in place, updating the `cleaned_data` with the cleaned structures.
+        Perform comprehensive structural cleaning on the chemical dataset.
         """
 
-        # Define internal helper functions: pre_optimization_check, apply_tautomer_rules, and clean_structure
+        def update_status(idx, message):
+            self.cleaned_data.at[idx, "Status"] += f"{message}; "
 
         def pre_optimization_check(mol):
             try:
@@ -276,84 +122,166 @@ class ChemicalCuration:
                 rdkit.Chem.Mol: The molecule with standardized tautomers.
             """
             try:
-                # Create a TautomerEnumerator using RDKit's built-in rules
                 enumerator = rdMolStandardize.TautomerEnumerator()
-
-                # Apply canonicalization to standardize the tautomer form
                 canonical_tautomer = enumerator.Canonicalize(mol)
-
                 return canonical_tautomer
             except Exception as e:
                 logging.error(f"Error applying tautomer rules: {e}")
-                return mol  # Return the original molecule if there's an error
+                return mol
 
-        def clean_structure(smiles):
+        def clean_structure(smiles, idx):
             try:
                 mol = Chem.MolFromSmiles(smiles)
                 if mol is None:
+                    update_status(idx, "Invalid SMILES")
                     return None
 
                 mol = Chem.AddHs(mol)
-
                 mol, pre_opt_status = pre_optimization_check(mol)
                 if not mol:
-                    logging.warning(
-                        f"Pre-optimization failed for SMILES: {smiles}. Status: {pre_opt_status}"
-                    )
+                    update_status(idx, f"Pre-optimization failed: {pre_opt_status}")
                     return None
 
                 try:
                     Chem.SanitizeMol(mol)
+                    update_status(idx, "Sanitization successful")
                 except Chem.MolSanitizeException:
                     Chem.SanitizeMol(
                         mol,
                         sanitizeOps=Chem.SanitizeFlags.SANITIZE_ALL
                         ^ Chem.SanitizeFlags.SANITIZE_PROPERTIES,
                     )
+                    update_status(idx, "Sanitization corrected")
 
                 try:
                     if AllChem.MMFFOptimizeMolecule(mol) != 0:
                         if AllChem.UFFOptimizeMolecule(mol) != 0:
-                            logging.warning(
-                                f"All optimizations failed for SMILES: {smiles}"
-                            )
+                            update_status(idx, "Bond length/angle optimization failed")
                 except Exception as e:
-                    logging.warning(
-                        f"Optimization failed for SMILES: {smiles}. Reason: {e}"
-                    )
+                    update_status(idx, f"Optimization error: {e}")
 
                 try:
                     Chem.Kekulize(mol, clearAromaticFlags=True)
                     Chem.SetAromaticity(mol)
+                    update_status(idx, "Aromatization successful")
                 except Exception as e:
-                    logging.warning(
-                        f"Ring aromatization failed for SMILES: {smiles}. Reason: {e}"
-                    )
+                    update_status(idx, f"Aromatization error: {e}")
 
                 normalizer = rdMolStandardize.Normalizer()
                 mol = normalizer.normalize(mol)
                 mol = apply_tautomer_rules(mol)
 
                 cleaned_smiles = Chem.MolToSmiles(mol)
+                update_status(idx, "Structural cleaning successful")
                 return cleaned_smiles
 
             except Exception as e:
-                logging.error(
-                    f"Failed to clean structure for SMILES {smiles}. Reason: {e}"
-                )
+                update_status(idx, f"Cleaning failed: {e}")
                 return None
 
-        # Apply structural cleaning to each molecule in the DataFrame
-        self.cleaned_data["Cleaned_SMILES"] = self.cleaned_data["SMILES"].apply(
-            clean_structure
-        )
+        for idx, row in self.cleaned_data.iterrows():
+            cleaned_smiles = clean_structure(row["SMILES"], idx)
+            self.cleaned_data.at[idx, "Cleaned_SMILES"] = cleaned_smiles
 
-        # Remove rows where cleaning failed
         self.cleaned_data.dropna(subset=["Cleaned_SMILES"], inplace=True)
         logging.info(
             "Structural cleaning completed. Cleaned data shape: %s",
             self.cleaned_data.shape,
         )
+
+    def is_organic(self, smiles):
+        try:
+            mol = Chem.MolFromSmiles(smiles)
+            if mol is None:
+                return False
+            elements = {atom.GetSymbol() for atom in mol.GetAtoms()}
+            metals = {
+                "Li",
+                "Be",
+                "Na",
+                "Mg",
+                "Al",
+                "K",
+                "Ca",
+                "Sc",
+                "Ti",
+                "V",
+                "Cr",
+                "Mn",
+                "Fe",
+                "Co",
+                "Ni",
+                "Cu",
+                "Zn",
+                "Ga",
+                "Rb",
+                "Sr",
+                "Y",
+                "Zr",
+                "Nb",
+                "Mo",
+                "Tc",
+                "Ru",
+                "Rh",
+                "Pd",
+                "Ag",
+                "Cd",
+                "In",
+                "Sn",
+                "Sb",
+                "Cs",
+                "Ba",
+                "La",
+                "Hf",
+                "Ta",
+                "W",
+                "Re",
+                "Os",
+                "Ir",
+                "Pt",
+                "Au",
+                "Hg",
+                "Tl",
+                "Pb",
+                "Bi",
+            }
+            if elements & metals or "C" not in elements or len(elements) <= 1:
+                return False
+            return True
+        except Exception as e:
+            logging.error(f"Error processing SMILES {smiles}: {e}")
+            return False
+
+    def is_counterion(self, smiles):
+        try:
+            mol = Chem.MolFromSmiles(smiles)
+            if mol is None:
+                return False
+            return Descriptors.MolWt(mol) < 100
+        except Exception as e:
+            logging.error(f"Error processing SMILES {smiles} for counterion check: {e}")
+            return False
+
+    def is_biologic(self, smiles):
+        try:
+            mol = Chem.MolFromSmiles(smiles)
+            if mol is None:
+                return False
+            peptide_bond_count = smiles.count("C(=O)N")
+            return peptide_bond_count > 5
+        except Exception as e:
+            logging.error(f"Error processing SMILES {smiles} for biologic check: {e}")
+            return False
+
+    def is_mixture(self, smiles):
+        try:
+            mol = Chem.MolFromSmiles(smiles)
+            if mol is None:
+                return False
+            return "." in smiles
+        except Exception as e:
+            logging.error(f"Error processing SMILES {smiles} for mixture check: {e}")
+            return False
 
     def verify_stereochemistry(self):
         """
@@ -366,6 +294,9 @@ class ChemicalCuration:
         Returns:
             pd.DataFrame: DataFrame with additional columns indicating stereocenter verification results.
         """
+
+        def update_status(idx, message):
+            self.cleaned_data.at[idx, "Status"] += f"{message}; "
 
         def get_stereocenters(mol):
             """
@@ -415,7 +346,7 @@ class ChemicalCuration:
             if not pubchem_info:
                 return True
 
-            pubchem_stereocenters = []  # You would extract this from PubChem's response
+            pubchem_stereocenters = []  # Extract this from PubChem's response if available
 
             # Compare detected stereocenters with PubChem info
             if len(stereo_centers) != len(pubchem_stereocenters):
@@ -425,7 +356,7 @@ class ChemicalCuration:
 
             return False
 
-        def verify_structure(smiles):
+        def verify_structure(smiles, idx):
             """
             Verify the stereochemistry of a single structure.
 
@@ -437,12 +368,18 @@ class ChemicalCuration:
             """
             mol = Chem.MolFromSmiles(smiles)
             if mol is None:
+                update_status(idx, "Invalid SMILES")
                 return {"SMILES": smiles, "Valid": False, "Error": "Invalid SMILES"}
 
             stereo_centers = get_stereocenters(mol)
             pubchem_info = query_pubchem(smiles)
 
             needs_manual_curation = manual_curation_needed(stereo_centers, pubchem_info)
+
+            if needs_manual_curation:
+                update_status(idx, "Stereochemistry verification required")
+            else:
+                update_status(idx, "Stereochemistry verified")
 
             return {
                 "SMILES": smiles,
@@ -451,10 +388,8 @@ class ChemicalCuration:
                 "Manual_Curation_Required": needs_manual_curation,
             }
 
-        # Apply stereochemistry verification to each SMILES string in the DataFrame
-        self.cleaned_data["Stereochemistry_Verification"] = self.cleaned_data[
-            "SMILES"
-        ].apply(verify_structure)
+        for idx, row in self.cleaned_data.iterrows():
+            verify_structure(row["SMILES"], idx)
 
         logging.info("Stereochemistry verification completed.")
 
@@ -501,6 +436,7 @@ class ChemicalCuration:
             mol = Chem.MolFromSmiles(row["Cleaned_SMILES"])
             if mol is not None:
                 mol.SetProp("InChIKey", row["InChIKey"])
+                mol.SetProp("Status", row["Status"])
                 writer.write(mol)
         writer.close()
         logging.info("SDF file generation complete.")
@@ -563,6 +499,7 @@ if __name__ == "__main__":
 
     # Call the main function with the provided arguments
     main(args.input_file, args.csv_output_file, args.sdf_output_file, args.row_limit)
+
 
 """
 python .\Chemical_Curation_Workflow.py '..\DataSet\4.LifeStageData-InChIKeyRetrieved.csv' '..\DataSet\5.LifeStageData-CompoundsCurated.csv' '..\DataSet\5.LifeStageData-CompoundsCurated.sdf' --row_limit 100
