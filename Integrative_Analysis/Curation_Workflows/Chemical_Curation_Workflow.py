@@ -6,6 +6,8 @@ from rdkit.Chem.MolStandardize import rdMolStandardize
 from rdkit.Chem import SDWriter
 import requests
 import logging
+import os
+import argparse
 
 # Configure logging
 logging.basicConfig(
@@ -251,9 +253,21 @@ class ChemicalCuration:
             None: The function modifies the DataFrame in place, updating the `cleaned_data` with the cleaned structures.
         """
 
+        # Define internal helper functions: pre_optimization_check, apply_tautomer_rules, and clean_structure
+
+        def pre_optimization_check(mol):
+            try:
+                if AllChem.EmbedMolecule(mol, AllChem.ETKDG()) == 0:
+                    return mol, "3D conformation successful"
+                else:
+                    return None, "3D conformation failed"
+            except Exception as e:
+                logging.error(f"3D conformation error: {e}")
+                return None, "3D conformation error"
+
         def apply_tautomer_rules(mol):
             """
-            Apply a set of custom tautomer rules to standardize the tautomeric form of the molecule.
+            Apply RDKit's built-in tautomer rules to standardize the tautomeric form of the molecule.
 
             Args:
                 mol (rdkit.Chem.Mol): The RDKit molecule object.
@@ -261,130 +275,53 @@ class ChemicalCuration:
             Returns:
                 rdkit.Chem.Mol: The molecule with standardized tautomers.
             """
-            # Define the tautomer rules based on SMIRKS patterns
-            tautomer_transforms = [
-                rdMolStandardize.TautomerTransform(
-                    "[CX3]=[OX1]([#1])>>[CX3][OX2H]", name="Keto-enol"
-                ),
-                rdMolStandardize.TautomerTransform(
-                    "[CX3][OX2H]>>[CX3]=[OX1]([#1])", name="Enol-keto"
-                ),
-                rdMolStandardize.TautomerTransform(
-                    "[CX4H2][CX3]=[CX3H]>>[CX4H]=[CX3H][CX4H2]", name="Alkene Tautomer"
-                ),
-                rdMolStandardize.TautomerTransform(
-                    "[NX3][CX3]=[NX3]>>[NX3]=[CX3][NX3]", name="Imine-Amine"
-                ),
-                rdMolStandardize.TautomerTransform(
-                    "[NX3]=[CX3][OX2H]>>[NX3][CX3]=[OX1]", name="Imine-Oxime"
-                ),
-                rdMolStandardize.TautomerTransform(
-                    "[CX3](=[OX1])-[NX3][#1]>>[CX3](=[OX1])[NX2]=[NX2]",
-                    name="Amide-Imidic acid",
-                ),
-                rdMolStandardize.TautomerTransform(
-                    "[CX3](=[OX1])[NX2]=[NX2]>>[CX3](=[OX1])-[NX3][#1]",
-                    name="Imidic acid-Amide",
-                ),
-                rdMolStandardize.TautomerTransform(
-                    "[CX3](=[OX1])[NX3]=[NX3]>>[CX3](=[OX1])[NX2]=[NX3][#1]",
-                    name="Amidine-Imidamide",
-                ),
-                rdMolStandardize.TautomerTransform(
-                    "[NX2]=[NX3][#1]>>[NX3]=[NX3]", name="Imidamide-Amidine"
-                ),
-                rdMolStandardize.TautomerTransform(
-                    "[NX2]=[NX3][CX3](=[OX1])[OX2H]>>[NX3]=[NX3][CX3]=[OX1]",
-                    name="Guanidine-Guanidine",
-                ),
-                rdMolStandardize.TautomerTransform(
-                    "[NX2]=[NX3][CX3]=[OX1]>>[NX3]=[NX3][CX3](=[OX1])[OX2H]",
-                    name="Guanidine-Guanidine reverse",
-                ),
-                rdMolStandardize.TautomerTransform(
-                    "[CX3](=[OX1])[OX2H]>>[CX3](=[OX1])[OX1]",
-                    name="Carboxyl-Carboxylate",
-                ),
-                rdMolStandardize.TautomerTransform(
-                    "[CX3](=[OX1])[OX1]>>[CX3](=[OX1])[OX2H]",
-                    name="Carboxylate-Carboxyl",
-                ),
-                rdMolStandardize.TautomerTransform(
-                    "[OX1]=[CX3][CX3]=[CX3]>>[OX2H]-[CX3]=[CX3]",
-                    name="Beta-Diketone Enolization",
-                ),
-                rdMolStandardize.TautomerTransform(
-                    "[OX2H]-[CX3]=[CX3]>>[OX1]=[CX3][CX3]=[CX3]",
-                    name="Beta-Diketone Enolization reverse",
-                ),
-                rdMolStandardize.TautomerTransform(
-                    "[CX3](=[NX2][#1])[NX3][CX3](=[NX3])>>[CX3]=[NX3][CX3](=[NX3])[#1]",
-                    name="Amidoxime-Amidrazone",
-                ),
-                rdMolStandardize.TautomerTransform(
-                    "[CX3]=[NX3][CX3](=[NX3])[#1]>>[CX3](=[NX2][#1])[NX3][CX3](=[NX3])",
-                    name="Amidrazone-Amidoxime",
-                ),
-                rdMolStandardize.TautomerTransform(
-                    "[CX3](=[NX2])-[OX1]>>[CX3]=[NX3][OX2H]", name="Oxime-Nitrone"
-                ),
-                rdMolStandardize.TautomerTransform(
-                    "[CX3]=[NX3][OX2H]>>[CX3](=[NX2])-[OX1]", name="Nitrone-Oxime"
-                ),
-                rdMolStandardize.TautomerTransform(
-                    "[NX3]=[CX3][NX3]=[NX3]>>[NX3][CX3](=[NX2])[NX3]=[NX3]",
-                    name="Amidine-Amidrazone",
-                ),
-                rdMolStandardize.TautomerTransform(
-                    "[NX3][CX3](=[NX2])[NX3]=[NX3]>>[NX3]=[CX3][NX3]=[NX3]",
-                    name="Amidrazone-Amidine",
-                ),
-            ]
+            try:
+                # Create a TautomerEnumerator using RDKit's built-in rules
+                enumerator = rdMolStandardize.TautomerEnumerator()
 
-            # Create a TautomerEnumerator with custom rules
-            enumerator = rdMolStandardize.TautomerEnumerator()
-            enumerator.SetTransforms(tautomer_transforms)
+                # Apply canonicalization to standardize the tautomer form
+                canonical_tautomer = enumerator.Canonicalize(mol)
 
-            # Apply the tautomer rules
-            return enumerator.Canonicalize(mol)
+                return canonical_tautomer
+            except Exception as e:
+                logging.error(f"Error applying tautomer rules: {e}")
+                return mol  # Return the original molecule if there's an error
 
         def clean_structure(smiles):
-            """
-            Apply structural cleaning to a single molecule.
-
-            Args:
-                smiles (str): SMILES string of the molecule.
-
-            Returns:
-                str: Cleaned SMILES string, or None if cleaning fails.
-            """
             try:
                 mol = Chem.MolFromSmiles(smiles)
                 if mol is None:
                     return None
 
-                # Step 1: Detect and correct valence violations
+                mol = Chem.AddHs(mol)
+
+                mol, pre_opt_status = pre_optimization_check(mol)
+                if not mol:
+                    logging.warning(
+                        f"Pre-optimization failed for SMILES: {smiles}. Status: {pre_opt_status}"
+                    )
+                    return None
+
                 try:
                     Chem.SanitizeMol(mol)
                 except Chem.MolSanitizeException:
-                    logging.warning(
-                        f"Valence violation detected and corrected for SMILES: {smiles}"
-                    )
                     Chem.SanitizeMol(
                         mol,
                         sanitizeOps=Chem.SanitizeFlags.SANITIZE_ALL
                         ^ Chem.SanitizeFlags.SANITIZE_PROPERTIES,
                     )
 
-                # Step 2: Detect and correct extreme bond lengths and angles
                 try:
-                    AllChem.UFFOptimizeMolecule(mol)
+                    if AllChem.MMFFOptimizeMolecule(mol) != 0:
+                        if AllChem.UFFOptimizeMolecule(mol) != 0:
+                            logging.warning(
+                                f"All optimizations failed for SMILES: {smiles}"
+                            )
                 except Exception as e:
                     logging.warning(
                         f"Optimization failed for SMILES: {smiles}. Reason: {e}"
                     )
 
-                # Step 3: Ring aromatization
                 try:
                     Chem.Kekulize(mol, clearAromaticFlags=True)
                     Chem.SetAromaticity(mol)
@@ -393,14 +330,10 @@ class ChemicalCuration:
                         f"Ring aromatization failed for SMILES: {smiles}. Reason: {e}"
                     )
 
-                # Step 4: Normalization of specific chemotypes
                 normalizer = rdMolStandardize.Normalizer()
                 mol = normalizer.normalize(mol)
-
-                # Step 5: Apply custom tautomer rules
                 mol = apply_tautomer_rules(mol)
 
-                # Convert the cleaned molecule back to SMILES
                 cleaned_smiles = Chem.MolToSmiles(mol)
                 return cleaned_smiles
 
@@ -410,14 +343,13 @@ class ChemicalCuration:
                 )
                 return None
 
-        # Apply the cleaning process to each SMILES string in the DataFrame
+        # Apply structural cleaning to each molecule in the DataFrame
         self.cleaned_data["Cleaned_SMILES"] = self.cleaned_data["SMILES"].apply(
             clean_structure
         )
 
-        # Remove any rows where cleaning failed (i.e., Cleaned_SMILES is None)
+        # Remove rows where cleaning failed
         self.cleaned_data.dropna(subset=["Cleaned_SMILES"], inplace=True)
-
         logging.info(
             "Structural cleaning completed. Cleaned data shape: %s",
             self.cleaned_data.shape,
@@ -574,24 +506,64 @@ class ChemicalCuration:
         logging.info("SDF file generation complete.")
 
 
+def main(input_file, csv_output_file, sdf_output_file, row_limit=None):
+    try:
+        # Validate input file existence
+        if not os.path.isfile(input_file):
+            logging.error(f"Input file not found: {input_file}")
+            return
+
+        # Read the input CSV file
+        logging.info(f"Reading input file: {input_file}")
+        df_with_inchikey = pd.read_csv(input_file)
+
+        # Limit the number of rows if specified
+        if row_limit:
+            df_with_inchikey = df_with_inchikey.head(row_limit)
+
+        # Create an instance of the ChemicalCuration class
+        curator = ChemicalCuration(df_with_inchikey)
+
+        # Run the data curation process
+        curated_df = curator.curate_data()
+
+        # Save the curated DataFrame to the specified output CSV file
+        output_dir = os.path.dirname(csv_output_file)
+        if output_dir and not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+
+        curated_df.to_csv(csv_output_file, index=False)
+        logging.info(f"Data successfully saved to: {csv_output_file}")
+
+        # Generate an SDF file from the curated data
+        curator.generate_sdf(sdf_output_file)
+        logging.info(f"SDF file successfully generated at: {sdf_output_file}")
+
+    except Exception as e:
+        logging.error(f"An error occurred during processing: {e}")
+
+
 if __name__ == "__main__":
-    # Load the input DataFrame from a CSV file
-    df_with_inchikey = pd.read_csv(
-        "Analysis&Modeling/Integrated Analysis/1.Life_Stage_Analysis/DataSet/4.LifeStageData-InChIKeyRetrieved.csv"
+    # Setup argument parser
+    parser = argparse.ArgumentParser(description="Chemical data curation script")
+    parser.add_argument("input_file", help="Path to the input CSV file")
+    parser.add_argument("csv_output_file", help="Path to the output CSV file")
+    parser.add_argument("sdf_output_file", help="Path to the output SDF file")
+    parser.add_argument(
+        "--row_limit", type=int, default=None, help="Limit the number of rows processed"
     )
 
-    # Create an instance of the ChemicalCuration class
-    curator = ChemicalCuration(df_with_inchikey)
+    # Parse the command-line arguments
+    args = parser.parse_args()
 
-    # Run the data curation process
-    curated_df = curator.curate_data()
-
-    # Save the curated DataFrame to a CSV file
-    curated_df.to_csv(
-        "Integrative_Analysis/DataSet/5.LifeStageData-CompoundsCurated.csv", index=False
+    # Configure logging
+    logging.basicConfig(
+        level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
     )
 
-    # Generate an SDF file from the curated data
-    curator.generate_sdf(
-        "Integrative_Analysis/DataSet/5.LifeStageData-CompoundsCurated.sdf"
-    )
+    # Call the main function with the provided arguments
+    main(args.input_file, args.csv_output_file, args.sdf_output_file, args.row_limit)
+
+"""
+python .\Chemical_Curation_Workflow.py '..\DataSet\4.LifeStageData-InChIKeyRetrieved.csv' '..\DataSet\5.LifeStageData-CompoundsCurated.csv' '..\DataSet\5.LifeStageData-CompoundsCurated.sdf' --row_limit 100
+"""
