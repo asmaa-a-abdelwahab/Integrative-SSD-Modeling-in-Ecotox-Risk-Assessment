@@ -4,15 +4,23 @@ from rdkit import Chem
 from io import StringIO
 import logging
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
+from tenacity import (
+    retry,
+    stop_after_attempt,
+    wait_exponential,
+    retry_if_exception_type,
+)
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
 
+
 class ServerBusyException(Exception):
     """Custom exception to handle server busy responses."""
+
     pass
+
 
 class PhysChemPropertiesCalculator:
     """
@@ -31,12 +39,13 @@ class PhysChemPropertiesCalculator:
         self.pubchem_base_url = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound"
 
         # Properties to fetch from PubChem
-        self.properties = ("MolecularFormula,MolecularWeight,CanonicalSMILES,IsomericSMILES,InChI,InChIKey,"
-                           "IUPACName,Title,XLogP,ExactMass,MonoisotopicMass,TPSA,Complexity,Charge,"
-                           "HBondDonorCount,HBondAcceptorCount,RotatableBondCount,HeavyAtomCount,"
-                           "IsotopeAtomCount,AtomStereoCount,DefinedAtomStereoCount,UndefinedAtomStereoCount,"
-                           "BondStereoCount,DefinedBondStereoCount,UndefinedBondStereoCount,CovalentUnitCount")
-
+        self.properties = (
+            "MolecularFormula,MolecularWeight,CanonicalSMILES,IsomericSMILES,InChI,InChIKey,"
+            "IUPACName,Title,XLogP,ExactMass,MonoisotopicMass,TPSA,Complexity,Charge,"
+            "HBondDonorCount,HBondAcceptorCount,RotatableBondCount,HeavyAtomCount,"
+            "IsotopeAtomCount,AtomStereoCount,DefinedAtomStereoCount,UndefinedAtomStereoCount,"
+            "BondStereoCount,DefinedBondStereoCount,UndefinedBondStereoCount,CovalentUnitCount"
+        )
 
     def read_smiles_from_sdf(self, sdf_file):
         """
@@ -61,9 +70,13 @@ class PhysChemPropertiesCalculator:
         logger.info(f"Extracted {len(smiles_list)} SMILES from the SDF file.")
         return pd.DataFrame(smiles_list, columns=["SMILES"])
 
-
-    @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=1, max=10),
-       retry=retry_if_exception_type((requests.exceptions.RequestException, ServerBusyException)))
+    @retry(
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=1, max=10),
+        retry=retry_if_exception_type(
+            (requests.exceptions.RequestException, ServerBusyException)
+        ),
+    )
     def get_opera_data(self, smiles):
         """
         Fetches chemical properties from OPERA for a given SMILES string.
@@ -77,7 +90,9 @@ class PhysChemPropertiesCalculator:
         logger.info(f"Fetching OPERA data for SMILES: {smiles}")
         headers = {"Content-Type": "application/json"}
         try:
-            response = requests.post(self.opera_url, json={"smiles": smiles}, headers=headers)
+            response = requests.post(
+                self.opera_url, json={"smiles": smiles}, headers=headers
+            )
 
             # Log the raw response for debugging
             logger.debug(f"Raw OPERA response for {smiles}: {response.text}")
@@ -89,16 +104,25 @@ class PhysChemPropertiesCalculator:
                 data = response.json()
                 logger.debug(f"Parsed OPERA JSON data: {data}")
 
-                if 'data' in data and smiles in data['data']:
-                    raw_props = data['data'][smiles]
+                if "data" in data and smiles in data["data"]:
+                    raw_props = data["data"][smiles]
                     for prop, value in raw_props.items():
-                        if prop not in ["MolWeight", "TopoPolSurfAir", "nbHBdAcc", "ndHBdDon"]:
+                        if prop not in [
+                            "MolWeight",
+                            "TopoPolSurfAir",
+                            "nbHBdAcc",
+                            "ndHBdDon",
+                        ]:
                             new_key = self._rename_opera_property(prop)
                             props[new_key] = value
                 else:
-                    logger.warning(f"No data found for SMILES {smiles} in OPERA response.")
+                    logger.warning(
+                        f"No data found for SMILES {smiles} in OPERA response."
+                    )
             else:
-                logger.error(f"Failed to fetch OPERA data for {smiles}. Status code: {response.status_code}")
+                logger.error(
+                    f"Failed to fetch OPERA data for {smiles}. Status code: {response.status_code}"
+                )
                 if response.status_code == 503:
                     logger.warning("Server is busy. Retrying...")
                     raise ServerBusyException("Server is busy. Retrying...")
@@ -107,7 +131,6 @@ class PhysChemPropertiesCalculator:
         except Exception as e:
             logger.error(f"Error while fetching OPERA data for {smiles}: {e}")
             raise
-
 
     def _rename_opera_property(self, prop):
         """
@@ -176,13 +199,19 @@ class PhysChemPropertiesCalculator:
             "pKa_a_pred": "Predicted Acidic pKa",
             "pKa_a_predRange": "Predicted Acidic pKa Range",
             "pKa_b_pred": "Predicted Basic pKa",
-            "pKa_b_predRange": "Predicted Basic pKa Range"
+            "pKa_b_predRange": "Predicted Basic pKa Range",
         }
-        return rename_dict.get(prop, prop)  # Return renamed key if available, else original key
+        return rename_dict.get(
+            prop, prop
+        )  # Return renamed key if available, else original key
 
-
-    @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=1, max=10),
-           retry=retry_if_exception_type((requests.exceptions.RequestException, ServerBusyException)))
+    @retry(
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=1, max=10),
+        retry=retry_if_exception_type(
+            (requests.exceptions.RequestException, ServerBusyException)
+        ),
+    )
     def fetch_pubchem_properties(self, canonical_smiles):
         """
         Fetches chemical properties from PubChem for a given canonical SMILES string.
@@ -199,15 +228,16 @@ class PhysChemPropertiesCalculator:
         try:
             response = requests.get(url)
             response.raise_for_status()  # Raises an exception for HTTP errors
-            data = pd.read_csv(StringIO(response.text), sep=',')
+            data = pd.read_csv(StringIO(response.text), sep=",")
             data.rename(columns=self._rename_pubchem_property, inplace=True)
             return data
         except requests.exceptions.RequestException as e:
-            logger.error(f"Error fetching PubChem properties for SMILES {canonical_smiles}: {e}")
+            logger.error(
+                f"Error fetching PubChem properties for SMILES {canonical_smiles}: {e}"
+            )
             if response.status_code == 503:
                 raise ServerBusyException("Server is busy. Retrying...")
             return pd.DataFrame()
-
 
     def _rename_pubchem_property(self, prop):
         """
@@ -259,10 +289,11 @@ class PhysChemPropertiesCalculator:
             "FeatureHydrophobeCount3D": "Feature Hydrophobe Count 3D",
             "ConformerModelRMSD3D": "Conformer Model RMSD 3D",
             "EffectiveRotorCount3D": "Effective Rotor Count 3D",
-            "ConformerCount3D": "Conformer Count 3D"
+            "ConformerCount3D": "Conformer Count 3D",
         }
-        return pubchem_rename_dict.get(prop, prop)  # Return renamed key if available, else original key
-
+        return pubchem_rename_dict.get(
+            prop, prop
+        )  # Return renamed key if available, else original key
 
     def process_dataframe_for_opera(self, df, column_name):
         """
@@ -280,7 +311,10 @@ class PhysChemPropertiesCalculator:
 
         # Fetch OPERA properties in parallel
         with ThreadPoolExecutor(max_workers=3) as executor:
-            futures = {executor.submit(self.get_opera_data, smiles): smiles for smiles in unique_smiles}
+            futures = {
+                executor.submit(self.get_opera_data, smiles): smiles
+                for smiles in unique_smiles
+            }
             for future in as_completed(futures):
                 smiles = futures[future]
                 props = future.result()
@@ -288,7 +322,6 @@ class PhysChemPropertiesCalculator:
                 for prop_name, prop_value in props.items():
                     df.loc[df[column_name] == smiles, prop_name] = prop_value
         return df
-
 
     def process_dataframe_for_pubchem(self, df, column_name):
         """
@@ -306,7 +339,10 @@ class PhysChemPropertiesCalculator:
 
         # Fetch PubChem properties in parallel
         with ThreadPoolExecutor(max_workers=3) as executor:
-            futures = {executor.submit(self.fetch_pubchem_properties, smiles): smiles for smiles in unique_smiles}
+            futures = {
+                executor.submit(self.fetch_pubchem_properties, smiles): smiles
+                for smiles in unique_smiles
+            }
             for future in as_completed(futures):
                 smiles = futures[future]
                 props = future.result()
@@ -315,7 +351,6 @@ class PhysChemPropertiesCalculator:
                     for prop_name, prop_value in props.iloc[0].items():
                         df.loc[df[column_name] == smiles, prop_name] = prop_value
         return df
-
 
     def read_sdf_and_extract_properties(self, sdf_file):
         """
@@ -332,11 +367,19 @@ class PhysChemPropertiesCalculator:
         df = self.read_smiles_from_sdf(sdf_file)  # Read SMILES strings from SDF file
         df = self.process_dataframe_for_opera(df, "SMILES")  # Add OPERA properties
         # df = self.process_dataframe_for_pubchem(df, "SMILES")  # Add PubChem properties
-        df.to_csv('Analysis&Modeling/Integrated Analysis/1.Life_Stage_Analysis/DataSet/phys_chem_properties.csv', index=False)  # Save the final DataFrame
-        logger.info("Properties extraction completed and saved to 'phys_chem_properties.csv'.")
+        df.to_csv(
+            "Analysis&Modeling/Integrated Analysis/1.Life_Stage_Analysis/DataSet/phys_chem_properties.csv",
+            index=False,
+        )  # Save the final DataFrame
+        logger.info(
+            "Properties extraction completed and saved to 'phys_chem_properties.csv'."
+        )
         return df
+
 
 # Example usage:
 PhysChemCalculator = PhysChemPropertiesCalculator()
-df = PhysChemCalculator.read_sdf_and_extract_properties('Analysis&Modeling/Integrated Analysis/1.Life_Stage_Analysis/DataSet/5.LifeStageData-CompoundsCurated.sdf')
+df = PhysChemCalculator.read_sdf_and_extract_properties(
+    "Analysis&Modeling/Integrated Analysis/1.Life_Stage_Analysis/DataSet/5.LifeStageData-CompoundsCurated.sdf"
+)
 print(df)
