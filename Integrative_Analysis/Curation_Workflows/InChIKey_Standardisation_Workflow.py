@@ -299,7 +299,7 @@ if __name__ == "__main__":
     main(args.input_file, args.output_file, delimiter=args.delimiter)
 
 """
-ex: python InChIKey_Standardisation_Workflow.py ../DataSet/3.LifeStageData-InvertebratesMerged&SpeciesFiltered.csv ../DataSet/4.LifeStageData-InChIKeyRetrieved.csv --delimiter ","
+ex: python .\InChIKey_Standardisation_Workflow.py '..\DataSet\3.LifeStageData-InvertebratesMerged&SpeciesFiltered.csv' '..\DataSet\4.LifeStageData-InChIKeyRetrieved.csv'
 
 """
 
