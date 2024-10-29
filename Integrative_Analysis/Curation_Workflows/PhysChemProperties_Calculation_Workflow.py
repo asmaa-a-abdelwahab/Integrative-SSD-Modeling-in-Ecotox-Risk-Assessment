@@ -333,5 +333,5 @@ if __name__ == "__main__":
 
 
 """
-Ex: python PhysChemProperties_Calculation_Workflow.py '..\DataSet\5.LifeStageData-CompoundsCurated.sdf' '..\DataSet\5.LifeStageData-PhysicoChemicalProperties.csv'
+Ex: python PhysChemProperties_Calculation_Workflow.py '..\DataSet\5.LifeStageData-CompoundsCurated.sdf' '..\DataSet\6.LifeStageData-PhysicoChemicalProperties.csv'
 """

@@ -442,5 +442,5 @@ if __name__ == "__main__":
     main()
 
 """
-Ex: python .\Descriptors_Calculation_Workflow.py '..\DataSet\5.LifeStageData-CompoundsCurated.sdf' '..\DataSet\5.LifeStageData-Descriptors.csv'              
+Ex: python .\Descriptors_Calculation_Workflow.py '..\DataSet\5.LifeStageData-CompoundsCurated.sdf' '..\DataSet\6.LifeStageData-Descriptors.csv'              
 """
