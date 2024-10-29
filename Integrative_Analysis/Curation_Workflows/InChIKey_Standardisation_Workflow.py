@@ -302,17 +302,3 @@ if __name__ == "__main__":
 ex: python .\InChIKey_Standardisation_Workflow.py '..\DataSet\3.LifeStageData-InvertebratesMerged&SpeciesFiltered.csv' '..\DataSet\4.LifeStageData-InChIKeyRetrieved.csv'
 
 """
-
-
-# if __name__ == "__main__":
-#     filtered_df = pd.read_csv(
-#         "../DataSet/3.LifeStageData-InvertebratesMerged&SpeciesFiltered.csv"
-#     )
-
-#     standardizer = InChIKeyStandardizer()
-#     df_with_inchikey = standardizer.generate_standardized_inchikey(filtered_df)
-
-#     # Save the updated DataFrame to CSV
-#     df_with_inchikey.to_csv(
-#         "../DataSet/4.LifeStageData-InChIKeyRetrieved.csv", index=False
-#     )
