@@ -1,21 +1,19 @@
-### README for Species Sensitivity Distribution Modeling: Data Curation Workflows
+# Species Sensitivity Distribution Modeling: Data Curation Workflows
 
 This repository provides a comprehensive set of data curation workflows tailored for Species Sensitivity Distribution (SSD) modeling in environmental toxicology. The workflows include steps for data standardization, physicochemical property extraction, descriptor calculation, and molecular fingerprint generation, preparing the datasets for further analysis in SSD and predictive modeling studies.
 
----
 
-## Overview
+## Table of Contents:
 
-The following workflows are provided as Python scripts:
-
-- [Overview](#overview)
-  - [1. **InChIKey Standardization Workflow (`InChIKey_Standardisation_Workflow.py`)**](#1-inchikey-standardization-workflow-inchikey_standardisation_workflowpy)
-  - [2. **Chemical Curation Workflow (`Chemical_Curation_Workflow.py`)**](#2-chemical-curation-workflow-chemical_curation_workflowpy)
-  - [3. **Physicochemical Properties Calculation Workflow (`PhysChemProperties_Calculation_Workflow.py`)**](#3-physicochemical-properties-calculation-workflow-physchemproperties_calculation_workflowpy)
-  - [4. **Descriptors Calculation Workflow (`Descriptors_Calculation_Workflow.py`)**](#4-descriptors-calculation-workflow-descriptors_calculation_workflowpy)
-  - [5. **Fingerprints Calculation Workflow (`Fingerprints_Calculation_Workflow.py`)**](#5-fingerprints-calculation-workflow-fingerprints_calculation_workflowpy)
-- [Installation](#installation)
-- [Contributing](#contributing)
+- [Species Sensitivity Distribution Modeling: Data Curation Workflows](#species-sensitivity-distribution-modeling-data-curation-workflows)
+  - [Table of Contents:](#table-of-contents)
+    - [1. **InChIKey Standardization Workflow (`InChIKey_Standardisation_Workflow.py`)**](#1-inchikey-standardization-workflow-inchikey_standardisation_workflowpy)
+    - [2. **Chemical Curation Workflow (`Chemical_Curation_Workflow.py`)**](#2-chemical-curation-workflow-chemical_curation_workflowpy)
+    - [3. **Physicochemical Properties Calculation Workflow (`PhysChemProperties_Calculation_Workflow.py`)**](#3-physicochemical-properties-calculation-workflow-physchemproperties_calculation_workflowpy)
+    - [4. **Descriptors Calculation Workflow (`Descriptors_Calculation_Workflow.py`)**](#4-descriptors-calculation-workflow-descriptors_calculation_workflowpy)
+    - [5. **Fingerprints Calculation Workflow (`Fingerprints_Calculation_Workflow.py`)**](#5-fingerprints-calculation-workflow-fingerprints_calculation_workflowpy)
+  - [Installation](#installation)
+  - [Contributing](#contributing)
 
 ---
 
