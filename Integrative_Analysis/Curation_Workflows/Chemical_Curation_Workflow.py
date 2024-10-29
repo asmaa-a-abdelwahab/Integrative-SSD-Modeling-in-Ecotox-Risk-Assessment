@@ -956,5 +956,7 @@ if __name__ == "__main__":
 
 
 """
-python .\Chemical_Curation_Workflow.py '..\DataSet\4.LifeStageData-InChIKeyRetrieved.csv' '..\DataSet\5.LifeStageData-CompoundsCurated.csv' '..\DataSet\5.LifeStageData-CompoundsCurated.sdf' --row_limit 100 -- keep_manual_curation 
+python .\Chemical_Curation_Workflow.py '..\DataSet\4.LifeStageData-InChIKeyRetrieved.csv' '..\DataSet\5.LifeStageData-CompoundsCurated.csv' '..\DataSet\5.LifeStageData-CompoundsCurated.sdf' 
+
+For our other projects, we can use these flags:  --row_limit 100 -- keep_manual_curation
 """

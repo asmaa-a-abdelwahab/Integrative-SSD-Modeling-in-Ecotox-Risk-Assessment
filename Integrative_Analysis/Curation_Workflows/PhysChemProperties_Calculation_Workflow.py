@@ -1,3 +1,4 @@
+import argparse
 import requests
 import pandas as pd
 from rdkit import Chem
@@ -29,16 +30,9 @@ class PhysChemPropertiesCalculator:
     """
 
     def __init__(self):
-        """
-        Initialize the PhysChemPropertiesCalculator with predefined URLs and property names.
-        """
-        # OPERA API endpoint for fetching chemical descriptors
+        """Initialize the PhysChemPropertiesCalculator with predefined URLs and property names."""
         self.opera_url = "https://opera.saferworldbydesign.com/opera/global-descriptors"
-
-        # PubChem API base URL
         self.pubchem_base_url = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound"
-
-        # Properties to fetch from PubChem
         self.properties = (
             "MolecularFormula,MolecularWeight,CanonicalSMILES,IsomericSMILES,InChI,InChIKey,"
             "IUPACName,Title,XLogP,ExactMass,MonoisotopicMass,TPSA,Complexity,Charge,"
@@ -48,27 +42,12 @@ class PhysChemPropertiesCalculator:
         )
 
     def read_smiles_from_sdf(self, sdf_file):
-        """
-        Reads SMILES strings from an SDF file and returns them as a DataFrame.
-
-        Args:
-            sdf_file (str): Path to the SDF file.
-
-        Returns:
-            pd.DataFrame: A DataFrame containing SMILES strings.
-        """
+        """Reads SMILES strings from an SDF file and returns them as a DataFrame."""
         logger.info(f"Reading SMILES from SDF file: {sdf_file}")
         suppl = Chem.SDMolSupplier(sdf_file)
-        smiles_list = []
-
-        # Extract SMILES from each molecule in the SDF file
-        for mol in suppl:
-            if mol is not None:
-                smiles = Chem.MolToSmiles(mol)
-                smiles_list.append(smiles)
-
+        smiles_list = [Chem.MolToSmiles(mol) for mol in suppl if mol is not None]
         logger.info(f"Extracted {len(smiles_list)} SMILES from the SDF file.")
-        return pd.DataFrame(smiles_list, columns=["SMILES"])
+        return pd.DataFrame(smiles_list, columns=["Cleaned_SMILES"])
 
     @retry(
         stop=stop_after_attempt(3),
@@ -78,34 +57,27 @@ class PhysChemPropertiesCalculator:
         ),
     )
     def get_opera_data(self, smiles):
-        """
-        Fetches chemical properties from OPERA for a given SMILES string.
-
-        Args:
-            smiles (str): SMILES string representing the molecule.
-
-        Returns:
-            dict: Dictionary containing fetched properties.
-        """
+        """Fetches chemical properties from OPERA for a given SMILES string."""
         logger.info(f"Fetching OPERA data for SMILES: {smiles}")
         headers = {"Content-Type": "application/json"}
+        props = {}
+
         try:
             response = requests.post(
                 self.opera_url, json={"smiles": smiles}, headers=headers
             )
-
-            # Log the raw response for debugging
             logger.debug(f"Raw OPERA response for {smiles}: {response.text}")
-
-            props = {}
 
             # Check if the response is successful
             if response.status_code == 200:
-                data = response.json()
-                logger.debug(f"Parsed OPERA JSON data: {data}")
+                try:
+                    data = response.json()
+                except ValueError:
+                    logger.error(f"Failed to parse JSON response for SMILES: {smiles}")
+                    return props  # Return empty properties if JSON parsing fails
 
-                if "data" in data and smiles in data["data"]:
-                    raw_props = data["data"][smiles]
+                if data and "data" in data and smiles in data["data"]:
+                    raw_props = data["data"].get(smiles, {})
                     for prop, value in raw_props.items():
                         if prop not in [
                             "MolWeight",
@@ -116,9 +88,7 @@ class PhysChemPropertiesCalculator:
                             new_key = self._rename_opera_property(prop)
                             props[new_key] = value
                 else:
-                    logger.warning(
-                        f"No data found for SMILES {smiles} in OPERA response."
-                    )
+                    logger.warning(f"No valid data found for SMILES: {smiles}")
             else:
                 logger.error(
                     f"Failed to fetch OPERA data for {smiles}. Status code: {response.status_code}"
@@ -126,11 +96,20 @@ class PhysChemPropertiesCalculator:
                 if response.status_code == 503:
                     logger.warning("Server is busy. Retrying...")
                     raise ServerBusyException("Server is busy. Retrying...")
+                else:
+                    logger.error(
+                        f"Server error for SMILES: {smiles} - Status code: {response.status_code}"
+                    )
 
             return props
-        except Exception as e:
-            logger.error(f"Error while fetching OPERA data for {smiles}: {e}")
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Request error while fetching OPERA data for {smiles}: {e}")
             raise
+        except Exception as e:
+            logger.error(
+                f"Unexpected error while fetching OPERA data for {smiles}: {e}"
+            )
+            return props  # Return empty properties in case of unexpected errors
 
     def _rename_opera_property(self, prop):
         """
@@ -213,18 +192,9 @@ class PhysChemPropertiesCalculator:
         ),
     )
     def fetch_pubchem_properties(self, canonical_smiles):
-        """
-        Fetches chemical properties from PubChem for a given canonical SMILES string.
-
-        Args:
-            canonical_smiles (str): Canonical SMILES string representing the molecule.
-
-        Returns:
-            pd.DataFrame: DataFrame containing PubChem properties.
-        """
+        """Fetches chemical properties from PubChem for a given canonical SMILES string."""
         logger.info(f"Fetching PubChem data for SMILES: {canonical_smiles}")
         url = f"{self.pubchem_base_url}/smiles/{canonical_smiles}/property/{self.properties}/CSV"
-
         try:
             response = requests.get(url)
             response.raise_for_status()  # Raises an exception for HTTP errors
@@ -296,20 +266,9 @@ class PhysChemPropertiesCalculator:
         )  # Return renamed key if available, else original key
 
     def process_dataframe_for_opera(self, df, column_name):
-        """
-        Processes the DataFrame by adding OPERA properties for each SMILES string.
-
-        Args:
-            df (pd.DataFrame): DataFrame containing SMILES strings.
-            column_name (str): Name of the column containing SMILES strings.
-
-        Returns:
-            pd.DataFrame: Updated DataFrame with OPERA properties.
-        """
+        """Processes the DataFrame by adding OPERA properties for each SMILES string."""
         logger.info("Processing DataFrame for OPERA properties.")
         unique_smiles = df[column_name].unique()
-
-        # Fetch OPERA properties in parallel
         with ThreadPoolExecutor(max_workers=3) as executor:
             futures = {
                 executor.submit(self.get_opera_data, smiles): smiles
@@ -318,26 +277,15 @@ class PhysChemPropertiesCalculator:
             for future in as_completed(futures):
                 smiles = futures[future]
                 props = future.result()
-                print(props)
-                for prop_name, prop_value in props.items():
-                    df.loc[df[column_name] == smiles, prop_name] = prop_value
+                if props:
+                    for prop_name, prop_value in props.items():
+                        df.loc[df[column_name] == smiles, prop_name] = prop_value
         return df
 
     def process_dataframe_for_pubchem(self, df, column_name):
-        """
-        Processes the DataFrame by adding PubChem properties for each SMILES string.
-
-        Args:
-            df (pd.DataFrame): DataFrame containing SMILES strings.
-            column_name (str): Name of the column containing SMILES strings.
-
-        Returns:
-            pd.DataFrame: Updated DataFrame with PubChem properties.
-        """
+        """Processes the DataFrame by adding PubChem properties for each SMILES string."""
         logger.info("Processing DataFrame for PubChem properties.")
         unique_smiles = df[column_name].unique()
-
-        # Fetch PubChem properties in parallel
         with ThreadPoolExecutor(max_workers=3) as executor:
             futures = {
                 executor.submit(self.fetch_pubchem_properties, smiles): smiles
@@ -347,39 +295,43 @@ class PhysChemPropertiesCalculator:
                 smiles = futures[future]
                 props = future.result()
                 if not props.empty:
-                    print(props.iloc[0].to_dict())
                     for prop_name, prop_value in props.iloc[0].items():
                         df.loc[df[column_name] == smiles, prop_name] = prop_value
         return df
 
-    def read_sdf_and_extract_properties(self, sdf_file):
-        """
-        Main method to read SMILES from an SDF file, process them for both OPERA
-        and PubChem properties, and return the final DataFrame.
-
-        Args:
-            sdf_file (str): Path to the SDF file.
-
-        Returns:
-            pd.DataFrame: DataFrame containing SMILES strings and their corresponding properties.
-        """
+    def read_sdf_and_extract_properties(self, sdf_file, output_csv):
+        """Main method to read SMILES from an SDF file, process them for both OPERA and PubChem properties, and return the final DataFrame."""
         logger.info(f"Starting the process of reading SDF and extracting properties.")
         df = self.read_smiles_from_sdf(sdf_file)  # Read SMILES strings from SDF file
-        df = self.process_dataframe_for_opera(df, "SMILES")  # Add OPERA properties
-        # df = self.process_dataframe_for_pubchem(df, "SMILES")  # Add PubChem properties
-        df.to_csv(
-            "Analysis&Modeling/Integrated Analysis/1.Life_Stage_Analysis/DataSet/phys_chem_properties.csv",
-            index=False,
-        )  # Save the final DataFrame
-        logger.info(
-            "Properties extraction completed and saved to 'phys_chem_properties.csv'."
-        )
+        df = self.process_dataframe_for_opera(
+            df, "Cleaned_SMILES"
+        )  # Add OPERA properties
+        df = self.process_dataframe_for_pubchem(
+            df, "Cleaned_SMILES"
+        )  # Add PubChem properties
+        df.to_csv(output_csv, index=False)  # Save the final DataFrame
+        logger.info(f"Properties extraction completed and saved to '{output_csv}'.")
         return df
 
 
-# Example usage:
-PhysChemCalculator = PhysChemPropertiesCalculator()
-df = PhysChemCalculator.read_sdf_and_extract_properties(
-    "Analysis&Modeling/Integrated Analysis/1.Life_Stage_Analysis/DataSet/5.LifeStageData-CompoundsCurated.sdf"
-)
-print(df)
+def main():
+    parser = argparse.ArgumentParser(
+        description="Extract Physico-Chemical properties using OPERA and PubChem APIs."
+    )
+    parser.add_argument("sdf_file", help="Path to the input SDF file")
+    parser.add_argument("output_csv", help="Path to save the resulting CSV file")
+
+    args = parser.parse_args()
+
+    calculator = PhysChemPropertiesCalculator()
+    df = calculator.read_sdf_and_extract_properties(args.sdf_file, args.output_csv)
+    print(df)
+
+
+if __name__ == "__main__":
+    main()
+
+
+"""
+Ex: python PhysChemProperties_Calculation_Workflow.py '..\DataSet\5.LifeStageData-CompoundsCurated.sdf' '..\DataSet\5.LifeStageData-PhysicoChemicalProperties.csv'
+"""
