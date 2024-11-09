@@ -7,7 +7,7 @@ This repository provides a comprehensive set of data curation workflows tailored
 
 - [Species Sensitivity Distribution Modeling: Data Curation Workflows](#species-sensitivity-distribution-modeling-data-curation-workflows)
   - [Table of Contents:](#table-of-contents)
-    - [1. **InChIKey Standardization Workflow (`InChIKey_Standardisation_Workflow.py`)**](#1-inchikey-standardization-workflow-inchikey_standardisation_workflowpy)
+    - [1. **InChI Standardization Workflow (`InChI_Standardisation_Workflow.py`)**](#1-inchi-standardization-workflow-inchi_standardisation_workflowpy)
     - [2. **Chemical Curation Workflow (`Chemical_Curation_Workflow.py`)**](#2-chemical-curation-workflow-chemical_curation_workflowpy)
     - [3. **Physicochemical Properties Calculation Workflow (`PhysChemProperties_Calculation_Workflow.py`)**](#3-physicochemical-properties-calculation-workflow-physchemproperties_calculation_workflowpy)
     - [4. **Descriptors Calculation Workflow (`Descriptors_Calculation_Workflow.py`)**](#4-descriptors-calculation-workflow-descriptors_calculation_workflowpy)
@@ -17,21 +17,21 @@ This repository provides a comprehensive set of data curation workflows tailored
 
 ---
 
-### 1. **InChIKey Standardization Workflow (`InChIKey_Standardisation_Workflow.py`)**
+### 1. **InChI Standardization Workflow (`InChI_Standardisation_Workflow.py`)**
 
-- **Purpose**: Standardizes InChIKeys using multiple data sources including PubChem, OPSIN, NCI, and RDKit. Validates and resolves inconsistencies between sources.
+- **Purpose**: Standardizes InChIs using multiple data sources including PubChem, OPSIN, NCI, and RDKit. Validates and resolves inconsistencies between sources.
 - **Key Features**:
   - Cross-references chemical databases such as PubChem, OPSIN, NCI, and NIST.
-  - Regenerates InChIKeys using RDKit to ensure consistency.
-  - Addresses variations in chemical names and formatting to find the most accurate InChIKey.
+  - Regenerates InChIs using RDKit to ensure consistency.
+  - Addresses variations in chemical names and formatting to find the most accurate InChI.
 
 - **Command Line Usage**:
   ```bash
-  python InChIKey_Standardisation_Workflow.py <input_csv_file> <output_csv_file>
+  python InChI_Standardisation_Workflow.py <input_csv_file> <output_csv_file>
   ```
   Example:
   ```bash
-  python InChIKey_Standardisation_Workflow.py '../DataSet/3.LifeStageData-InvertebratesMerged&SpeciesFiltered.csv' '../DataSet/4.LifeStageData-InChIKeyRetrieved.csv'
+  python InChI_Standardisation_Workflow.py '../DataSet/3.LifeStageData-InvertebratesMerged&SpeciesFiltered.csv' '../DataSet/4.LifeStageData-InChIRetrieved.csv'
   ```
 
 ---
@@ -51,7 +51,7 @@ This repository provides a comprehensive set of data curation workflows tailored
   ```
   Example:
   ```bash
-  python Chemical_Curation_Workflow.py '../DataSet/4.LifeStageData-InChIKeyRetrieved.csv' '../DataSet/5.LifeStageData-CompoundsCurated.csv' '../DataSet/5.LifeStageData-CompoundsCurated.sdf'
+  python Chemical_Curation_Workflow.py '../DataSet/4.LifeStageData-InChIRetrieved.csv' '../DataSet/5.LifeStageData-CompoundsCurated.csv' '../DataSet/5.LifeStageData-CompoundsCurated.sdf'
   ```
 
 ---

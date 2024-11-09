@@ -269,7 +269,7 @@ class PhysChemPropertiesCalculator:
         """Processes the DataFrame by adding OPERA properties for each SMILES string."""
         logger.info("Processing DataFrame for OPERA properties.")
         unique_smiles = df[column_name].unique()
-        with ThreadPoolExecutor(max_workers=3) as executor:
+        with ThreadPoolExecutor(max_workers=1) as executor:
             futures = {
                 executor.submit(self.get_opera_data, smiles): smiles
                 for smiles in unique_smiles
@@ -303,9 +303,9 @@ class PhysChemPropertiesCalculator:
         """Main method to read SMILES from an SDF file, process them for both OPERA and PubChem properties, and return the final DataFrame."""
         logger.info(f"Starting the process of reading SDF and extracting properties.")
         df = self.read_smiles_from_sdf(sdf_file)  # Read SMILES strings from SDF file
-        df = self.process_dataframe_for_opera(
-            df, "Cleaned_SMILES"
-        )  # Add OPERA properties
+        # df = self.process_dataframe_for_opera(
+        #     df, "Cleaned_SMILES"
+        # )  # Add OPERA properties
         df = self.process_dataframe_for_pubchem(
             df, "Cleaned_SMILES"
         )  # Add PubChem properties

@@ -1,6 +1,7 @@
 import argparse
 import logging
 import os
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import numpy as np
 import pandas as pd
@@ -37,17 +38,18 @@ class ChemicalCuration:
             Whether to retain rows that require manual curation or drop them.
         cleaned_data : pandas.DataFrame or None
             The cleaned DataFrame after curation, or None if not yet curated.
-        inchikey_smiles_map : dict
-            Mapping of InChIKeys to SMILES strings, populated during curation.
+        inchi_smiles_map : dict
+            Mapping of Standardized_InChIs to SMILES strings, populated during curation.
         """
         self.df = df
         self.keep_manual_curation = keep_manual_curation
         self.cleaned_data = None
         self.df["Status"] = ""
-        self.inchikey_smiles_map = {}
+        self.inchi_smiles_map = {}
         logging.info(
             "ChemicalCuration initialized with DataFrame of shape %s", df.shape
         )
+        self.max_workers = min(os.cpu_count() - 1, 8)
 
     def update_status(self, idx, message):
         """Update the 'Status' column of the input DataFrame at the given index.
@@ -71,10 +73,10 @@ class ChemicalCuration:
 
     def remove_duplicates(self):
         """
-        Remove duplicates based on InChIKey and canonical Cleaned_SMILES.
+        Remove duplicates based on Standardized_InChI and canonical Cleaned_SMILES.
 
         This method removes duplicates by canonicalizing the Cleaned_SMILES column
-        and then grouping by InChIKey and canonical Cleaned_SMILES. The first entry
+        and then grouping by Standardized_InChI and canonical Cleaned_SMILES. The first entry
         in each group is kept, and the rest are dropped.
 
         If the 'Cleaned_SMILES' column is not found in the cleaned dataset, this
@@ -96,7 +98,7 @@ class ChemicalCuration:
                 return
 
             logging.info(
-                "Removing duplicates based on InChIKey and canonical Cleaned_SMILES..."
+                "Removing duplicates based on Standardized_InChI and canonical Cleaned_SMILES..."
             )
 
             def canonicalize_smiles(smiles):
@@ -122,24 +124,24 @@ class ChemicalCuration:
 
             unique_mapping = {}
 
-            for inchikey, smiles in self.inchikey_smiles_map.items():
+            for inchi, smiles in self.inchi_smiles_map.items():
                 if pd.notna(smiles):
                     canonical_smiles = canonicalize_smiles(smiles)
                     if (
                         canonical_smiles
-                        and (inchikey, canonical_smiles) not in unique_mapping
+                        and (inchi, canonical_smiles) not in unique_mapping
                     ):
-                        unique_mapping[(inchikey, canonical_smiles)] = canonical_smiles
+                        unique_mapping[(inchi, canonical_smiles)] = canonical_smiles
                         self.update_status(
                             self.cleaned_data.index[
-                                self.cleaned_data["InChIKey"] == inchikey
+                                self.cleaned_data["Standardized_InChI"] == inchi
                             ][0],
                             "Passed duplicate check and canonicalization completed",
                         )
 
-            self.inchikey_smiles_map = {k[0]: v for k, v in unique_mapping.items()}
+            self.inchi_smiles_map = {k[0]: v for k, v in unique_mapping.items()}
 
-            self.df["SMILES"] = self.df["InChIKey"].map(self.inchikey_smiles_map)
+            self.df["SMILES"] = self.df["Standardized_InChI"].map(self.inchi_smiles_map)
             self.cleaned_data = self.df.dropna(subset=["SMILES"]).copy()
 
             logging.info(
@@ -149,24 +151,27 @@ class ChemicalCuration:
         except Exception as e:
             logging.error(f"An error occurred during duplicate removal: {e}")
 
+    # Step 1: Initial Data Cleaning
     def remove_inorganics_and_mixtures(self):
         """
         Remove inorganics, organometallics, counterions, biologics, and mixtures by
-        checking the SMILES string associated with each InChIKey. If the SMILES
+        checking the SMILES string associated with each Standardized_InChI. If the SMILES
         string is None or fails the checks, the entire row is dropped from the
         DataFrame. The cleaned DataFrame is stored in the 'cleaned_data' attribute.
-
         """
-        if not isinstance(self.df, pd.DataFrame) or "InChIKey" not in self.df.columns:
+        if (
+            not isinstance(self.df, pd.DataFrame)
+            or "Standardized_InChI" not in self.df.columns
+        ):
             logging.error(
-                "'InChIKey' column not found or DataFrame not initialized properly."
+                "'Standardized_InChI' column not found or DataFrame not initialized properly."
             )
             return
 
-        unique_inchikeys = self.df["InChIKey"].drop_duplicates().unique()
+        unique_inchi = self.df["Standardized_InChI"].drop_duplicates().unique()
         logging.info(
-            "Processing %d unique InChIKeys to remove inorganics, organometallics, counterions, biologics, and mixtures.",
-            len(unique_inchikeys),
+            "Processing %d unique Standardized_InChIs to remove inorganics, organometallics, counterions, biologics, and mixtures.",
+            len(unique_inchi),
         )
 
         if "Status" not in self.df.columns:
@@ -174,8 +179,9 @@ class ChemicalCuration:
 
         indices_to_drop = []
 
-        for inchikey in unique_inchikeys:
-            smiles = self.inchikey_to_smiles(inchikey)
+        # Define a function to process each InChI in parallel
+        def process_inchi(inchi):
+            smiles = self.inchi_to_smiles(inchi)
             if smiles:
                 try:
                     is_organic = self.is_organic(smiles)
@@ -194,44 +200,66 @@ class ChemicalCuration:
                         failure_reasons.append("Is mixture")
 
                     if not failure_reasons:
-                        self.inchikey_smiles_map[inchikey] = smiles
-                        self.df.loc[self.df["InChIKey"] == inchikey, "Status"] += (
-                            "Passed Initial Structural Checks; "
-                        )
+                        self.inchi_smiles_map[inchi] = smiles
+                        self.df.loc[
+                            self.df["Standardized_InChI"] == inchi, "Status"
+                        ] += "Passed Initial Structural Checks; "
                     else:
                         logging.info(
-                            f"InChIKey {inchikey} failed checks: {', '.join(failure_reasons)}"
+                            f"Standardized_InChI {inchi} failed checks: {', '.join(failure_reasons)}"
                         )
-                        self.df.loc[self.df["InChIKey"] == inchikey, "Status"] += (
-                            f"Failed checks: {', '.join(failure_reasons)}; "
-                        )
+                        self.df.loc[
+                            self.df["Standardized_InChI"] == inchi, "Status"
+                        ] += f"Failed checks: {', '.join(failure_reasons)}; "
                         indices_to_drop.extend(
-                            self.df[self.df["InChIKey"] == inchikey].index.tolist()
+                            self.df[
+                                self.df["Standardized_InChI"] == inchi
+                            ].index.tolist()
                         )
-                        self.inchikey_smiles_map[inchikey] = None
+                        self.inchi_smiles_map[inchi] = None
 
                 except Exception as e:
-                    logging.error(f"Error during checks for InChIKey {inchikey}: {e}")
-                    self.df.loc[self.df["InChIKey"] == inchikey, "Status"] += (
+                    logging.error(
+                        f"Error during checks for Standardized_InChI {inchi}: {e}"
+                    )
+                    self.df.loc[self.df["Standardized_InChI"] == inchi, "Status"] += (
                         f"Error: {e}; "
                     )
                     indices_to_drop.extend(
-                        self.df[self.df["InChIKey"] == inchikey].index.tolist()
+                        self.df[self.df["Standardized_InChI"] == inchi].index.tolist()
                     )
-                    self.inchikey_smiles_map[inchikey] = None
+                    self.inchi_smiles_map[inchi] = None
 
             else:
-                logging.info(f"Failed to retrieve SMILES for InChIKey {inchikey}")
-                self.df.loc[self.df["InChIKey"] == inchikey, "Status"] += (
+                logging.info(
+                    f"Failed to retrieve SMILES for Standardized_InChI {inchi}"
+                )
+                self.df.loc[self.df["Standardized_InChI"] == inchi, "Status"] += (
                     "Failed to retrieve SMILES; "
                 )
                 indices_to_drop.extend(
-                    self.df[self.df["InChIKey"] == inchikey].index.tolist()
+                    self.df[self.df["Standardized_InChI"] == inchi].index.tolist()
                 )
-                self.inchikey_smiles_map[inchikey] = None
+                self.inchi_smiles_map[inchi] = None
 
+        # Use ThreadPoolExecutor to process InChIs in parallel
+        with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+            futures = {
+                executor.submit(process_inchi, inchi): inchi for inchi in unique_inchi
+            }
+
+            for future in as_completed(futures):
+                inchi = futures[future]
+                try:
+                    future.result()  # Process result (or catch exception if raised)
+                except Exception as exc:
+                    logging.error(
+                        f"Standardized_InChI {inchi} generated an exception: {exc}"
+                    )
+
+        # Remove failed rows and update the DataFrame
         self.df.drop(indices_to_drop, inplace=True)
-        self.df["SMILES"] = self.df["InChIKey"].map(self.inchikey_smiles_map)
+        self.df["SMILES"] = self.df["Standardized_InChI"].map(self.inchi_smiles_map)
         self.cleaned_data = self.df.dropna(subset=["SMILES"]).copy()
         self.cleaned_data["Cleaned_SMILES"] = None
 
@@ -244,32 +272,32 @@ class ChemicalCuration:
             self.cleaned_data.shape,
         )
 
-    def inchikey_to_smiles(self, inchikey):
+    def inchi_to_smiles(self, inchi):
         """
-        Convert an InChIKey to SMILES by querying an external chemical database.
+        Convert an InChI string to SMILES using RDKit.
 
         Args:
-            inchikey (str): The InChIKey to convert.
+            inchi (str): The InChI string to convert.
 
         Returns:
-            str: The corresponding SMILES string, or None if retrieval fails.
+            str: The corresponding SMILES string, or None if conversion fails.
         """
         try:
-            url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/inchikey/{inchikey}/property/CanonicalSMILES/TXT"
-            response = requests.get(url)
-            response.raise_for_status()
-            smiles = response.text.strip()
-            if smiles:
-                logging.info(f"Retrieved SMILES for InChIKey {inchikey}")
-                return smiles  # Return valid SMILES string
+            # Use RDKit to convert InChI to an RDKit molecule object
+            mol = Chem.MolFromInchi(inchi)
+
+            if mol:
+                # Convert the RDKit molecule object to a SMILES string
+                smiles = Chem.MolToSmiles(mol)
+                logging.info(f"Converted InChI to SMILES: {smiles}")
+                return smiles  # Return the SMILES string
             else:
-                logging.warning(
-                    f"No SMILES found for InChIKey {inchikey}. Returning empty string."
-                )
-                return ""  # Return empty string if no SMILES is found
+                logging.warning(f"Failed to convert InChI {inchi} to a molecule.")
+                return ""  # Return empty string if conversion fails
+
         except Exception as e:
-            logging.error(f"Failed to retrieve SMILES for InChIKey {inchikey}: {e}")
-            return ""  # Return empty string if there is an error
+            logging.error(f"Exception occurred while converting InChI to SMILES: {e}")
+            return ""  # Return empty string in case of an error
 
     def structural_cleaning(self):
         """
@@ -410,12 +438,26 @@ class ChemicalCuration:
                 self.update_status(idx, f"Cleaning failed: {e}")
                 return None
 
-        # Now iterate over each row and clean the structure
+        # Now create a function to process each row
+        def process_row(idx, row):
+            cleaned_smiles = clean_structure(row["SMILES"], idx)
+            return idx, cleaned_smiles
+
+        # Prepare the cleaned_data DataFrame
         self.cleaned_data["Cleaned_SMILES"] = None
 
-        for idx, row in self.cleaned_data.iterrows():
-            cleaned_smiles = clean_structure(row["SMILES"], idx)
-            self.cleaned_data.at[idx, "Cleaned_SMILES"] = cleaned_smiles
+        # Use ThreadPoolExecutor for parallel processing
+        with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+            # Submit tasks for each row and keep track of the future objects
+            futures = {
+                executor.submit(process_row, idx, row): idx
+                for idx, row in self.cleaned_data.iterrows()
+            }
+
+            # As each task completes, update the DataFrame with the cleaned SMILES
+            for future in as_completed(futures):
+                idx, cleaned_smiles = future.result()
+                self.cleaned_data.at[idx, "Cleaned_SMILES"] = cleaned_smiles
 
         # Drop rows with failed cleaning steps (i.e., missing Cleaned_SMILES)
         if "Cleaned_SMILES" not in self.cleaned_data.columns:
@@ -699,27 +741,41 @@ class ChemicalCuration:
         """
         indices_to_drop = []
 
-        for idx, row in self.cleaned_data.iterrows():
+        # Define a function to process each row in parallel
+        def process_row(idx, row):
             try:
                 verification_result = self.verify_structure(row["SMILES"], idx)
                 if verification_result["Manual_Curation_Required"]:
-                    self.cleaned_data.at[idx, "Status"] += "Manual Curation Required; "
+                    status_update = "Manual Curation Required; "
                     if not self.keep_manual_curation:
-                        indices_to_drop.append(idx)
+                        return idx, status_update, True  # Mark for removal
                 else:
-                    self.cleaned_data.at[idx, "Status"] += (
-                        "Passed Stereochemistry Verification; "
-                    )
-                logging.info(
-                    f"Stereochemistry verification result for row {idx}: {verification_result}"
-                )
+                    status_update = "Passed Stereochemistry Verification; "
+                return idx, status_update, False  # Do not mark for removal
             except Exception as e:
-                self.update_status(
-                    idx, f"Stereochemistry verification failed due to error: {e}"
-                )
                 logging.error(f"Error verifying stereochemistry for row {idx}: {e}")
-                indices_to_drop.append(idx)
+                return (
+                    idx,
+                    f"Stereochemistry verification failed due to error: {e}; ",
+                    True,
+                )  # Mark for removal
 
+        # Use ThreadPoolExecutor to parallelize the processing of each row
+        with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+            # Submit tasks for parallel processing
+            futures = {
+                executor.submit(process_row, idx, row): idx
+                for idx, row in self.cleaned_data.iterrows()
+            }
+
+            # Process the results as they complete
+            for future in as_completed(futures):
+                idx, status_update, to_remove = future.result()
+                self.cleaned_data.at[idx, "Status"] += status_update
+                if to_remove:
+                    indices_to_drop.append(idx)
+
+        # Drop rows that require manual curation if keep_manual_curation is False
         if not self.keep_manual_curation and indices_to_drop:
             self.cleaned_data.drop(indices_to_drop, inplace=True)
 
@@ -768,7 +824,7 @@ class ChemicalCuration:
         for _, row in self.cleaned_data.iterrows():
             mol = Chem.MolFromSmiles(row["Cleaned_SMILES"])
             if mol is not None:
-                mol.SetProp("InChIKey", row["InChIKey"])
+                mol.SetProp("Standardized_InChI", row["Standardized_InChI"])
                 mol.SetProp("Status", row["Status"])
                 writer.write(mol)
         writer.close()
@@ -895,12 +951,12 @@ def main(
             return
 
         logging.info(f"Reading input file: {input_file}")
-        df_with_inchikey = pd.read_csv(input_file)
+        df_with_inchi = pd.read_csv(input_file)
 
         if row_limit:
-            df_with_inchikey = df_with_inchikey.head(row_limit)
+            df_with_inchi = df_with_inchi.head(row_limit)
 
-        curator = ChemicalCuration(df_with_inchikey, keep_manual_curation)
+        curator = ChemicalCuration(df_with_inchi, keep_manual_curation)
         curated_df = curator.curate_data()
 
         bio_curator = BiologicalCuration(curated_df)
@@ -956,7 +1012,6 @@ if __name__ == "__main__":
 
 
 """
-python .\Chemical_Curation_Workflow.py '..\DataSet\4.LifeStageData-InChIKeyRetrieved.csv' '..\DataSet\5.LifeStageData-CompoundsCurated.csv' '..\DataSet\5.LifeStageData-CompoundsCurated.sdf' 
-
+python .\Chemical_Curation_Workflow.py '..\DataSet\4.LifeStageData-InChIRetrieved.csv' '..\DataSet\5.LifeStageData-CompoundsCurated.csv' '..\DataSet\5.LifeStageData-CompoundsCurated.sdf' 
 For our other projects, we can use these flags:  --row_limit 100 -- keep_manual_curation
 """
