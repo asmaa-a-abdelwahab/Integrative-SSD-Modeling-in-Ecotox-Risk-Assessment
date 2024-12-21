@@ -5,5 +5,5 @@ Integrative_Analysis/Reports/*
 Integrative_Analysis/Stats/*
 Integrative_Analysis/DataSet/*
 .venv/*
-Integrative_Analysis/Modeling_Workflows/Processed_Combinations/TEST/*
-Integrative_Analysis/Modeling_Workflows/Processed_Combinations/MACCS/*
+**/Integrative_Analysis/Modeling_Workflows/Processed_Combinations/TEST/*
+**/Integrative_Analysis/Modeling_Workflows/Processed_Combinations/MACCS/*.csv
