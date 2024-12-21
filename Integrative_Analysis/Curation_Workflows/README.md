@@ -135,3 +135,4 @@ This repository provides a comprehensive set of data curation workflows tailored
 
 Contributions to this project are welcome! If you find any issues or have suggestions for improvements, feel free to open an issue or submit a pull request.
 
+A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\Integrative_Analysis\DataSet\6.LifeStageData-Descriptors.csv

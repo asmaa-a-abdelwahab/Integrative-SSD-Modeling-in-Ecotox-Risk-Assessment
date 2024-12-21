@@ -47,7 +47,8 @@ class PhysChemPropertiesCalculator:
         suppl = Chem.SDMolSupplier(sdf_file)
         smiles_list = [Chem.MolToSmiles(mol) for mol in suppl if mol is not None]
         logger.info(f"Extracted {len(smiles_list)} SMILES from the SDF file.")
-        return pd.DataFrame(smiles_list, columns=["Cleaned_SMILES"])
+        df = pd.read_csv(sdf_file)
+        return df[["Cleaned_SMILES"]]
 
     @retry(
         stop=stop_after_attempt(3),
@@ -333,5 +334,16 @@ if __name__ == "__main__":
 
 
 """
-Ex: python PhysChemProperties_Calculation_Workflow.py '..\DataSet\5.LifeStageData-CompoundsCurated.sdf' '..\DataSet\6.LifeStageData-PhysicoChemicalProperties.csv'
+Remove duplicates from SDF file:
+obabel '..\DataSet\5.LifeStageData-CompoundsCurated.sdf' -O '..\DataSet\5.LifeStageData-CompoundsCurated_Unique.sdf' --unique
+Run OPERA:
+sudo .\OPERA_P.lnk -s 'A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\Integrative_Analysis\DataSet\5.LifeStageData-Cleaned_SMILES.sdf'  -o 'A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\Integrative_Analysis\DataSet\predictions.csv' -physchem -v 2 -P 8   
+
+sudo .\OPERA_P.lnk 
+-d 'A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\Integrative_Analysis\DataSet\5.LifeStageData-CompoundsCurated_Unique_PadelDesc.csv' 
+-o 'A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\Integrative_Analysis\DataSet\predictions.csv' 
+-physchem -v 2 -P 8 
+-s 'A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\Integrative_Analysis\DataSet\5.LifeStageData-CompoundsCurated_Unique.sdf'
+
+Ex: python PhysChemProperties_Calculation_Workflow.py '..\DataSet\5.LifeStageData-CompoundsCurated_Unique.sdf' '..\DataSet\6.LifeStageData-PhysicoChemicalProperties.csv'
 """

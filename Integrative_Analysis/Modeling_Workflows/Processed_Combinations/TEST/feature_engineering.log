@@ -1,0 +1,15 @@
+2024-12-20 01:59:33,787 - INFO - FeatureEngineering initialized.
+2024-12-20 01:59:33,818 - INFO - Starting feature engineering pipeline.
+2024-12-20 01:59:33,818 - INFO - Summarizing dataset.
+2024-12-20 01:59:34,264 - INFO - Dataset summary saved at ./Processed_Combinations/TEST\data_summary.txt
+2024-12-20 01:59:40,352 - INFO - Target distribution plot saved at ./Processed_Combinations/TEST\target_distribution.png
+2024-12-20 01:59:40,368 - INFO - Encoding categorical features using one-hot method.
+2024-12-20 01:59:40,368 - INFO - No categorical features found.
+2024-12-20 01:59:40,368 - INFO - Calculating feature importance.
+2024-12-20 01:59:45,528 - INFO - Feature importance plot saved at ./Processed_Combinations/TEST\feature_importance.png
+2024-12-20 01:59:45,549 - INFO - Performing dimensionality reduction using PCA.
+2024-12-20 01:59:47,212 - INFO - PCA cumulative variance plot saved at ./Processed_Combinations/TEST\pca_cumulative_variance.png
+2024-12-20 01:59:47,227 - INFO - Performing dimensionality reduction using UMAP.
+2024-12-20 02:00:06,711 - INFO - Performing SHAP analysis.
+2024-12-20 02:42:26,542 - INFO - SHAP summary plot saved at ./Processed_Combinations/TEST\shap_summary.png
+2024-12-20 02:42:26,550 - INFO - Feature engineering pipeline completed.

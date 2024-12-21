@@ -70,10 +70,12 @@ def analyze_species_lifestage_distribution(
 
 
 species_pivot_tables = analyze_species_lifestage_distribution(
-    df=pd.read_csv("../DataSet/5.LifeStageData-CompoundsCurated.csv"),
+    df=pd.read_csv(
+        "../Modeling_Workflows/Processed_Combinations/TEST/Curated_Data_TEST-Descriptors_processed.csv"
+    ),
     species_column="Species Group",
     endpoint_column="Endpoint",
     lifestage_column="Broad Lifestage Group",
-    figure_path="../Figures",
-    csv_path="../Stats",
+    figure_path="../Modeling_Workflows/Processed_Combinations/TEST/Figures",
+    csv_path="../Modeling_Workflows/Processed_Combinations/TEST/Stats",
 )

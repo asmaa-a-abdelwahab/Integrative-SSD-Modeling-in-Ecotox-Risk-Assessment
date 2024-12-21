@@ -1,0 +1,411 @@
+2024-12-19 17:53:35,903 - INFO - Initialized DataPipeline class.
+2024-12-19 17:53:35,903 - INFO - Loading main dataset: Curated_Data
+2024-12-19 17:53:36,049 - INFO - Loaded main dataset with shape: (50329, 10)
+2024-12-19 17:53:36,049 - INFO - Processing file: Curated_Data
+2024-12-19 17:53:36,699 - INFO - File processed and saved: ../DataSet/5.LifeStageData-CompoundsCurated.csv with shape (50329, 20)
+2024-12-19 17:53:36,699 - INFO - Processing file: TEST-Descriptors
+2024-12-19 17:53:37,242 - INFO - File processed and saved: ../DataSet/6.LifeStageData-EPA-TEST_Descriptors.csv with shape (1393, 801)
+2024-12-19 17:53:37,242 - INFO - Processing file: TEST-Descriptors
+2024-12-19 17:53:37,263 - INFO - Processing the entire file at once for file: TEST-Descriptors
+2024-12-19 17:53:37,361 - ERROR - Error processing file TEST-Descriptors: 'DataPipeline' object has no attribute '_process_and_merge_chunk'
+2024-12-19 17:53:37,361 - INFO - Successfully processed TEST-Descriptors
+2024-12-19 17:53:37,373 - INFO - Dropped low variance features. Remaining shape: (50329, 9)
+2024-12-19 17:53:37,389 - INFO - Dropped columns with all values 0 or 1: []
+2024-12-19 17:53:37,398 - INFO - Dropped columns with correlation < 0.01. Remaining shape: (50329, 9)
+2024-12-19 17:53:37,405 - INFO - Missing value statistics:
+                               Missing Values  Percentage
+Activity_Cluster                         9834   19.539431
+Species Group                               0    0.000000
+Broad Lifestage Group                       0    0.000000
+Exposure Type                               0    0.000000
+Media Type                                  0    0.000000
+Endpoint                                    0    0.000000
+SMILES                                      0    0.000000
+Observed Duration Mean (Days)               0    0.000000
+Conc 1 Mean (Standardized)                  0    0.000000
+2024-12-19 17:53:37,405 - INFO - Performing exploratory analysis.
+2024-12-19 17:53:37,466 - INFO - Top correlations with target column:
+Conc 1 Mean (Standardized)       1.000000
+Activity_Cluster                 0.011654
+Observed Duration Mean (Days)   -0.017030
+Name: Conc 1 Mean (Standardized), dtype: float64
+2024-12-19 17:53:37,466 - INFO - Pipeline execution completed.
+2024-12-19 17:53:37,627 - INFO - Generating visualizations.
+2024-12-19 17:54:47,378 - INFO - Initialized DataPipeline class.
+2024-12-19 17:54:47,378 - INFO - Loading main dataset: Curated_Data
+2024-12-19 17:54:47,544 - INFO - Loaded main dataset with shape: (50329, 10)
+2024-12-19 17:54:47,548 - INFO - Processing file: Curated_Data
+2024-12-19 17:54:48,267 - INFO - File processed and saved: ../DataSet/5.LifeStageData-CompoundsCurated.csv with shape (50329, 20)
+2024-12-19 17:54:48,267 - INFO - Processing file: TEST-Descriptors
+2024-12-19 17:54:48,899 - INFO - File processed and saved: ../DataSet/6.LifeStageData-EPA-TEST_Descriptors.csv with shape (1393, 801)
+2024-12-19 17:54:48,899 - INFO - Processing file: TEST-Descriptors
+2024-12-19 17:54:48,930 - INFO - Processing the entire file at once for file: TEST-Descriptors
+2024-12-19 17:54:50,043 - INFO - Merged chunk, resulting shape: (32946, 808)
+2024-12-19 17:54:50,043 - INFO - Successfully processed file: TEST-Descriptors
+2024-12-19 17:54:50,044 - INFO - Successfully processed TEST-Descriptors
+2024-12-19 17:54:50,553 - INFO - Dropped low variance features. Remaining shape: (43885, 526)
+2024-12-19 17:54:50,884 - INFO - Dropped columns with all values 0 or 1: []
+2024-12-19 17:54:52,450 - INFO - Dropping columns with low correlation: ['SaaaC', 'SsaaN', 'SsaaNp', 'SssssSi', 'SaaaC_acnt', 'SsaaN_acnt', 'SsaaNp_acnt', 'SssssSi_acnt', 'Gmin', 'MDEO12', 'MAXDN', 'nR09', 'nR11', 'MATS3e', 'MATS5e', 'MATS1p', 'GATS3m', 'GATS2v', 'GATS3v', 'GATS5e', '-CH3 [aromatic attach]', '#C [aliphatic attach]', 'Fused aromatic carbon', '-Cl [olefinic attach]', '-N< [aliphatic attach]', '-N< [aromatic attach]', 'Si [oxygen attach]', '-C(=O)- [aromatic attach]']
+2024-12-19 17:54:52,489 - INFO - Dropped columns with correlation < 0.01. Remaining shape: (43885, 498)
+2024-12-19 17:54:52,527 - INFO - Missing value statistics:
+                               Missing Values  Percentage
+Activity_Cluster                        16897   38.502905
+Jt                                      10954   24.960693
+MATS3m                                  10954   24.960693
+MATS8v                                  10954   24.960693
+MATS7v                                  10954   24.960693
+...                                       ...         ...
+ID                                      10939   24.926512
+Observed Duration Mean (Days)           10939   24.926512
+Conc 1 Mean (Standardized)              10939   24.926512
+Index                                   10939   24.926512
+Species Group                           10939   24.926512
+
+[498 rows x 2 columns]
+2024-12-19 17:54:52,531 - INFO - Performing exploratory analysis.
+2024-12-19 17:55:04,854 - INFO - Top correlations with target column:
+Conc 1 Mean (Standardized)    1.000000
+-O- [aliphatic attach]        0.151693
+-OH [aliphatic attach]        0.140850
+MATS3m                        0.087980
+iadjem                        0.085009
+                                ...   
+ATS3p                        -0.105569
+ATS2v                        -0.108039
+ATS1p                        -0.112236
+ATS2p                        -0.112479
+piPC02                       -0.113763
+Name: Conc 1 Mean (Standardized), Length: 491, dtype: float64
+2024-12-19 17:55:04,854 - INFO - Pipeline execution completed.
+2024-12-19 17:55:12,758 - INFO - Generating visualizations.
+2024-12-19 18:01:08,911 - INFO - Initialized DataPipeline class.
+2024-12-19 18:01:08,911 - INFO - Loading main dataset: Curated_Data
+2024-12-19 18:01:09,094 - INFO - Loaded main dataset with shape: (50329, 10)
+2024-12-19 18:01:09,096 - INFO - Processing file: Curated_Data
+2024-12-19 18:01:09,812 - INFO - File processed and saved: ../DataSet/5.LifeStageData-CompoundsCurated.csv with shape (50329, 20)
+2024-12-19 18:01:09,812 - INFO - Processing file: TEST-Descriptors
+2024-12-19 18:01:10,391 - INFO - File processed and saved: ../DataSet/6.LifeStageData-EPA-TEST_Descriptors.csv with shape (1393, 801)
+2024-12-19 18:01:10,392 - INFO - Processing file: TEST-Descriptors
+2024-12-19 18:01:10,411 - INFO - Processing the entire file at once for file: TEST-Descriptors
+2024-12-19 18:01:10,494 - ERROR - Error processing file TEST-Descriptors: You are trying to merge on object and int64 columns for key 'SMILES'. If you wish to proceed you should use pd.concat
+2024-12-19 18:01:10,494 - INFO - Successfully processed TEST-Descriptors
+2024-12-19 18:01:10,504 - INFO - Dropped low variance features. Remaining shape: (50329, 9)
+2024-12-19 18:01:10,520 - INFO - Dropped columns with all values 0 or 1: []
+2024-12-19 18:01:10,530 - INFO - Dropped columns with correlation < 0.01. Remaining shape: (50329, 9)
+2024-12-19 18:01:10,541 - INFO - Missing value statistics:
+                               Missing Values  Percentage
+Activity_Cluster                         9834   19.539431
+Species Group                               0    0.000000
+Broad Lifestage Group                       0    0.000000
+Exposure Type                               0    0.000000
+Media Type                                  0    0.000000
+Endpoint                                    0    0.000000
+SMILES                                      0    0.000000
+Observed Duration Mean (Days)               0    0.000000
+Conc 1 Mean (Standardized)                  0    0.000000
+2024-12-19 18:01:10,543 - INFO - Performing exploratory analysis.
+2024-12-19 18:01:10,605 - INFO - Top correlations with target column:
+Conc 1 Mean (Standardized)       1.000000
+Activity_Cluster                 0.011654
+Observed Duration Mean (Days)   -0.017030
+Name: Conc 1 Mean (Standardized), dtype: float64
+2024-12-19 18:01:10,605 - INFO - Pipeline execution completed.
+2024-12-19 18:01:10,760 - INFO - Generating visualizations.
+2024-12-19 18:02:23,484 - INFO - Initialized DataPipeline class.
+2024-12-19 18:02:23,484 - INFO - Loading main dataset: Curated_Data
+2024-12-19 18:02:23,652 - INFO - Loaded main dataset with shape: (50329, 10)
+2024-12-19 18:02:23,655 - INFO - Processing file: Curated_Data
+2024-12-19 18:02:24,403 - INFO - File processed and saved: ../DataSet/5.LifeStageData-CompoundsCurated.csv with shape (50329, 20)
+2024-12-19 18:02:24,403 - INFO - Processing file: TEST-Descriptors
+2024-12-19 18:02:25,171 - INFO - File processed and saved: ../DataSet/6.LifeStageData-EPA-TEST_Descriptors.csv with shape (1393, 801)
+2024-12-19 18:02:25,171 - INFO - Processing file: TEST-Descriptors
+2024-12-19 18:02:25,207 - INFO - Processing the entire file at once for file: TEST-Descriptors
+2024-12-19 18:02:25,467 - INFO - Successfully processed file: TEST-Descriptors
+2024-12-19 18:02:25,467 - INFO - Successfully processed TEST-Descriptors
+2024-12-19 18:02:26,282 - INFO - Dropped low variance features. Remaining shape: (50329, 523)
+2024-12-19 18:02:26,518 - INFO - Dropped columns with all values 0 or 1: []
+2024-12-19 18:02:28,391 - INFO - Dropping columns with low correlation: ['SaaaC', 'SssNH', 'SsaaN', 'SddssS', 'SaaaC_acnt', 'SssNH_acnt', 'SsaaN_acnt', 'SddssS_acnt', 'SHssNH', 'ssi', 'R', 'MDEO12', 'nR05', 'nR07', 'nR09', 'MATS3v', 'MATS3e', 'MATS1p', 'GATS1v', 'GATS1e', 'GATS1p', 'GATS3p', 'SRW05', 'SRW07', 'SRW09', '-CH3 [aromatic attach]', '-CH= [aromatic attach]', 'Fused aromatic carbon', '-Cl [olefinic attach]', '-O- [aromatic attach]', '-OH [aromatic attach]', '-NH2 [aliphatic attach]', '-N< [aliphatic attach]', '-N< [aromatic attach]', '-N< [nitrogen attach]', 'Si [oxygen attach]', '-NO2 [nitrogen attach]']
+2024-12-19 18:02:28,443 - INFO - Dropped columns with correlation < 0.01. Remaining shape: (50329, 486)
+2024-12-19 18:02:28,473 - INFO - Missing value statistics:
+                               Missing Values  Percentage
+Activity_Cluster                         9834   19.539431
+ZM2V                                       15    0.029804
+ATS7p                                      15    0.029804
+MATS5v                                     15    0.029804
+MATS4v                                     15    0.029804
+...                                       ...         ...
+ID                                          0    0.000000
+Observed Duration Mean (Days)               0    0.000000
+Conc 1 Mean (Standardized)                  0    0.000000
+Index                                       0    0.000000
+Species Group                               0    0.000000
+
+[486 rows x 2 columns]
+2024-12-19 18:02:28,473 - INFO - Performing exploratory analysis.
+2024-12-19 18:02:45,829 - INFO - Top correlations with target column:
+Conc 1 Mean (Standardized)    1.000000
+-O- [aliphatic attach]        0.125398
+-OH [aliphatic attach]        0.114553
+iadjem                        0.081062
+MATS3m                        0.068646
+                                ...   
+ATS3p                        -0.094870
+ATS2v                        -0.096555
+ATS2p                        -0.097922
+ATS1p                        -0.100879
+piPC02                       -0.105303
+Name: Conc 1 Mean (Standardized), Length: 479, dtype: float64
+2024-12-19 18:02:45,829 - INFO - Pipeline execution completed.
+2024-12-19 18:03:00,398 - INFO - Generating visualizations.
+2024-12-19 18:09:24,208 - INFO - Initialized DataPipeline class.
+2024-12-19 18:09:24,208 - INFO - Loading main dataset: Curated_Data
+2024-12-19 18:09:24,387 - INFO - Loaded main dataset with shape: (50329, 10)
+2024-12-19 18:09:24,394 - INFO - Processing file: Curated_Data
+2024-12-19 18:09:25,399 - INFO - File processed and saved: ../DataSet/5.LifeStageData-CompoundsCurated.csv with shape (50329, 20)
+2024-12-19 18:09:25,399 - INFO - Processing file: TEST-Descriptors
+2024-12-19 18:09:26,227 - INFO - File processed and saved: ../DataSet/6.LifeStageData-EPA-TEST_Descriptors.csv with shape (1393, 801)
+2024-12-19 18:09:26,229 - INFO - Processing file: TEST-Descriptors
+2024-12-19 18:09:26,260 - INFO - Processing the entire file at once for file: TEST-Descriptors
+2024-12-19 18:09:26,584 - INFO - Successfully processed file: TEST-Descriptors
+2024-12-19 18:09:26,586 - INFO - Successfully processed TEST-Descriptors
+2024-12-19 18:09:27,441 - INFO - Dropped low variance features. Remaining shape: (50329, 523)
+2024-12-19 18:09:27,684 - INFO - Dropped columns with all values 0 or 1: []
+2024-12-19 18:09:29,347 - INFO - Dropping columns with low correlation: ['SaaaC', 'SssNH', 'SsaaN', 'SddssS', 'SaaaC_acnt', 'SssNH_acnt', 'SsaaN_acnt', 'SddssS_acnt', 'SHssNH', 'ssi', 'R', 'MDEO12', 'nR05', 'nR07', 'nR09', 'MATS3v', 'MATS3e', 'MATS1p', 'GATS1v', 'GATS1e', 'GATS1p', 'GATS3p', 'SRW05', 'SRW07', 'SRW09', '-CH3 [aromatic attach]', '-CH= [aromatic attach]', 'Fused aromatic carbon', '-Cl [olefinic attach]', '-O- [aromatic attach]', '-OH [aromatic attach]', '-NH2 [aliphatic attach]', '-N< [aliphatic attach]', '-N< [aromatic attach]', '-N< [nitrogen attach]', 'Si [oxygen attach]', '-NO2 [nitrogen attach]']
+2024-12-19 18:09:29,392 - INFO - Dropped columns with correlation < 0.01. Remaining shape: (50329, 486)
+2024-12-19 18:09:29,434 - INFO - Missing value statistics:
+                               Missing Values  Percentage
+Activity_Cluster                         9834   19.539431
+ZM2V                                       15    0.029804
+ATS7p                                      15    0.029804
+MATS5v                                     15    0.029804
+MATS4v                                     15    0.029804
+...                                       ...         ...
+ID                                          0    0.000000
+Observed Duration Mean (Days)               0    0.000000
+Conc 1 Mean (Standardized)                  0    0.000000
+Index                                       0    0.000000
+Species Group                               0    0.000000
+
+[486 rows x 2 columns]
+2024-12-19 18:09:29,437 - INFO - Performing exploratory analysis.
+2024-12-19 18:09:52,026 - INFO - Top correlations with target column:
+Conc 1 Mean (Standardized)    1.000000
+-O- [aliphatic attach]        0.125398
+-OH [aliphatic attach]        0.114553
+iadjem                        0.081062
+MATS3m                        0.068646
+                                ...   
+ATS3p                        -0.094870
+ATS2v                        -0.096555
+ATS2p                        -0.097922
+ATS1p                        -0.100879
+piPC02                       -0.105303
+Name: Conc 1 Mean (Standardized), Length: 479, dtype: float64
+2024-12-19 18:09:52,026 - INFO - Pipeline execution completed.
+2024-12-19 18:09:52,027 - INFO - Initialized DataPipeline class.
+2024-12-19 18:09:52,034 - INFO - Loading main dataset: Curated_Data
+2024-12-19 18:09:52,267 - INFO - Loaded main dataset with shape: (50329, 10)
+2024-12-19 18:09:52,269 - INFO - Processing file: Curated_Data
+2024-12-19 18:09:53,064 - INFO - File processed and saved: ../DataSet/5.LifeStageData-CompoundsCurated.csv with shape (50329, 20)
+2024-12-19 18:09:53,064 - INFO - Processing file: MACCS
+2024-12-19 18:09:54,400 - INFO - File processed and saved: ../DataSet/6.MACCS_fingerprints.csv with shape (40495, 154)
+2024-12-19 18:09:54,404 - INFO - Processing file: MACCS
+2024-12-19 18:09:54,438 - INFO - Processing the entire file at once for file: MACCS
+2024-12-19 18:09:54,981 - INFO - Successfully processed file: MACCS
+2024-12-19 18:09:54,983 - INFO - Successfully processed MACCS
+2024-12-19 18:09:55,636 - ERROR - Error dropping low variance features: Reindexing only valid with uniquely valued Index objects
+2024-12-19 18:09:55,904 - INFO - Dropped columns with all values 0 or 1: []
+2024-12-19 18:09:56,867 - INFO - Dropping columns with low correlation: ['MACCS_24', 'MACCS_31', 'MACCS_49', 'MACCS_51', 'MACCS_55', 'MACCS_56', 'MACCS_58', 'MACCS_60', 'MACCS_61', 'MACCS_62', 'MACCS_63', 'MACCS_65', 'MACCS_67', 'MACCS_70', 'MACCS_71', 'MACCS_73', 'MACCS_81', 'MACCS_88', 'MACCS_94', 'MACCS_98', 'MACCS_102', 'MACCS_119', 'MACCS_121', 'MACCS_122', 'MACCS_124', 'MACCS_130', 'MACCS_133', 'MACCS_135', 'MACCS_140', 'MACCS_148', 'MACCS_156', 'MACCS_158']
+2024-12-19 18:09:57,002 - INFO - Dropped columns with correlation < 0.01. Remaining shape: (163415, 130)
+2024-12-19 18:09:57,122 - INFO - Missing value statistics:
+                               Missing Values  Percentage
+MACCS_86                                49441   30.254873
+MACCS_87                                49441   30.254873
+MACCS_125                               49441   30.254873
+MACCS_123                               49441   30.254873
+MACCS_120                               49441   30.254873
+...                                       ...         ...
+Broad Lifestage Group                       0    0.000000
+Observed Duration Mean (Days)               0    0.000000
+Conc 1 Mean (Standardized)                  0    0.000000
+SMILES                                      0    0.000000
+Species Group                               0    0.000000
+
+[130 rows x 2 columns]
+2024-12-19 18:09:57,133 - INFO - Performing exploratory analysis.
+2024-12-19 18:10:11,982 - INFO - Top correlations with target column:
+Conc 1 Mean (Standardized)       1.000000
+MACCS_42                         0.443848
+MACCS_27                         0.410597
+MACCS_106                        0.298749
+MACCS_112                        0.291807
+MACCS_136                        0.158784
+MACCS_159                        0.064848
+MACCS_19                         0.022515
+MACCS_11                         0.022515
+MACCS_66                         0.022515
+MACCS_101                        0.020056
+MACCS_105                        0.020056
+MACCS_96                         0.012330
+Activity_Cluster                 0.004220
+MACCS_57                         0.000310
+MACCS_83                         0.000310
+MACCS_137                        0.000194
+MACCS_123                        0.000082
+MACCS_89                         0.000082
+MACCS_146                        0.000051
+MACCS_154                       -0.000134
+MACCS_21                        -0.005821
+MACCS_99                        -0.006467
+MACCS_76                        -0.006467
+MACCS_164                       -0.011659
+Observed Duration Mean (Days)   -0.016954
+MACCS_145                       -0.021801
+MACCS_125                       -0.024184
+MACCS_143                       -0.024211
+MACCS_127                       -0.024211
+MACCS_157                       -0.024234
+MACCS_113                       -0.024254
+MACCS_152                       -0.024254
+MACCS_126                       -0.024277
+MACCS_46                        -0.025771
+MACCS_41                        -0.105377
+MACCS_142                       -0.105380
+MACCS_161                       -0.106601
+MACCS_103                       -0.117370
+MACCS_163                       -0.210403
+MACCS_144                       -0.211909
+MACCS_162                       -0.211909
+MACCS_150                       -0.212755
+MACCS_87                        -0.212755
+MACCS_165                       -0.212755
+Name: Conc 1 Mean (Standardized), dtype: float64
+2024-12-19 18:10:11,982 - INFO - Pipeline execution completed.
+2024-12-19 18:10:27,132 - INFO - Generating visualizations.
+2024-12-19 18:10:29,199 - INFO - Visualizations generated successfully.
+2024-12-19 18:11:56,233 - INFO - Initialized DataPipeline class.
+2024-12-19 18:11:56,233 - INFO - Loading main dataset: Curated_Data
+2024-12-19 18:11:56,416 - INFO - Loaded main dataset with shape: (50329, 10)
+2024-12-19 18:11:56,419 - INFO - Processing file: Curated_Data
+2024-12-19 18:11:57,075 - INFO - File processed and saved: ../DataSet/5.LifeStageData-CompoundsCurated.csv with shape (50329, 20)
+2024-12-19 18:11:57,075 - INFO - Processing file: TEST-Descriptors
+2024-12-19 18:11:57,652 - INFO - File processed and saved: ../DataSet/6.LifeStageData-EPA-TEST_Descriptors.csv with shape (1393, 801)
+2024-12-19 18:11:57,654 - INFO - Processing file: TEST-Descriptors
+2024-12-19 18:11:57,676 - INFO - Processing the entire file at once for file: TEST-Descriptors
+2024-12-19 18:11:57,910 - INFO - Successfully processed file: TEST-Descriptors
+2024-12-19 18:11:57,911 - INFO - Successfully processed TEST-Descriptors
+2024-12-19 18:11:58,635 - INFO - Dropped low variance features. Remaining shape: (50329, 523)
+2024-12-19 18:11:58,852 - INFO - Dropped columns with all values 0 or 1: []
+2024-12-19 18:12:00,735 - INFO - Dropping columns with low correlation: ['SaaaC', 'SssNH', 'SsaaN', 'SddssS', 'SaaaC_acnt', 'SssNH_acnt', 'SsaaN_acnt', 'SddssS_acnt', 'SHssNH', 'ssi', 'R', 'MDEO12', 'nR05', 'nR07', 'nR09', 'MATS3v', 'MATS3e', 'MATS1p', 'GATS1v', 'GATS1e', 'GATS1p', 'GATS3p', 'SRW05', 'SRW07', 'SRW09', '-CH3 [aromatic attach]', '-CH= [aromatic attach]', 'Fused aromatic carbon', '-Cl [olefinic attach]', '-O- [aromatic attach]', '-OH [aromatic attach]', '-NH2 [aliphatic attach]', '-N< [aliphatic attach]', '-N< [aromatic attach]', '-N< [nitrogen attach]', 'Si [oxygen attach]', '-NO2 [nitrogen attach]']
+2024-12-19 18:12:00,784 - INFO - Dropped columns with correlation < 0.01. Remaining shape: (50329, 486)
+2024-12-19 18:12:00,822 - INFO - Missing value statistics:
+                               Missing Values  Percentage
+Activity_Cluster                         9834   19.539431
+ZM2V                                       15    0.029804
+ATS7p                                      15    0.029804
+MATS5v                                     15    0.029804
+MATS4v                                     15    0.029804
+...                                       ...         ...
+ID                                          0    0.000000
+Observed Duration Mean (Days)               0    0.000000
+Conc 1 Mean (Standardized)                  0    0.000000
+Index                                       0    0.000000
+Species Group                               0    0.000000
+
+[486 rows x 2 columns]
+2024-12-19 18:12:00,826 - INFO - Performing exploratory analysis.
+2024-12-19 18:12:16,984 - INFO - Top correlations with target column:
+Conc 1 Mean (Standardized)    1.000000
+-O- [aliphatic attach]        0.125398
+-OH [aliphatic attach]        0.114553
+iadjem                        0.081062
+MATS3m                        0.068646
+                                ...   
+ATS3p                        -0.094870
+ATS2v                        -0.096555
+ATS2p                        -0.097922
+ATS1p                        -0.100879
+piPC02                       -0.105303
+Name: Conc 1 Mean (Standardized), Length: 479, dtype: float64
+2024-12-19 18:12:16,984 - INFO - Pipeline execution completed.
+2024-12-19 18:12:16,984 - INFO - Initialized DataPipeline class.
+2024-12-19 18:12:16,995 - INFO - Loading main dataset: Curated_Data
+2024-12-19 18:12:17,144 - INFO - Loaded main dataset with shape: (50329, 10)
+2024-12-19 18:12:17,144 - INFO - Processing file: Curated_Data
+2024-12-19 18:12:17,756 - INFO - File processed and saved: ../DataSet/5.LifeStageData-CompoundsCurated.csv with shape (50329, 20)
+2024-12-19 18:12:17,756 - INFO - Processing file: MACCS
+2024-12-19 18:12:18,412 - INFO - File processed and saved: ../DataSet/6.MACCS_fingerprints.csv with shape (40495, 154)
+2024-12-19 18:12:18,422 - INFO - Processing file: MACCS
+2024-12-19 18:12:18,436 - INFO - Processing the entire file at once for file: MACCS
+2024-12-19 18:12:18,683 - INFO - Successfully processed file: MACCS
+2024-12-19 18:12:18,683 - INFO - Successfully processed MACCS
+2024-12-19 18:12:19,084 - ERROR - Error dropping low variance features: Reindexing only valid with uniquely valued Index objects
+2024-12-19 18:12:19,299 - INFO - Dropped columns with all values 0 or 1: []
+2024-12-19 18:12:19,775 - INFO - Dropping columns with low correlation: ['MACCS_24', 'MACCS_31', 'MACCS_49', 'MACCS_51', 'MACCS_55', 'MACCS_56', 'MACCS_58', 'MACCS_60', 'MACCS_61', 'MACCS_62', 'MACCS_63', 'MACCS_65', 'MACCS_67', 'MACCS_70', 'MACCS_71', 'MACCS_73', 'MACCS_81', 'MACCS_88', 'MACCS_94', 'MACCS_98', 'MACCS_102', 'MACCS_119', 'MACCS_121', 'MACCS_122', 'MACCS_124', 'MACCS_130', 'MACCS_133', 'MACCS_135', 'MACCS_140', 'MACCS_148', 'MACCS_156', 'MACCS_158']
+2024-12-19 18:12:19,819 - INFO - Dropped columns with correlation < 0.01. Remaining shape: (163415, 130)
+2024-12-19 18:12:19,860 - INFO - Missing value statistics:
+                               Missing Values  Percentage
+MACCS_86                                49441   30.254873
+MACCS_87                                49441   30.254873
+MACCS_125                               49441   30.254873
+MACCS_123                               49441   30.254873
+MACCS_120                               49441   30.254873
+...                                       ...         ...
+Broad Lifestage Group                       0    0.000000
+Observed Duration Mean (Days)               0    0.000000
+Conc 1 Mean (Standardized)                  0    0.000000
+SMILES                                      0    0.000000
+Species Group                               0    0.000000
+
+[130 rows x 2 columns]
+2024-12-19 18:12:19,864 - INFO - Performing exploratory analysis.
+2024-12-19 18:12:23,698 - INFO - Top correlations with target column:
+Conc 1 Mean (Standardized)       1.000000
+MACCS_42                         0.443848
+MACCS_27                         0.410597
+MACCS_106                        0.298749
+MACCS_112                        0.291807
+MACCS_136                        0.158784
+MACCS_159                        0.064848
+MACCS_19                         0.022515
+MACCS_11                         0.022515
+MACCS_66                         0.022515
+MACCS_101                        0.020056
+MACCS_105                        0.020056
+MACCS_96                         0.012330
+Activity_Cluster                 0.004220
+MACCS_57                         0.000310
+MACCS_83                         0.000310
+MACCS_137                        0.000194
+MACCS_123                        0.000082
+MACCS_89                         0.000082
+MACCS_146                        0.000051
+MACCS_154                       -0.000134
+MACCS_21                        -0.005821
+MACCS_99                        -0.006467
+MACCS_76                        -0.006467
+MACCS_164                       -0.011659
+Observed Duration Mean (Days)   -0.016954
+MACCS_145                       -0.021801
+MACCS_125                       -0.024184
+MACCS_143                       -0.024211
+MACCS_127                       -0.024211
+MACCS_157                       -0.024234
+MACCS_113                       -0.024254
+MACCS_152                       -0.024254
+MACCS_126                       -0.024277
+MACCS_46                        -0.025771
+MACCS_41                        -0.105377
+MACCS_142                       -0.105380
+MACCS_161                       -0.106601
+MACCS_103                       -0.117370
+MACCS_163                       -0.210403
+MACCS_144                       -0.211909
+MACCS_162                       -0.211909
+MACCS_150                       -0.212755
+MACCS_87                        -0.212755
+MACCS_165                       -0.212755
+Name: Conc 1 Mean (Standardized), dtype: float64
+2024-12-19 18:12:23,698 - INFO - Pipeline execution completed.
+2024-12-19 18:12:28,919 - INFO - Generating visualizations.
+2024-12-19 18:12:30,091 - INFO - Visualizations generated successfully.

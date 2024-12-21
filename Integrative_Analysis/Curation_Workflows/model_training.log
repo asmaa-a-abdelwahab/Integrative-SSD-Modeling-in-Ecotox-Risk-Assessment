@@ -1,0 +1,1247 @@
+2024-12-12 15:10:13,610 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 15:10:13,610 - INFO - Workflow started.
+2024-12-12 15:10:13,781 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 15:10:13,787 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 15:10:13,787 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 15:10:13,980 - INFO - Loaded dataset 'Physicochemical_PubChem' with shape (40495, 28).
+2024-12-12 15:10:14,084 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (163415, 46)
+2024-12-12 15:10:14,435 - INFO - Dropped columns with > 10.0% missing values. Remaining columns: 19
+2024-12-12 15:10:14,590 - INFO - After dropping empty and constant columns: (163415, 17)
+2024-12-12 15:10:14,637 - INFO - Starting feature reduction...
+2024-12-12 15:10:14,645 - ERROR - Error in reduce_features: Input X contains NaN.
+SelectKBest does not accept missing values encoded as NaN natively. For supervised learning, you might want to consider sklearn.ensemble.HistGradientBoostingClassifier and Regressor which accept missing values encoded as NaNs natively. Alternatively, it is possible to preprocess the data, for instance by using an imputer transformer in a pipeline or drop samples with missing values. See https://scikit-learn.org/stable/modules/impute.html You can find a list of all estimators that handle NaN values at the following page: https://scikit-learn.org/stable/modules/impute.html#estimators-that-handle-nan-values
+2024-12-12 15:10:14,646 - ERROR - Error processing file 'Physicochemical_PubChem': Input X contains NaN.
+SelectKBest does not accept missing values encoded as NaN natively. For supervised learning, you might want to consider sklearn.ensemble.HistGradientBoostingClassifier and Regressor which accept missing values encoded as NaNs natively. Alternatively, it is possible to preprocess the data, for instance by using an imputer transformer in a pipeline or drop samples with missing values. See https://scikit-learn.org/stable/modules/impute.html You can find a list of all estimators that handle NaN values at the following page: https://scikit-learn.org/stable/modules/impute.html#estimators-that-handle-nan-values
+2024-12-12 15:10:14,646 - INFO - Processing file 'Descriptors'...
+2024-12-12 15:10:14,787 - INFO - Loaded dataset 'Descriptors' with shape (40495, 20).
+2024-12-12 15:10:14,899 - INFO - Merged dataset 'Descriptors' shape: (163415, 38)
+2024-12-12 15:10:15,354 - INFO - Dropped columns with > 10.0% missing values. Remaining columns: 19
+2024-12-12 15:10:15,507 - INFO - After dropping empty and constant columns: (163415, 17)
+2024-12-12 15:10:15,534 - INFO - Starting feature reduction...
+2024-12-12 15:10:15,536 - ERROR - Error in reduce_features: Input X contains NaN.
+SelectKBest does not accept missing values encoded as NaN natively. For supervised learning, you might want to consider sklearn.ensemble.HistGradientBoostingClassifier and Regressor which accept missing values encoded as NaNs natively. Alternatively, it is possible to preprocess the data, for instance by using an imputer transformer in a pipeline or drop samples with missing values. See https://scikit-learn.org/stable/modules/impute.html You can find a list of all estimators that handle NaN values at the following page: https://scikit-learn.org/stable/modules/impute.html#estimators-that-handle-nan-values
+2024-12-12 15:10:15,536 - ERROR - Error processing file 'Descriptors': Input X contains NaN.
+SelectKBest does not accept missing values encoded as NaN natively. For supervised learning, you might want to consider sklearn.ensemble.HistGradientBoostingClassifier and Regressor which accept missing values encoded as NaNs natively. Alternatively, it is possible to preprocess the data, for instance by using an imputer transformer in a pipeline or drop samples with missing values. See https://scikit-learn.org/stable/modules/impute.html You can find a list of all estimators that handle NaN values at the following page: https://scikit-learn.org/stable/modules/impute.html#estimators-that-handle-nan-values
+2024-12-12 15:10:15,537 - INFO - Processing file 'MACCS'...
+2024-12-12 15:10:18,901 - INFO - Loaded dataset 'MACCS' with shape (40495, 2049).
+2024-12-12 15:10:21,448 - INFO - Merged dataset 'MACCS' shape: (163415, 2067)
+2024-12-12 15:10:22,118 - INFO - Dropped columns with > 10.0% missing values. Remaining columns: 19
+2024-12-12 15:10:22,283 - INFO - After dropping empty and constant columns: (163415, 17)
+2024-12-12 15:10:22,303 - INFO - Starting feature reduction...
+2024-12-12 15:10:22,305 - ERROR - Error in reduce_features: Input X contains NaN.
+SelectKBest does not accept missing values encoded as NaN natively. For supervised learning, you might want to consider sklearn.ensemble.HistGradientBoostingClassifier and Regressor which accept missing values encoded as NaNs natively. Alternatively, it is possible to preprocess the data, for instance by using an imputer transformer in a pipeline or drop samples with missing values. See https://scikit-learn.org/stable/modules/impute.html You can find a list of all estimators that handle NaN values at the following page: https://scikit-learn.org/stable/modules/impute.html#estimators-that-handle-nan-values
+2024-12-12 15:10:22,305 - ERROR - Error processing file 'MACCS': Input X contains NaN.
+SelectKBest does not accept missing values encoded as NaN natively. For supervised learning, you might want to consider sklearn.ensemble.HistGradientBoostingClassifier and Regressor which accept missing values encoded as NaNs natively. Alternatively, it is possible to preprocess the data, for instance by using an imputer transformer in a pipeline or drop samples with missing values. See https://scikit-learn.org/stable/modules/impute.html You can find a list of all estimators that handle NaN values at the following page: https://scikit-learn.org/stable/modules/impute.html#estimators-that-handle-nan-values
+2024-12-12 15:10:22,306 - INFO - Processing file 'Morgan'...
+2024-12-12 15:10:25,101 - INFO - Loaded dataset 'Morgan' with shape (40495, 2049).
+2024-12-12 15:10:26,640 - INFO - Merged dataset 'Morgan' shape: (163415, 2067)
+2024-12-12 15:10:30,496 - INFO - Dropped columns with > 10.0% missing values. Remaining columns: 19
+2024-12-12 15:10:30,645 - INFO - After dropping empty and constant columns: (163415, 17)
+2024-12-12 15:10:30,667 - INFO - Starting feature reduction...
+2024-12-12 15:10:30,667 - ERROR - Error in reduce_features: Input X contains NaN.
+SelectKBest does not accept missing values encoded as NaN natively. For supervised learning, you might want to consider sklearn.ensemble.HistGradientBoostingClassifier and Regressor which accept missing values encoded as NaNs natively. Alternatively, it is possible to preprocess the data, for instance by using an imputer transformer in a pipeline or drop samples with missing values. See https://scikit-learn.org/stable/modules/impute.html You can find a list of all estimators that handle NaN values at the following page: https://scikit-learn.org/stable/modules/impute.html#estimators-that-handle-nan-values
+2024-12-12 15:10:30,667 - ERROR - Error processing file 'Morgan': Input X contains NaN.
+SelectKBest does not accept missing values encoded as NaN natively. For supervised learning, you might want to consider sklearn.ensemble.HistGradientBoostingClassifier and Regressor which accept missing values encoded as NaNs natively. Alternatively, it is possible to preprocess the data, for instance by using an imputer transformer in a pipeline or drop samples with missing values. See https://scikit-learn.org/stable/modules/impute.html You can find a list of all estimators that handle NaN values at the following page: https://scikit-learn.org/stable/modules/impute.html#estimators-that-handle-nan-values
+2024-12-12 15:10:30,667 - INFO - Processing file 'RDKit'...
+2024-12-12 15:10:33,353 - INFO - Loaded dataset 'RDKit' with shape (40495, 2049).
+2024-12-12 15:10:34,704 - INFO - Merged dataset 'RDKit' shape: (163415, 2067)
+2024-12-12 15:10:38,043 - INFO - Dropped columns with > 10.0% missing values. Remaining columns: 19
+2024-12-12 15:10:38,301 - INFO - After dropping empty and constant columns: (163415, 17)
+2024-12-12 15:10:38,322 - INFO - Starting feature reduction...
+2024-12-12 15:10:38,322 - ERROR - Error in reduce_features: Input X contains NaN.
+SelectKBest does not accept missing values encoded as NaN natively. For supervised learning, you might want to consider sklearn.ensemble.HistGradientBoostingClassifier and Regressor which accept missing values encoded as NaNs natively. Alternatively, it is possible to preprocess the data, for instance by using an imputer transformer in a pipeline or drop samples with missing values. See https://scikit-learn.org/stable/modules/impute.html You can find a list of all estimators that handle NaN values at the following page: https://scikit-learn.org/stable/modules/impute.html#estimators-that-handle-nan-values
+2024-12-12 15:10:38,322 - ERROR - Error processing file 'RDKit': Input X contains NaN.
+SelectKBest does not accept missing values encoded as NaN natively. For supervised learning, you might want to consider sklearn.ensemble.HistGradientBoostingClassifier and Regressor which accept missing values encoded as NaNs natively. Alternatively, it is possible to preprocess the data, for instance by using an imputer transformer in a pipeline or drop samples with missing values. See https://scikit-learn.org/stable/modules/impute.html You can find a list of all estimators that handle NaN values at the following page: https://scikit-learn.org/stable/modules/impute.html#estimators-that-handle-nan-values
+2024-12-12 15:10:38,322 - INFO - Processing file 'AtomPair'...
+2024-12-12 15:10:41,134 - INFO - Loaded dataset 'AtomPair' with shape (40495, 2049).
+2024-12-12 15:10:42,409 - INFO - Merged dataset 'AtomPair' shape: (163415, 2067)
+2024-12-12 15:10:46,393 - INFO - Dropped columns with > 10.0% missing values. Remaining columns: 19
+2024-12-12 15:10:46,539 - INFO - After dropping empty and constant columns: (163415, 17)
+2024-12-12 15:10:46,559 - INFO - Starting feature reduction...
+2024-12-12 15:10:46,561 - ERROR - Error in reduce_features: Input X contains NaN.
+SelectKBest does not accept missing values encoded as NaN natively. For supervised learning, you might want to consider sklearn.ensemble.HistGradientBoostingClassifier and Regressor which accept missing values encoded as NaNs natively. Alternatively, it is possible to preprocess the data, for instance by using an imputer transformer in a pipeline or drop samples with missing values. See https://scikit-learn.org/stable/modules/impute.html You can find a list of all estimators that handle NaN values at the following page: https://scikit-learn.org/stable/modules/impute.html#estimators-that-handle-nan-values
+2024-12-12 15:10:46,561 - ERROR - Error processing file 'AtomPair': Input X contains NaN.
+SelectKBest does not accept missing values encoded as NaN natively. For supervised learning, you might want to consider sklearn.ensemble.HistGradientBoostingClassifier and Regressor which accept missing values encoded as NaNs natively. Alternatively, it is possible to preprocess the data, for instance by using an imputer transformer in a pipeline or drop samples with missing values. See https://scikit-learn.org/stable/modules/impute.html You can find a list of all estimators that handle NaN values at the following page: https://scikit-learn.org/stable/modules/impute.html#estimators-that-handle-nan-values
+2024-12-12 15:10:46,562 - INFO - Processing file 'Torsion'...
+2024-12-12 15:10:49,722 - INFO - Loaded dataset 'Torsion' with shape (40495, 2049).
+2024-12-12 15:10:50,937 - INFO - Merged dataset 'Torsion' shape: (163415, 2067)
+2024-12-12 15:10:54,419 - INFO - Dropped columns with > 10.0% missing values. Remaining columns: 19
+2024-12-12 15:10:54,610 - INFO - After dropping empty and constant columns: (163415, 17)
+2024-12-12 15:10:54,626 - INFO - Starting feature reduction...
+2024-12-12 15:10:54,626 - ERROR - Error in reduce_features: Input X contains NaN.
+SelectKBest does not accept missing values encoded as NaN natively. For supervised learning, you might want to consider sklearn.ensemble.HistGradientBoostingClassifier and Regressor which accept missing values encoded as NaNs natively. Alternatively, it is possible to preprocess the data, for instance by using an imputer transformer in a pipeline or drop samples with missing values. See https://scikit-learn.org/stable/modules/impute.html You can find a list of all estimators that handle NaN values at the following page: https://scikit-learn.org/stable/modules/impute.html#estimators-that-handle-nan-values
+2024-12-12 15:10:54,626 - ERROR - Error processing file 'Torsion': Input X contains NaN.
+SelectKBest does not accept missing values encoded as NaN natively. For supervised learning, you might want to consider sklearn.ensemble.HistGradientBoostingClassifier and Regressor which accept missing values encoded as NaNs natively. Alternatively, it is possible to preprocess the data, for instance by using an imputer transformer in a pipeline or drop samples with missing values. See https://scikit-learn.org/stable/modules/impute.html You can find a list of all estimators that handle NaN values at the following page: https://scikit-learn.org/stable/modules/impute.html#estimators-that-handle-nan-values
+2024-12-12 15:10:54,626 - ERROR - No valid datasets were processed successfully.
+2024-12-12 15:10:54,626 - ERROR - Error in load_and_process_data: No processed datasets available for training.
+2024-12-12 15:10:54,626 - ERROR - Error in run: No processed datasets available for training.
+2024-12-12 15:16:58,814 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 15:16:58,814 - INFO - Workflow started.
+2024-12-12 15:16:59,057 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 15:16:59,064 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 15:16:59,064 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 15:16:59,206 - INFO - Loaded dataset 'Physicochemical_PubChem' with shape (40495, 28).
+2024-12-12 15:16:59,271 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (163415, 46)
+2024-12-12 15:16:59,756 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:17:00,056 - INFO - After dropping empty and constant columns: (163415, 17)
+2024-12-12 15:17:00,980 - INFO - Processing file 'Descriptors'...
+2024-12-12 15:17:01,078 - INFO - Loaded dataset 'Descriptors' with shape (40495, 20).
+2024-12-12 15:17:01,160 - INFO - Merged dataset 'Descriptors' shape: (163415, 38)
+2024-12-12 15:17:01,464 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 38
+2024-12-12 15:17:01,744 - INFO - After dropping empty and constant columns: (163415, 36)
+2024-12-12 15:17:04,045 - INFO - Processing file 'MACCS'...
+2024-12-12 15:17:07,467 - INFO - Loaded dataset 'MACCS' with shape (40495, 2049).
+2024-12-12 15:17:10,466 - INFO - Merged dataset 'MACCS' shape: (163415, 2067)
+2024-12-12 15:17:11,212 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 186
+2024-12-12 15:17:11,537 - INFO - After dropping empty and constant columns: (163415, 91)
+2024-12-12 15:19:00,269 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 15:19:00,269 - INFO - Workflow started.
+2024-12-12 15:19:00,494 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 15:19:00,501 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 15:19:00,501 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 15:19:00,589 - INFO - Loaded dataset 'Physicochemical_PubChem' with shape (40495, 28).
+2024-12-12 15:19:00,651 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (163415, 46)
+2024-12-12 15:19:01,085 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:19:01,250 - INFO - After dropping empty and constant columns: (163415, 17)
+2024-12-12 15:19:02,279 - INFO - Processing file 'Descriptors'...
+2024-12-12 15:19:02,358 - INFO - Loaded dataset 'Descriptors' with shape (40495, 20).
+2024-12-12 15:19:02,449 - INFO - Merged dataset 'Descriptors' shape: (163415, 38)
+2024-12-12 15:19:02,842 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 38
+2024-12-12 15:19:03,102 - INFO - After dropping empty and constant columns: (163415, 36)
+2024-12-12 15:19:05,443 - INFO - Processing file 'MACCS'...
+2024-12-12 15:22:08,779 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 15:22:08,780 - INFO - Workflow started.
+2024-12-12 15:22:09,004 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 15:22:09,004 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 15:22:09,004 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 15:22:09,116 - INFO - Loaded dataset 'Physicochemical_PubChem' with shape (40495, 28).
+2024-12-12 15:22:09,167 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (163415, 46)
+2024-12-12 15:22:09,674 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:22:09,714 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:22:09,714 - ERROR - Error processing file 'Physicochemical_PubChem': [Errno 13] Permission denied: '../DataSet/Physicochemical_PubChem_preprocessed.csv'
+2024-12-12 15:22:09,714 - INFO - Processing file 'Descriptors'...
+2024-12-12 15:22:09,808 - INFO - Loaded dataset 'Descriptors' with shape (40495, 20).
+2024-12-12 15:22:09,858 - INFO - Merged dataset 'Descriptors' shape: (163415, 38)
+2024-12-12 15:22:10,247 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:22:10,302 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:22:10,707 - INFO - Processing file 'MACCS'...
+2024-12-12 15:23:05,304 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 15:23:05,304 - INFO - Workflow started.
+2024-12-12 15:23:05,513 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 15:23:05,519 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 15:23:05,519 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 15:23:05,647 - INFO - Loaded dataset 'Physicochemical_PubChem' with shape (40495, 28).
+2024-12-12 15:23:05,693 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (163415, 46)
+2024-12-12 15:23:06,119 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:23:06,167 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:23:06,169 - ERROR - Error processing file 'Physicochemical_PubChem': [Errno 13] Permission denied: '../DataSet/Physicochemical_PubChem_preprocessed.csv'
+2024-12-12 15:23:06,169 - INFO - Processing file 'Descriptors'...
+2024-12-12 15:23:06,245 - INFO - Loaded dataset 'Descriptors' with shape (40495, 20).
+2024-12-12 15:23:06,299 - INFO - Merged dataset 'Descriptors' shape: (163415, 38)
+2024-12-12 15:23:06,712 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:23:06,748 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:23:07,089 - INFO - Processing file 'MACCS'...
+2024-12-12 15:23:09,703 - INFO - Loaded dataset 'MACCS' with shape (40495, 2049).
+2024-12-12 15:23:12,122 - INFO - Merged dataset 'MACCS' shape: (163415, 2067)
+2024-12-12 15:23:13,177 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:23:13,224 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:23:13,555 - INFO - Processing file 'Morgan'...
+2024-12-12 15:23:16,438 - INFO - Loaded dataset 'Morgan' with shape (40495, 2049).
+2024-12-12 15:23:40,909 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 15:23:40,909 - INFO - Workflow started.
+2024-12-12 15:23:41,067 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 15:23:41,071 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 15:23:41,071 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 15:23:41,168 - INFO - Loaded dataset 'Physicochemical_PubChem' with shape (40495, 28).
+2024-12-12 15:23:41,234 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (163415, 46)
+2024-12-12 15:23:41,763 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:23:41,814 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:23:42,114 - INFO - Processing file 'Descriptors'...
+2024-12-12 15:23:42,180 - INFO - Loaded dataset 'Descriptors' with shape (40495, 20).
+2024-12-12 15:23:42,238 - INFO - Merged dataset 'Descriptors' shape: (163415, 38)
+2024-12-12 15:23:42,620 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:23:42,663 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:23:42,919 - INFO - Processing file 'MACCS'...
+2024-12-12 15:23:45,614 - INFO - Loaded dataset 'MACCS' with shape (40495, 2049).
+2024-12-12 15:23:48,113 - INFO - Merged dataset 'MACCS' shape: (163415, 2067)
+2024-12-12 15:23:49,155 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:23:49,219 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:24:35,002 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 15:24:35,002 - INFO - Workflow started.
+2024-12-12 15:24:35,177 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 15:24:35,182 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 15:24:35,182 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 15:24:35,273 - INFO - Loaded dataset 'Physicochemical_PubChem' with shape (40495, 28).
+2024-12-12 15:24:35,336 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (163415, 46)
+2024-12-12 15:24:35,758 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:24:35,797 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:24:35,797 - ERROR - Error processing file 'Physicochemical_PubChem': [Errno 13] Permission denied: '../DataSet/Physicochemical_PubChem_preprocessed.csv'
+2024-12-12 15:24:35,797 - INFO - Processing file 'Descriptors'...
+2024-12-12 15:24:35,875 - INFO - Loaded dataset 'Descriptors' with shape (40495, 20).
+2024-12-12 15:24:35,932 - INFO - Merged dataset 'Descriptors' shape: (163415, 38)
+2024-12-12 15:24:36,285 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:24:36,318 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:24:36,609 - INFO - Processing file 'MACCS'...
+2024-12-12 15:24:39,153 - INFO - Loaded dataset 'MACCS' with shape (40495, 2049).
+2024-12-12 15:24:41,494 - INFO - Merged dataset 'MACCS' shape: (163415, 2067)
+2024-12-12 15:24:42,505 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:24:42,560 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:24:42,852 - INFO - Processing file 'Morgan'...
+2024-12-12 15:24:45,382 - INFO - Loaded dataset 'Morgan' with shape (40495, 2049).
+2024-12-12 15:24:46,612 - INFO - Merged dataset 'Morgan' shape: (163415, 2067)
+2024-12-12 15:24:53,223 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:24:53,270 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:24:53,524 - INFO - Processing file 'RDKit'...
+2024-12-12 15:24:56,516 - INFO - Loaded dataset 'RDKit' with shape (40495, 2049).
+2024-12-12 15:24:57,831 - INFO - Merged dataset 'RDKit' shape: (163415, 2067)
+2024-12-12 15:25:04,824 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:25:04,872 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:25:05,110 - INFO - Processing file 'AtomPair'...
+2024-12-12 15:25:08,071 - INFO - Loaded dataset 'AtomPair' with shape (40495, 2049).
+2024-12-12 15:25:09,456 - INFO - Merged dataset 'AtomPair' shape: (163415, 2067)
+2024-12-12 15:25:16,363 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:25:16,419 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:25:16,702 - INFO - Processing file 'Torsion'...
+2024-12-12 15:25:19,634 - INFO - Loaded dataset 'Torsion' with shape (40495, 2049).
+2024-12-12 15:25:20,946 - INFO - Merged dataset 'Torsion' shape: (163415, 2067)
+2024-12-12 15:25:27,313 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:25:27,372 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:25:27,634 - INFO - Combined processed dataset shape: (301884, 17)
+2024-12-12 15:25:27,634 - WARNING - Skipped files: ['Physicochemical_PubChem']
+2024-12-12 15:25:27,744 - INFO - Starting model training...
+2024-12-12 15:25:28,074 - ERROR - Error in train_models: 
+All the 5 fits failed.
+It is very likely that your model is misconfigured.
+You can try to debug the error by setting error_score='raise'.
+
+Below are more details about the failures:
+--------------------------------------------------------------------------------
+1 fits failed with the following error:
+Traceback (most recent call last):
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\model_selection\_validation.py", line 888, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\base.py", line 1473, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\linear_model\_base.py", line 609, in fit
+    X, y = self._validate_data(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\base.py", line 650, in _validate_data
+    X, y = check_X_y(X, y, **check_params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\validation.py", line 1301, in check_X_y
+    X = check_array(
+        ^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\validation.py", line 1012, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\_array_api.py", line 745, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\pandas\core\generic.py", line 2153, in __array__
+    arr = np.asarray(values, dtype=dtype)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: could not convert string to float: 'Phosphorothioic acid, O,O-Diethyl O-(3,5,6-trichloro-2-pyridinyl) ester'
+
+--------------------------------------------------------------------------------
+4 fits failed with the following error:
+Traceback (most recent call last):
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\model_selection\_validation.py", line 888, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\base.py", line 1473, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\linear_model\_base.py", line 609, in fit
+    X, y = self._validate_data(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\base.py", line 650, in _validate_data
+    X, y = check_X_y(X, y, **check_params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\validation.py", line 1301, in check_X_y
+    X = check_array(
+        ^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\validation.py", line 1012, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\_array_api.py", line 745, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\pandas\core\generic.py", line 2153, in __array__
+    arr = np.asarray(values, dtype=dtype)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: could not convert string to float: '1,1,2,2,3,3,4,4,4-Nonafluoro-1-butanesulfonic acid'
+
+2024-12-12 15:25:28,074 - ERROR - Error in run: 
+All the 5 fits failed.
+It is very likely that your model is misconfigured.
+You can try to debug the error by setting error_score='raise'.
+
+Below are more details about the failures:
+--------------------------------------------------------------------------------
+1 fits failed with the following error:
+Traceback (most recent call last):
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\model_selection\_validation.py", line 888, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\base.py", line 1473, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\linear_model\_base.py", line 609, in fit
+    X, y = self._validate_data(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\base.py", line 650, in _validate_data
+    X, y = check_X_y(X, y, **check_params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\validation.py", line 1301, in check_X_y
+    X = check_array(
+        ^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\validation.py", line 1012, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\_array_api.py", line 745, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\pandas\core\generic.py", line 2153, in __array__
+    arr = np.asarray(values, dtype=dtype)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: could not convert string to float: 'Phosphorothioic acid, O,O-Diethyl O-(3,5,6-trichloro-2-pyridinyl) ester'
+
+--------------------------------------------------------------------------------
+4 fits failed with the following error:
+Traceback (most recent call last):
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\model_selection\_validation.py", line 888, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\base.py", line 1473, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\linear_model\_base.py", line 609, in fit
+    X, y = self._validate_data(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\base.py", line 650, in _validate_data
+    X, y = check_X_y(X, y, **check_params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\validation.py", line 1301, in check_X_y
+    X = check_array(
+        ^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\validation.py", line 1012, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\_array_api.py", line 745, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\pandas\core\generic.py", line 2153, in __array__
+    arr = np.asarray(values, dtype=dtype)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: could not convert string to float: '1,1,2,2,3,3,4,4,4-Nonafluoro-1-butanesulfonic acid'
+
+2024-12-12 15:34:03,208 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 15:34:03,208 - INFO - Workflow started.
+2024-12-12 15:34:03,453 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 15:34:03,459 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 15:34:03,459 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 15:34:03,562 - INFO - Loaded dataset 'Physicochemical_PubChem' with shape (40495, 28).
+2024-12-12 15:34:03,618 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (163415, 46)
+2024-12-12 15:34:04,042 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:34:04,085 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:34:04,403 - ERROR - Error processing file 'Physicochemical_PubChem': module 'numpy' has no attribute 'boolean'
+2024-12-12 15:34:04,403 - INFO - Processing file 'Descriptors'...
+2024-12-12 15:34:04,469 - INFO - Loaded dataset 'Descriptors' with shape (40495, 20).
+2024-12-12 15:34:04,546 - INFO - Merged dataset 'Descriptors' shape: (163415, 38)
+2024-12-12 15:34:04,932 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:34:05,023 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:34:05,352 - ERROR - Error processing file 'Descriptors': module 'numpy' has no attribute 'boolean'
+2024-12-12 15:34:05,352 - INFO - Processing file 'MACCS'...
+2024-12-12 15:34:08,145 - INFO - Loaded dataset 'MACCS' with shape (40495, 2049).
+2024-12-12 15:34:10,797 - INFO - Merged dataset 'MACCS' shape: (163415, 2067)
+2024-12-12 15:34:11,770 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:34:11,817 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:34:12,071 - ERROR - Error processing file 'MACCS': module 'numpy' has no attribute 'boolean'
+2024-12-12 15:34:12,071 - INFO - Processing file 'Morgan'...
+2024-12-12 15:34:14,923 - INFO - Loaded dataset 'Morgan' with shape (40495, 2049).
+2024-12-12 15:34:17,209 - INFO - Merged dataset 'Morgan' shape: (163415, 2067)
+2024-12-12 15:34:29,764 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:34:29,811 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:34:30,116 - ERROR - Error processing file 'Morgan': module 'numpy' has no attribute 'boolean'
+2024-12-12 15:34:30,116 - INFO - Processing file 'RDKit'...
+2024-12-12 15:34:32,936 - INFO - Loaded dataset 'RDKit' with shape (40495, 2049).
+2024-12-12 15:34:34,396 - INFO - Merged dataset 'RDKit' shape: (163415, 2067)
+2024-12-12 15:34:41,735 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:34:41,800 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:34:42,277 - ERROR - Error processing file 'RDKit': module 'numpy' has no attribute 'boolean'
+2024-12-12 15:34:42,277 - INFO - Processing file 'AtomPair'...
+2024-12-12 15:34:45,304 - INFO - Loaded dataset 'AtomPair' with shape (40495, 2049).
+2024-12-12 15:34:46,611 - INFO - Merged dataset 'AtomPair' shape: (163415, 2067)
+2024-12-12 15:34:53,374 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:34:53,406 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:34:53,700 - ERROR - Error processing file 'AtomPair': module 'numpy' has no attribute 'boolean'
+2024-12-12 15:34:53,700 - INFO - Processing file 'Torsion'...
+2024-12-12 15:34:56,901 - INFO - Loaded dataset 'Torsion' with shape (40495, 2049).
+2024-12-12 15:34:58,242 - INFO - Merged dataset 'Torsion' shape: (163415, 2067)
+2024-12-12 15:35:04,588 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:35:04,627 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:35:04,924 - ERROR - Error processing file 'Torsion': module 'numpy' has no attribute 'boolean'
+2024-12-12 15:35:04,924 - ERROR - No valid datasets were processed successfully.
+2024-12-12 15:35:04,924 - ERROR - Error in load_and_process_data: No processed datasets available for training.
+2024-12-12 15:35:04,924 - ERROR - Error in run: No processed datasets available for training.
+2024-12-12 15:46:31,531 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 15:46:31,531 - INFO - Workflow started.
+2024-12-12 15:46:31,677 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 15:46:31,685 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 15:46:31,771 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 15:46:31,874 - INFO - Loaded dataset 'Physicochemical_PubChem' with shape (40495, 28).
+2024-12-12 15:46:31,928 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (163415, 46)
+2024-12-12 15:46:32,329 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:46:32,392 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:46:32,661 - ERROR - Error processing file 'Physicochemical_PubChem': module 'numpy' has no attribute 'boolean'
+2024-12-12 15:46:32,724 - INFO - Processing file 'Descriptors'...
+2024-12-12 15:46:32,784 - INFO - Loaded dataset 'Descriptors' with shape (40495, 20).
+2024-12-12 15:46:32,843 - INFO - Merged dataset 'Descriptors' shape: (163415, 38)
+2024-12-12 15:46:33,213 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:46:33,262 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:46:33,589 - ERROR - Error processing file 'Descriptors': module 'numpy' has no attribute 'boolean'
+2024-12-12 15:46:36,273 - INFO - Processing file 'MACCS'...
+2024-12-12 15:46:39,381 - INFO - Loaded dataset 'MACCS' with shape (40495, 2049).
+2024-12-12 15:46:41,912 - INFO - Merged dataset 'MACCS' shape: (163415, 2067)
+2024-12-12 15:46:42,989 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:46:43,039 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:46:43,329 - ERROR - Error processing file 'MACCS': module 'numpy' has no attribute 'boolean'
+2024-12-12 15:46:45,923 - INFO - Processing file 'Morgan'...
+2024-12-12 15:46:49,547 - INFO - Loaded dataset 'Morgan' with shape (40495, 2049).
+2024-12-12 15:46:50,794 - INFO - Merged dataset 'Morgan' shape: (163415, 2067)
+2024-12-12 15:46:59,754 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:46:59,897 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:47:00,582 - ERROR - Error processing file 'Morgan': module 'numpy' has no attribute 'boolean'
+2024-12-12 15:47:09,298 - INFO - Processing file 'RDKit'...
+2024-12-12 15:47:16,608 - INFO - Loaded dataset 'RDKit' with shape (40495, 2049).
+2024-12-12 15:47:17,823 - INFO - Merged dataset 'RDKit' shape: (163415, 2067)
+2024-12-12 15:47:24,563 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:47:24,613 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:47:24,890 - ERROR - Error processing file 'RDKit': module 'numpy' has no attribute 'boolean'
+2024-12-12 15:47:28,436 - INFO - Processing file 'AtomPair'...
+2024-12-12 15:47:31,455 - INFO - Loaded dataset 'AtomPair' with shape (40495, 2049).
+2024-12-12 15:47:32,751 - INFO - Merged dataset 'AtomPair' shape: (163415, 2067)
+2024-12-12 15:47:39,297 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:47:39,342 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:47:39,613 - ERROR - Error processing file 'AtomPair': module 'numpy' has no attribute 'boolean'
+2024-12-12 15:47:42,409 - INFO - Processing file 'Torsion'...
+2024-12-12 15:47:45,136 - INFO - Loaded dataset 'Torsion' with shape (40495, 2049).
+2024-12-12 15:47:46,453 - INFO - Merged dataset 'Torsion' shape: (163415, 2067)
+2024-12-12 15:47:53,105 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:47:53,159 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:47:53,462 - ERROR - Error processing file 'Torsion': module 'numpy' has no attribute 'boolean'
+2024-12-12 15:47:53,786 - INFO - Merged dataset 'Physicochemical_OPERA' shape: (50329, 75)
+2024-12-12 15:47:53,977 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:47:54,030 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:47:54,317 - ERROR - Error processing file 'Physicochemical_OPERA': module 'numpy' has no attribute 'boolean'
+2024-12-12 15:47:57,023 - INFO - Merged dataset 'Padel_Fingerprints' shape: (50329, 10165)
+2024-12-12 15:48:08,383 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:48:08,429 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:48:08,779 - ERROR - Error processing file 'Padel_Fingerprints': module 'numpy' has no attribute 'boolean'
+2024-12-12 15:48:09,740 - INFO - Merged dataset 'Padel_Descriptors' shape: (50329, 1464)
+2024-12-12 15:48:11,520 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:48:11,587 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:48:11,877 - ERROR - Error processing file 'Padel_Descriptors': module 'numpy' has no attribute 'boolean'
+2024-12-12 15:48:11,877 - ERROR - No valid datasets were processed successfully.
+2024-12-12 15:48:11,877 - ERROR - Error in load_and_process_data: No processed datasets available for training.
+2024-12-12 15:48:11,877 - ERROR - Error in run: No processed datasets available for training.
+2024-12-12 15:50:02,459 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 15:50:02,459 - INFO - Workflow started.
+2024-12-12 15:50:02,602 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 15:50:02,618 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 15:50:02,712 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 15:50:02,814 - INFO - Loaded dataset 'Physicochemical_PubChem' with shape (40495, 28).
+2024-12-12 15:50:02,862 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (163415, 46)
+2024-12-12 15:50:03,336 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:50:03,389 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:50:03,867 - INFO - Processing file 'Descriptors'...
+2024-12-12 15:50:04,004 - INFO - Loaded dataset 'Descriptors' with shape (40495, 20).
+2024-12-12 15:50:04,072 - INFO - Merged dataset 'Descriptors' shape: (163415, 38)
+2024-12-12 15:50:04,444 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:50:04,490 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:50:07,611 - INFO - Processing file 'MACCS'...
+2024-12-12 15:50:10,167 - INFO - Loaded dataset 'MACCS' with shape (40495, 2049).
+2024-12-12 15:50:12,583 - INFO - Merged dataset 'MACCS' shape: (163415, 2067)
+2024-12-12 15:50:13,560 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:50:13,604 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:50:16,431 - INFO - Processing file 'Morgan'...
+2024-12-12 15:50:20,060 - INFO - Loaded dataset 'Morgan' with shape (40495, 2049).
+2024-12-12 15:50:21,563 - INFO - Merged dataset 'Morgan' shape: (163415, 2067)
+2024-12-12 15:50:28,677 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:50:28,732 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:50:33,373 - INFO - Processing file 'RDKit'...
+2024-12-12 15:50:41,860 - INFO - Loaded dataset 'RDKit' with shape (40495, 2049).
+2024-12-12 15:50:43,034 - INFO - Merged dataset 'RDKit' shape: (163415, 2067)
+2024-12-12 15:50:49,630 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:50:49,684 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:50:53,189 - INFO - Processing file 'AtomPair'...
+2024-12-12 15:50:56,137 - INFO - Loaded dataset 'AtomPair' with shape (40495, 2049).
+2024-12-12 15:50:57,515 - INFO - Merged dataset 'AtomPair' shape: (163415, 2067)
+2024-12-12 15:51:04,292 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:51:04,339 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:51:07,402 - INFO - Processing file 'Torsion'...
+2024-12-12 15:51:10,009 - INFO - Loaded dataset 'Torsion' with shape (40495, 2049).
+2024-12-12 15:51:11,199 - INFO - Merged dataset 'Torsion' shape: (163415, 2067)
+2024-12-12 15:51:18,239 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:51:18,291 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:51:18,827 - INFO - Merged dataset 'Physicochemical_OPERA' shape: (50329, 75)
+2024-12-12 15:51:19,042 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:51:19,091 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:51:22,153 - INFO - Merged dataset 'Padel_Fingerprints' shape: (50329, 10165)
+2024-12-12 15:51:33,353 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:51:33,403 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:51:34,915 - INFO - Merged dataset 'Padel_Descriptors' shape: (50329, 1464)
+2024-12-12 15:51:36,687 - INFO - Dropped columns with > 50.0% missing values. Remaining columns: 19
+2024-12-12 15:51:36,735 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:51:39,870 - INFO - Combined processed dataset shape: (503140, 17)
+2024-12-12 15:51:40,066 - INFO - Starting model training...
+2024-12-12 15:51:40,560 - ERROR - Error in train_models: 
+All the 5 fits failed.
+It is very likely that your model is misconfigured.
+You can try to debug the error by setting error_score='raise'.
+
+Below are more details about the failures:
+--------------------------------------------------------------------------------
+1 fits failed with the following error:
+Traceback (most recent call last):
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\model_selection\_validation.py", line 888, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\base.py", line 1473, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\linear_model\_base.py", line 609, in fit
+    X, y = self._validate_data(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\base.py", line 650, in _validate_data
+    X, y = check_X_y(X, y, **check_params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\validation.py", line 1301, in check_X_y
+    X = check_array(
+        ^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\validation.py", line 1012, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\_array_api.py", line 745, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\pandas\core\generic.py", line 2153, in __array__
+    arr = np.asarray(values, dtype=dtype)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: could not convert string to float: '2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,10-Nonadecafluorodecanoic acid'
+
+--------------------------------------------------------------------------------
+4 fits failed with the following error:
+Traceback (most recent call last):
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\model_selection\_validation.py", line 888, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\base.py", line 1473, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\linear_model\_base.py", line 609, in fit
+    X, y = self._validate_data(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\base.py", line 650, in _validate_data
+    X, y = check_X_y(X, y, **check_params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\validation.py", line 1301, in check_X_y
+    X = check_array(
+        ^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\validation.py", line 1012, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\_array_api.py", line 745, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\pandas\core\generic.py", line 2153, in __array__
+    arr = np.asarray(values, dtype=dtype)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: could not convert string to float: 'N-(Butoxymethyl)-2-chloro-N-(2,6-diethylphenyl)acetamide'
+
+2024-12-12 15:51:40,560 - ERROR - Error in run: 
+All the 5 fits failed.
+It is very likely that your model is misconfigured.
+You can try to debug the error by setting error_score='raise'.
+
+Below are more details about the failures:
+--------------------------------------------------------------------------------
+1 fits failed with the following error:
+Traceback (most recent call last):
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\model_selection\_validation.py", line 888, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\base.py", line 1473, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\linear_model\_base.py", line 609, in fit
+    X, y = self._validate_data(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\base.py", line 650, in _validate_data
+    X, y = check_X_y(X, y, **check_params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\validation.py", line 1301, in check_X_y
+    X = check_array(
+        ^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\validation.py", line 1012, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\_array_api.py", line 745, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\pandas\core\generic.py", line 2153, in __array__
+    arr = np.asarray(values, dtype=dtype)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: could not convert string to float: '2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,10-Nonadecafluorodecanoic acid'
+
+--------------------------------------------------------------------------------
+4 fits failed with the following error:
+Traceback (most recent call last):
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\model_selection\_validation.py", line 888, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\base.py", line 1473, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\linear_model\_base.py", line 609, in fit
+    X, y = self._validate_data(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\base.py", line 650, in _validate_data
+    X, y = check_X_y(X, y, **check_params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\validation.py", line 1301, in check_X_y
+    X = check_array(
+        ^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\validation.py", line 1012, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\sklearn\utils\_array_api.py", line 745, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "A:\Repositories\Integrative-SSD-Modeling-in-Ecotox-Risk-Assessment\.venv\Lib\site-packages\pandas\core\generic.py", line 2153, in __array__
+    arr = np.asarray(values, dtype=dtype)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: could not convert string to float: 'N-(Butoxymethyl)-2-chloro-N-(2,6-diethylphenyl)acetamide'
+
+2024-12-12 15:57:46,787 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 15:57:46,787 - INFO - Workflow started.
+2024-12-12 15:57:46,937 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 15:57:46,953 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 15:57:47,024 - INFO - Merged dataset 'Physicochemical_OPERA' shape: (50329, 75)
+2024-12-12 15:57:47,364 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:57:50,336 - INFO - Merged dataset 'Padel_Fingerprints' shape: (50329, 10165)
+2024-12-12 15:58:05,186 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:58:06,130 - INFO - Merged dataset 'Padel_Descriptors' shape: (50329, 1464)
+2024-12-12 15:58:07,853 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:58:08,222 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 15:58:08,329 - INFO - Loaded dataset 'Physicochemical_PubChem' with shape (40495, 28).
+2024-12-12 15:58:08,393 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (163415, 46)
+2024-12-12 15:58:08,873 - INFO - After dropping empty and constant columns: (50314, 34)
+2024-12-12 15:58:09,329 - INFO - Processing file 'Descriptors'...
+2024-12-12 15:58:09,392 - INFO - Loaded dataset 'Descriptors' with shape (40495, 20).
+2024-12-12 15:58:09,455 - INFO - Merged dataset 'Descriptors' shape: (163415, 38)
+2024-12-12 15:58:09,900 - INFO - After dropping empty and constant columns: (50314, 36)
+2024-12-12 15:58:13,367 - INFO - Processing file 'MACCS'...
+2024-12-12 15:58:16,523 - INFO - Loaded dataset 'MACCS' with shape (40495, 2049).
+2024-12-12 15:58:18,964 - INFO - Merged dataset 'MACCS' shape: (163415, 2067)
+2024-12-12 15:58:20,043 - INFO - After dropping empty and constant columns: (50314, 91)
+2024-12-12 15:58:24,039 - INFO - Processing file 'Morgan'...
+2024-12-12 15:58:26,988 - INFO - Loaded dataset 'Morgan' with shape (40495, 2049).
+2024-12-12 15:58:28,350 - INFO - Merged dataset 'Morgan' shape: (163415, 2067)
+2024-12-12 15:58:35,311 - INFO - After dropping empty and constant columns: (50314, 157)
+2024-12-12 15:58:39,498 - INFO - Processing file 'RDKit'...
+2024-12-12 15:58:42,758 - INFO - Loaded dataset 'RDKit' with shape (40495, 2049).
+2024-12-12 15:58:44,017 - INFO - Merged dataset 'RDKit' shape: (163415, 2067)
+2024-12-12 15:58:51,322 - INFO - After dropping empty and constant columns: (50314, 1894)
+2024-12-12 15:59:14,443 - INFO - Processing file 'AtomPair'...
+2024-12-12 15:59:17,570 - INFO - Loaded dataset 'AtomPair' with shape (40495, 2049).
+2024-12-12 15:59:18,900 - INFO - Merged dataset 'AtomPair' shape: (163415, 2067)
+2024-12-12 15:59:24,235 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 15:59:24,235 - INFO - Workflow started.
+2024-12-12 15:59:24,411 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 15:59:24,417 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 15:59:24,448 - INFO - Merged dataset 'Physicochemical_OPERA' shape: (50329, 75)
+2024-12-12 15:59:24,739 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:59:27,414 - INFO - Merged dataset 'Padel_Fingerprints' shape: (50329, 10165)
+2024-12-12 15:59:40,760 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:59:41,755 - INFO - Merged dataset 'Padel_Descriptors' shape: (50329, 1464)
+2024-12-12 15:59:43,448 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 15:59:43,821 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 15:59:43,917 - INFO - Loaded dataset 'Physicochemical_PubChem' with shape (40495, 28).
+2024-12-12 15:59:43,979 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (163415, 46)
+2024-12-12 15:59:44,506 - INFO - After dropping empty and constant columns: (50314, 34)
+2024-12-12 15:59:44,993 - INFO - Processing file 'Descriptors'...
+2024-12-12 15:59:45,088 - INFO - Loaded dataset 'Descriptors' with shape (40495, 20).
+2024-12-12 15:59:45,136 - INFO - Merged dataset 'Descriptors' shape: (163415, 38)
+2024-12-12 15:59:45,540 - INFO - After dropping empty and constant columns: (50314, 36)
+2024-12-12 15:59:49,543 - INFO - Processing file 'MACCS'...
+2024-12-12 15:59:52,475 - INFO - Loaded dataset 'MACCS' with shape (40495, 2049).
+2024-12-12 15:59:54,984 - INFO - Merged dataset 'MACCS' shape: (163415, 2067)
+2024-12-12 15:59:56,084 - INFO - After dropping empty and constant columns: (50314, 91)
+2024-12-12 16:00:00,194 - INFO - Processing file 'Morgan'...
+2024-12-12 16:00:03,710 - INFO - Loaded dataset 'Morgan' with shape (40495, 2049).
+2024-12-12 16:00:05,703 - INFO - Merged dataset 'Morgan' shape: (163415, 2067)
+2024-12-12 16:00:19,950 - INFO - After dropping empty and constant columns: (50314, 157)
+2024-12-12 16:00:32,536 - INFO - Processing file 'RDKit'...
+2024-12-12 16:00:40,917 - INFO - Loaded dataset 'RDKit' with shape (40495, 2049).
+2024-12-12 16:00:42,982 - INFO - Merged dataset 'RDKit' shape: (163415, 2067)
+2024-12-12 16:00:58,673 - INFO - After dropping empty and constant columns: (50314, 1894)
+2024-12-12 16:01:22,578 - INFO - Processing file 'AtomPair'...
+2024-12-12 16:01:25,353 - INFO - Loaded dataset 'AtomPair' with shape (40495, 2049).
+2024-12-12 16:01:26,590 - INFO - Merged dataset 'AtomPair' shape: (163415, 2067)
+2024-12-12 16:01:33,487 - INFO - After dropping empty and constant columns: (50314, 587)
+2024-12-12 16:01:39,460 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 16:01:39,460 - INFO - Workflow started.
+2024-12-12 16:01:39,655 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 16:01:39,655 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 16:01:39,675 - INFO - Merged dataset 'Physicochemical_OPERA' shape: (38, 75)
+2024-12-12 16:01:39,685 - INFO - After dropping empty and constant columns: (38, 11)
+2024-12-12 16:01:40,823 - INFO - Merged dataset 'Padel_Fingerprints' shape: (38, 10165)
+2024-12-12 16:01:41,360 - INFO - After dropping empty and constant columns: (38, 11)
+2024-12-12 16:01:41,552 - INFO - Merged dataset 'Padel_Descriptors' shape: (38, 1464)
+2024-12-12 16:01:41,657 - INFO - After dropping empty and constant columns: (38, 11)
+2024-12-12 16:01:41,841 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 16:01:41,939 - INFO - Loaded dataset 'Physicochemical_PubChem' with shape (40495, 28).
+2024-12-12 16:01:41,986 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (113974, 46)
+2024-12-12 16:01:42,219 - INFO - After dropping empty and constant columns: (888, 34)
+2024-12-12 16:01:42,220 - ERROR - Error processing file 'Physicochemical_PubChem': [Errno 13] Permission denied: '../DataSet/Physicochemical_PubChem_preprocessed.csv'
+2024-12-12 16:01:42,296 - INFO - Processing file 'Descriptors'...
+2024-12-12 16:01:42,362 - INFO - Loaded dataset 'Descriptors' with shape (40495, 20).
+2024-12-12 16:01:42,398 - INFO - Merged dataset 'Descriptors' shape: (113974, 38)
+2024-12-12 16:01:42,586 - INFO - After dropping empty and constant columns: (888, 36)
+2024-12-12 16:01:45,264 - INFO - Processing file 'MACCS'...
+2024-12-12 16:01:48,060 - INFO - Loaded dataset 'MACCS' with shape (40495, 2049).
+2024-12-12 16:01:49,028 - INFO - Merged dataset 'MACCS' shape: (113974, 2067)
+2024-12-12 16:01:49,614 - INFO - After dropping empty and constant columns: (888, 91)
+2024-12-12 16:01:52,726 - INFO - Processing file 'Morgan'...
+2024-12-12 16:01:56,196 - INFO - Loaded dataset 'Morgan' with shape (40495, 2049).
+2024-12-12 16:01:57,440 - INFO - Merged dataset 'Morgan' shape: (113974, 2067)
+2024-12-12 16:02:00,699 - INFO - After dropping empty and constant columns: (888, 157)
+2024-12-12 16:02:03,960 - INFO - Processing file 'RDKit'...
+2024-12-12 16:02:06,697 - INFO - Loaded dataset 'RDKit' with shape (40495, 2049).
+2024-12-12 16:02:07,603 - INFO - Merged dataset 'RDKit' shape: (113974, 2067)
+2024-12-12 16:02:10,878 - INFO - After dropping empty and constant columns: (888, 1894)
+2024-12-12 16:02:13,673 - INFO - Processing file 'AtomPair'...
+2024-12-12 16:02:16,367 - INFO - Loaded dataset 'AtomPair' with shape (40495, 2049).
+2024-12-12 16:02:17,284 - INFO - Merged dataset 'AtomPair' shape: (113974, 2067)
+2024-12-12 16:02:22,679 - INFO - After dropping empty and constant columns: (888, 587)
+2024-12-12 16:02:34,988 - INFO - Processing file 'Torsion'...
+2024-12-12 16:02:41,027 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 16:02:41,027 - INFO - Workflow started.
+2024-12-12 16:02:41,196 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 16:02:41,214 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 16:02:41,228 - INFO - Merged dataset 'Physicochemical_OPERA' shape: (1141, 75)
+2024-12-12 16:02:41,270 - INFO - After dropping empty and constant columns: (1141, 68)
+2024-12-12 16:02:42,237 - INFO - Merged dataset 'Padel_Fingerprints' shape: (1141, 10165)
+2024-12-12 16:02:43,229 - INFO - After dropping empty and constant columns: (1141, 5919)
+2024-12-12 16:02:44,660 - INFO - Merged dataset 'Padel_Descriptors' shape: (1141, 1464)
+2024-12-12 16:02:44,942 - INFO - After dropping empty and constant columns: (1141, 1235)
+2024-12-12 16:02:46,275 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 16:02:46,384 - INFO - Loaded dataset 'Physicochemical_PubChem' with shape (40495, 28).
+2024-12-12 16:02:46,481 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (153581, 46)
+2024-12-12 16:02:46,814 - INFO - After dropping empty and constant columns: (1959, 38)
+2024-12-12 16:02:46,815 - ERROR - Error processing file 'Physicochemical_PubChem': [Errno 13] Permission denied: '../DataSet/Physicochemical_PubChem_preprocessed.csv'
+2024-12-12 16:02:46,929 - INFO - Processing file 'Descriptors'...
+2024-12-12 16:02:47,014 - INFO - Loaded dataset 'Descriptors' with shape (40495, 20).
+2024-12-12 16:02:47,070 - INFO - Merged dataset 'Descriptors' shape: (153581, 38)
+2024-12-12 16:02:47,315 - INFO - After dropping empty and constant columns: (1959, 36)
+2024-12-12 16:02:50,157 - INFO - Processing file 'MACCS'...
+2024-12-12 16:02:53,128 - INFO - Loaded dataset 'MACCS' with shape (40495, 2049).
+2024-12-12 16:02:54,317 - INFO - Merged dataset 'MACCS' shape: (153581, 2067)
+2024-12-12 16:02:55,041 - INFO - After dropping empty and constant columns: (1959, 170)
+2024-12-12 16:02:58,308 - INFO - Processing file 'Morgan'...
+2024-12-12 16:03:01,147 - INFO - Loaded dataset 'Morgan' with shape (40495, 2049).
+2024-12-12 16:03:02,395 - INFO - Merged dataset 'Morgan' shape: (153581, 2067)
+2024-12-12 16:03:06,112 - INFO - After dropping empty and constant columns: (1959, 1841)
+2024-12-12 16:03:09,285 - INFO - Processing file 'RDKit'...
+2024-12-12 16:03:12,282 - INFO - Loaded dataset 'RDKit' with shape (40495, 2049).
+2024-12-12 16:03:13,459 - INFO - Merged dataset 'RDKit' shape: (153581, 2067)
+2024-12-12 16:03:17,470 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 16:03:17,470 - INFO - Workflow started.
+2024-12-12 16:03:17,696 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 16:03:17,696 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 16:03:17,710 - INFO - Merged dataset 'Physicochemical_OPERA' shape: (1141, 75)
+2024-12-12 16:03:17,735 - INFO - After dropping empty and constant columns: (1141, 68)
+2024-12-12 16:03:18,636 - INFO - Merged dataset 'Padel_Fingerprints' shape: (1141, 10165)
+2024-12-12 16:03:19,347 - INFO - After dropping empty and constant columns: (1141, 5919)
+2024-12-12 16:03:20,362 - INFO - Merged dataset 'Padel_Descriptors' shape: (1141, 1464)
+2024-12-12 16:03:20,506 - INFO - After dropping empty and constant columns: (1141, 1235)
+2024-12-12 16:03:21,345 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 16:03:21,470 - INFO - Loaded dataset 'Physicochemical_PubChem' with shape (40495, 28).
+2024-12-12 16:03:21,534 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (153581, 46)
+2024-12-12 16:03:21,815 - INFO - After dropping empty and constant columns: (1959, 38)
+2024-12-12 16:03:21,909 - INFO - Processing file 'Descriptors'...
+2024-12-12 16:03:21,972 - INFO - Loaded dataset 'Descriptors' with shape (40495, 20).
+2024-12-12 16:03:22,019 - INFO - Merged dataset 'Descriptors' shape: (153581, 38)
+2024-12-12 16:03:22,284 - INFO - After dropping empty and constant columns: (1959, 36)
+2024-12-12 16:03:24,958 - INFO - Processing file 'MACCS'...
+2024-12-12 16:03:27,964 - INFO - Loaded dataset 'MACCS' with shape (40495, 2049).
+2024-12-12 16:03:29,166 - INFO - Merged dataset 'MACCS' shape: (153581, 2067)
+2024-12-12 16:03:29,966 - INFO - After dropping empty and constant columns: (1959, 170)
+2024-12-12 16:03:32,815 - INFO - Processing file 'Morgan'...
+2024-12-12 16:03:39,420 - INFO - Loaded dataset 'Morgan' with shape (40495, 2049).
+2024-12-12 16:03:41,703 - INFO - Merged dataset 'Morgan' shape: (153581, 2067)
+2024-12-12 16:05:20,450 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 16:05:20,450 - INFO - Workflow started.
+2024-12-12 16:05:20,613 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 16:05:20,613 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 16:05:20,652 - INFO - Merged dataset 'Physicochemical_OPERA' shape: (50329, 75)
+2024-12-12 16:05:21,031 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 16:05:23,963 - INFO - Merged dataset 'Padel_Fingerprints' shape: (50329, 10165)
+2024-12-12 16:05:37,199 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 16:05:38,141 - INFO - Merged dataset 'Padel_Descriptors' shape: (50329, 1464)
+2024-12-12 16:05:39,798 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 16:05:40,183 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 16:05:40,290 - INFO - Loaded dataset 'Physicochemical_PubChem' with shape (40495, 28).
+2024-12-12 16:05:40,407 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (163415, 46)
+2024-12-12 16:05:40,919 - INFO - After dropping empty and constant columns: (50314, 34)
+2024-12-12 16:05:41,451 - INFO - Processing file 'Descriptors'...
+2024-12-12 16:05:41,533 - INFO - Loaded dataset 'Descriptors' with shape (40495, 20).
+2024-12-12 16:05:41,590 - INFO - Merged dataset 'Descriptors' shape: (163415, 38)
+2024-12-12 16:05:42,012 - INFO - After dropping empty and constant columns: (50314, 36)
+2024-12-12 16:05:45,895 - INFO - Processing file 'MACCS'...
+2024-12-12 16:05:55,943 - INFO - Loaded dataset 'MACCS' with shape (40495, 2049).
+2024-12-12 16:05:59,955 - INFO - Merged dataset 'MACCS' shape: (163415, 2067)
+2024-12-12 16:06:01,765 - INFO - After dropping empty and constant columns: (50314, 91)
+2024-12-12 16:06:09,505 - INFO - Processing file 'Morgan'...
+2024-12-12 16:06:12,807 - INFO - Loaded dataset 'Morgan' with shape (40495, 2049).
+2024-12-12 16:06:14,182 - INFO - Merged dataset 'Morgan' shape: (163415, 2067)
+2024-12-12 16:06:21,537 - INFO - After dropping empty and constant columns: (50314, 157)
+2024-12-12 16:06:26,265 - INFO - Processing file 'RDKit'...
+2024-12-12 16:06:29,068 - INFO - Loaded dataset 'RDKit' with shape (40495, 2049).
+2024-12-12 16:06:30,549 - INFO - Merged dataset 'RDKit' shape: (163415, 2067)
+2024-12-12 16:06:37,896 - INFO - After dropping empty and constant columns: (50314, 1894)
+2024-12-12 16:07:19,856 - INFO - Processing file 'AtomPair'...
+2024-12-12 16:07:23,800 - INFO - Loaded dataset 'AtomPair' with shape (40495, 2049).
+2024-12-12 16:07:25,125 - INFO - Merged dataset 'AtomPair' shape: (163415, 2067)
+2024-12-12 16:07:32,396 - INFO - After dropping empty and constant columns: (50314, 587)
+2024-12-12 16:07:41,865 - INFO - Processing file 'Torsion'...
+2024-12-12 16:07:44,573 - INFO - Loaded dataset 'Torsion' with shape (40495, 2049).
+2024-12-12 16:07:45,920 - INFO - Merged dataset 'Torsion' shape: (163415, 2067)
+2024-12-12 16:07:53,205 - INFO - After dropping empty and constant columns: (50314, 189)
+2024-12-12 16:08:16,121 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 16:08:16,121 - INFO - Workflow started.
+2024-12-12 16:08:16,270 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 16:08:16,270 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 16:08:16,344 - INFO - Merged dataset 'Physicochemical_OPERA' shape: (50329, 75)
+2024-12-12 16:08:16,585 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 16:08:19,266 - INFO - Merged dataset 'Padel_Fingerprints' shape: (50329, 10165)
+2024-12-12 16:08:34,057 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 16:08:35,071 - INFO - Merged dataset 'Padel_Descriptors' shape: (50329, 1464)
+2024-12-12 16:08:37,197 - INFO - After dropping empty and constant columns: (50314, 17)
+2024-12-12 16:08:37,815 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 16:08:38,031 - INFO - Loaded dataset 'Physicochemical_PubChem' with shape (40495, 28).
+2024-12-12 16:08:38,097 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (163415, 46)
+2024-12-12 16:08:38,577 - INFO - After dropping empty and constant columns: (50314, 34)
+2024-12-12 16:08:39,088 - INFO - Processing file 'Descriptors'...
+2024-12-12 16:08:39,167 - INFO - Loaded dataset 'Descriptors' with shape (40495, 20).
+2024-12-12 16:08:39,264 - INFO - Merged dataset 'Descriptors' shape: (163415, 38)
+2024-12-12 16:08:39,863 - INFO - After dropping empty and constant columns: (50314, 36)
+2024-12-12 16:08:44,545 - INFO - Processing file 'MACCS'...
+2024-12-12 16:08:48,195 - INFO - Loaded dataset 'MACCS' with shape (40495, 2049).
+2024-12-12 16:08:50,831 - INFO - Merged dataset 'MACCS' shape: (163415, 2067)
+2024-12-12 16:08:51,940 - INFO - After dropping empty and constant columns: (50314, 91)
+2024-12-12 16:08:56,331 - INFO - Processing file 'Morgan'...
+2024-12-12 16:08:59,213 - INFO - Loaded dataset 'Morgan' with shape (40495, 2049).
+2024-12-12 16:09:00,546 - INFO - Merged dataset 'Morgan' shape: (163415, 2067)
+2024-12-12 16:09:07,721 - INFO - After dropping empty and constant columns: (50314, 157)
+2024-12-12 16:09:12,258 - INFO - Processing file 'RDKit'...
+2024-12-12 16:09:15,205 - INFO - Loaded dataset 'RDKit' with shape (40495, 2049).
+2024-12-12 16:09:16,438 - INFO - Merged dataset 'RDKit' shape: (163415, 2067)
+2024-12-12 16:09:24,203 - INFO - After dropping empty and constant columns: (50314, 1894)
+2024-12-12 16:09:48,861 - INFO - Processing file 'AtomPair'...
+2024-12-12 16:09:51,698 - INFO - Loaded dataset 'AtomPair' with shape (40495, 2049).
+2024-12-12 16:09:53,224 - INFO - Merged dataset 'AtomPair' shape: (163415, 2067)
+2024-12-12 16:10:01,284 - INFO - After dropping empty and constant columns: (50314, 587)
+2024-12-12 16:10:10,590 - INFO - Processing file 'Torsion'...
+2024-12-12 16:10:13,903 - INFO - Loaded dataset 'Torsion' with shape (40495, 2049).
+2024-12-12 16:10:15,174 - INFO - Merged dataset 'Torsion' shape: (163415, 2067)
+2024-12-12 16:10:22,676 - INFO - After dropping empty and constant columns: (50314, 189)
+2024-12-12 16:12:30,120 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 16:12:30,120 - INFO - Workflow started.
+2024-12-12 16:12:30,120 - ERROR - Error in run: 'MultiFeatureRegression' object has no attribute 'load_and_process_data'
+2024-12-12 16:13:25,509 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 16:13:25,509 - INFO - Workflow started.
+2024-12-12 16:13:25,681 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 16:13:25,691 - INFO - Curated data after renaming and deduplication: (1393, 19)
+2024-12-12 16:13:25,691 - INFO - Processing file 'Physicochemical_OPERA'...
+2024-12-12 16:13:25,699 - INFO - Appended SMILES column to 'Physicochemical_OPERA'.
+2024-12-12 16:13:25,707 - INFO - Merged dataset 'Physicochemical_OPERA' shape: (1393, 75)
+2024-12-12 16:13:25,707 - INFO - After cleaning, dataset 'Physicochemical_OPERA' shape: (1393, 17)
+2024-12-12 16:13:25,707 - INFO - Processing file 'Padel_Fingerprints'...
+2024-12-12 16:13:26,612 - INFO - Appended SMILES column to 'Padel_Fingerprints'.
+2024-12-12 16:13:27,287 - INFO - Merged dataset 'Padel_Fingerprints' shape: (1393, 10165)
+2024-12-12 16:13:27,834 - INFO - After cleaning, dataset 'Padel_Fingerprints' shape: (1393, 17)
+2024-12-12 16:13:27,834 - INFO - Processing file 'Padel_Descriptors'...
+2024-12-12 16:13:27,994 - INFO - Appended SMILES column to 'Padel_Descriptors'.
+2024-12-12 16:13:28,083 - INFO - Merged dataset 'Padel_Descriptors' shape: (1393, 1464)
+2024-12-12 16:13:28,124 - INFO - After cleaning, dataset 'Padel_Descriptors' shape: (1393, 17)
+2024-12-12 16:13:28,132 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 16:13:28,225 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (1393, 46)
+2024-12-12 16:13:28,244 - INFO - After cleaning, dataset 'Physicochemical_PubChem' shape: (1393, 34)
+2024-12-12 16:13:28,244 - INFO - Processing file 'Descriptors'...
+2024-12-12 16:13:28,328 - INFO - Merged dataset 'Descriptors' shape: (1393, 38)
+2024-12-12 16:13:28,332 - INFO - After cleaning, dataset 'Descriptors' shape: (1393, 36)
+2024-12-12 16:13:28,335 - INFO - Processing file 'MACCS'...
+2024-12-12 16:13:31,485 - INFO - Merged dataset 'MACCS' shape: (1393, 2067)
+2024-12-12 16:13:31,501 - INFO - After cleaning, dataset 'MACCS' shape: (1393, 91)
+2024-12-12 16:13:31,517 - INFO - Processing file 'Morgan'...
+2024-12-12 16:13:34,624 - INFO - Merged dataset 'Morgan' shape: (1393, 2067)
+2024-12-12 16:13:34,688 - INFO - After cleaning, dataset 'Morgan' shape: (1393, 157)
+2024-12-12 16:13:34,743 - INFO - Processing file 'RDKit'...
+2024-12-12 16:13:38,132 - INFO - Merged dataset 'RDKit' shape: (1393, 2067)
+2024-12-12 16:13:38,210 - INFO - After cleaning, dataset 'RDKit' shape: (1393, 1894)
+2024-12-12 16:13:38,756 - INFO - Processing file 'AtomPair'...
+2024-12-12 16:13:42,191 - INFO - Merged dataset 'AtomPair' shape: (1393, 2067)
+2024-12-12 16:13:42,253 - INFO - After cleaning, dataset 'AtomPair' shape: (1393, 587)
+2024-12-12 16:13:42,412 - INFO - Processing file 'Torsion'...
+2024-12-12 16:13:48,053 - INFO - Merged dataset 'Torsion' shape: (1393, 2067)
+2024-12-12 16:13:48,237 - INFO - After cleaning, dataset 'Torsion' shape: (1393, 189)
+2024-12-12 16:13:48,625 - INFO - Final merged dataset shape: (13930, 2886)
+2024-12-12 16:14:07,978 - INFO - Starting model training...
+2024-12-12 16:16:41,065 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 16:16:41,065 - INFO - Workflow started.
+2024-12-12 16:16:41,216 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 16:16:41,222 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 16:16:41,224 - INFO - Processing file 'Physicochemical_OPERA'...
+2024-12-12 16:16:41,232 - INFO - Appended SMILES column to 'Physicochemical_OPERA'.
+2024-12-12 16:16:41,347 - INFO - Merged dataset 'Physicochemical_OPERA' shape: (50314, 75)
+2024-12-12 16:16:41,441 - INFO - After cleaning, dataset 'Physicochemical_OPERA' shape: (50314, 17)
+2024-12-12 16:16:41,690 - INFO - Processing file 'Padel_Fingerprints'...
+2024-12-12 16:16:42,434 - INFO - Appended SMILES column to 'Padel_Fingerprints'.
+2024-12-12 16:16:49,921 - INFO - Merged dataset 'Padel_Fingerprints' shape: (50314, 10165)
+2024-12-12 16:16:57,246 - INFO - After cleaning, dataset 'Padel_Fingerprints' shape: (50314, 17)
+2024-12-12 16:16:57,843 - INFO - Processing file 'Padel_Descriptors'...
+2024-12-12 16:16:58,128 - INFO - Appended SMILES column to 'Padel_Descriptors'.
+2024-12-12 16:17:00,045 - INFO - Merged dataset 'Padel_Descriptors' shape: (50314, 1464)
+2024-12-12 16:17:01,164 - INFO - After cleaning, dataset 'Padel_Descriptors' shape: (50314, 17)
+2024-12-12 16:17:01,930 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 16:17:03,086 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (50314, 46)
+2024-12-12 16:17:03,409 - INFO - After cleaning, dataset 'Physicochemical_PubChem' shape: (50314, 34)
+2024-12-12 16:17:04,674 - INFO - Processing file 'Descriptors'...
+2024-12-12 16:17:05,486 - INFO - Merged dataset 'Descriptors' shape: (50314, 38)
+2024-12-12 16:17:05,761 - INFO - After cleaning, dataset 'Descriptors' shape: (50314, 36)
+2024-12-12 16:17:07,412 - INFO - Processing file 'MACCS'...
+2024-12-12 16:17:26,888 - INFO - Merged dataset 'MACCS' shape: (50314, 2067)
+2024-12-12 16:17:27,119 - INFO - After cleaning, dataset 'MACCS' shape: (50314, 91)
+2024-12-12 16:17:28,017 - INFO - Processing file 'Morgan'...
+2024-12-12 16:17:35,926 - INFO - Merged dataset 'Morgan' shape: (50314, 2067)
+2024-12-12 16:17:37,229 - INFO - After cleaning, dataset 'Morgan' shape: (50314, 157)
+2024-12-12 16:17:38,758 - INFO - Processing file 'RDKit'...
+2024-12-12 16:17:46,993 - INFO - Merged dataset 'RDKit' shape: (50314, 2067)
+2024-12-12 16:17:48,363 - INFO - After cleaning, dataset 'RDKit' shape: (50314, 1894)
+2024-12-12 16:18:06,456 - INFO - Processing file 'AtomPair'...
+2024-12-12 16:18:14,268 - INFO - Merged dataset 'AtomPair' shape: (50314, 2067)
+2024-12-12 16:18:15,486 - INFO - After cleaning, dataset 'AtomPair' shape: (50314, 587)
+2024-12-12 16:18:20,733 - INFO - Processing file 'Torsion'...
+2024-12-12 16:18:29,760 - INFO - Merged dataset 'Torsion' shape: (50314, 2067)
+2024-12-12 16:18:31,023 - INFO - After cleaning, dataset 'Torsion' shape: (50314, 189)
+2024-12-12 16:18:38,381 - INFO - Final merged dataset shape: (503140, 2886)
+2024-12-12 17:05:53,812 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 17:05:53,812 - INFO - Workflow started.
+2024-12-12 17:05:53,955 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 17:05:53,955 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 17:05:53,955 - INFO - Processing file 'Physicochemical_OPERA'...
+2024-12-12 17:05:53,971 - INFO - Appended SMILES column to 'Physicochemical_OPERA'.
+2024-12-12 17:05:54,082 - INFO - Merged dataset 'Physicochemical_OPERA' shape: (50314, 75)
+2024-12-12 17:05:54,176 - INFO - After cleaning, dataset 'Physicochemical_OPERA' shape: (50314, 17)
+2024-12-12 17:05:54,425 - INFO - Processing file 'Padel_Fingerprints'...
+2024-12-12 17:05:55,146 - INFO - Appended SMILES column to 'Padel_Fingerprints'.
+2024-12-12 17:06:03,077 - INFO - Merged dataset 'Padel_Fingerprints' shape: (50314, 10165)
+2024-12-12 17:06:14,699 - INFO - After cleaning, dataset 'Padel_Fingerprints' shape: (50314, 17)
+2024-12-12 17:06:15,230 - INFO - Processing file 'Padel_Descriptors'...
+2024-12-12 17:06:15,533 - INFO - Appended SMILES column to 'Padel_Descriptors'.
+2024-12-12 17:06:17,447 - INFO - Merged dataset 'Padel_Descriptors' shape: (50314, 1464)
+2024-12-12 17:06:18,579 - INFO - After cleaning, dataset 'Padel_Descriptors' shape: (50314, 17)
+2024-12-12 17:06:19,140 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 17:06:19,810 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (50314, 46)
+2024-12-12 17:06:19,977 - INFO - After cleaning, dataset 'Physicochemical_PubChem' shape: (50314, 34)
+2024-12-12 17:06:20,714 - INFO - Processing file 'Descriptors'...
+2024-12-12 17:06:21,321 - INFO - Merged dataset 'Descriptors' shape: (50314, 38)
+2024-12-12 17:06:21,473 - INFO - After cleaning, dataset 'Descriptors' shape: (50314, 36)
+2024-12-12 17:06:22,301 - INFO - Processing file 'MACCS'...
+2024-12-12 17:06:37,235 - INFO - Merged dataset 'MACCS' shape: (50314, 2067)
+2024-12-12 17:06:37,568 - INFO - After cleaning, dataset 'MACCS' shape: (50314, 91)
+2024-12-12 17:06:39,152 - INFO - Processing file 'Morgan'...
+2024-12-12 17:06:53,393 - INFO - Merged dataset 'Morgan' shape: (50314, 2067)
+2024-12-12 17:06:55,227 - INFO - After cleaning, dataset 'Morgan' shape: (50314, 157)
+2024-12-12 17:06:58,034 - INFO - Processing file 'RDKit'...
+2024-12-12 17:07:12,728 - INFO - Merged dataset 'RDKit' shape: (50314, 2067)
+2024-12-12 17:07:14,800 - INFO - After cleaning, dataset 'RDKit' shape: (50314, 1894)
+2024-12-12 17:07:48,078 - INFO - Processing file 'AtomPair'...
+2024-12-12 17:08:02,882 - INFO - Merged dataset 'AtomPair' shape: (50314, 2067)
+2024-12-12 17:08:04,753 - INFO - After cleaning, dataset 'AtomPair' shape: (50314, 587)
+2024-12-12 17:08:14,225 - INFO - Processing file 'Torsion'...
+2024-12-12 17:08:27,241 - INFO - Merged dataset 'Torsion' shape: (50314, 2067)
+2024-12-12 17:08:29,083 - INFO - After cleaning, dataset 'Torsion' shape: (50314, 189)
+2024-12-12 17:08:38,078 - INFO - Final merged dataset shape: (503140, 2886)
+2024-12-12 17:09:04,129 - INFO - Starting model training...
+2024-12-12 17:16:06,323 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 17:16:06,323 - INFO - Workflow started.
+2024-12-12 17:16:06,478 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 17:16:06,505 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 17:16:06,505 - INFO - Processing file 'Physicochemical_OPERA'...
+2024-12-12 17:16:06,509 - INFO - Appended SMILES column to 'Physicochemical_OPERA'.
+2024-12-12 17:16:06,639 - INFO - Merged dataset 'Physicochemical_OPERA' shape: (50314, 75)
+2024-12-12 17:16:06,726 - INFO - After cleaning, dataset 'Physicochemical_OPERA' shape: (50314, 17)
+2024-12-12 17:16:06,979 - INFO - Processing file 'Padel_Fingerprints'...
+2024-12-12 17:16:07,765 - INFO - Appended SMILES column to 'Padel_Fingerprints'.
+2024-12-12 17:16:15,245 - INFO - Merged dataset 'Padel_Fingerprints' shape: (50314, 10165)
+2024-12-12 17:16:21,706 - INFO - After cleaning, dataset 'Padel_Fingerprints' shape: (50314, 17)
+2024-12-12 17:16:21,983 - INFO - Processing file 'Padel_Descriptors'...
+2024-12-12 17:16:22,146 - INFO - Appended SMILES column to 'Padel_Descriptors'.
+2024-12-12 17:16:23,388 - INFO - Merged dataset 'Padel_Descriptors' shape: (50314, 1464)
+2024-12-12 17:16:24,000 - INFO - After cleaning, dataset 'Padel_Descriptors' shape: (50314, 17)
+2024-12-12 17:16:24,269 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 17:16:24,666 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (50314, 46)
+2024-12-12 17:16:24,765 - INFO - After cleaning, dataset 'Physicochemical_PubChem' shape: (50314, 34)
+2024-12-12 17:16:25,147 - INFO - Processing file 'Descriptors'...
+2024-12-12 17:16:25,510 - INFO - Merged dataset 'Descriptors' shape: (50314, 38)
+2024-12-12 17:16:25,590 - INFO - After cleaning, dataset 'Descriptors' shape: (50314, 36)
+2024-12-12 17:16:26,017 - INFO - Processing file 'MACCS'...
+2024-12-12 17:16:36,353 - INFO - Merged dataset 'MACCS' shape: (50314, 2067)
+2024-12-12 17:16:36,749 - INFO - After cleaning, dataset 'MACCS' shape: (50314, 91)
+2024-12-12 17:16:39,170 - INFO - Processing file 'Morgan'...
+2024-12-12 17:16:53,657 - INFO - Merged dataset 'Morgan' shape: (50314, 2067)
+2024-12-12 17:16:55,555 - INFO - After cleaning, dataset 'Morgan' shape: (50314, 157)
+2024-12-12 17:16:58,244 - INFO - Processing file 'RDKit'...
+2024-12-12 17:17:11,805 - INFO - Merged dataset 'RDKit' shape: (50314, 2067)
+2024-12-12 17:17:13,793 - INFO - After cleaning, dataset 'RDKit' shape: (50314, 1894)
+2024-12-12 17:17:45,408 - INFO - Processing file 'AtomPair'...
+2024-12-12 17:17:59,884 - INFO - Merged dataset 'AtomPair' shape: (50314, 2067)
+2024-12-12 17:18:02,073 - INFO - After cleaning, dataset 'AtomPair' shape: (50314, 587)
+2024-12-12 17:18:16,997 - INFO - Processing file 'Torsion'...
+2024-12-12 17:18:25,170 - INFO - Merged dataset 'Torsion' shape: (50314, 2067)
+2024-12-12 17:18:26,370 - INFO - After cleaning, dataset 'Torsion' shape: (50314, 189)
+2024-12-12 17:18:40,177 - ERROR - Error in load_and_merge_data: Unable to allocate 280. GiB for an array with shape (37565553844,) and data type int64
+2024-12-12 17:18:40,177 - ERROR - Error in run: Unable to allocate 280. GiB for an array with shape (37565553844,) and data type int64
+2024-12-12 17:23:38,630 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 17:23:38,630 - INFO - Workflow started.
+2024-12-12 17:23:38,788 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 17:23:38,795 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 17:23:38,795 - INFO - Processing file 'Physicochemical_OPERA'...
+2024-12-12 17:23:38,802 - INFO - Appended SMILES column to 'Physicochemical_OPERA'.
+2024-12-12 17:23:38,920 - INFO - Merged dataset 'Physicochemical_OPERA' shape: (50314, 75)
+2024-12-12 17:23:39,006 - INFO - After cleaning, dataset 'Physicochemical_OPERA' shape: (50314, 17)
+2024-12-12 17:23:39,026 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 17:23:39,302 - INFO - Processing file 'Padel_Fingerprints'...
+2024-12-12 17:23:40,108 - INFO - Appended SMILES column to 'Padel_Fingerprints'.
+2024-12-12 17:23:47,500 - INFO - Merged dataset 'Padel_Fingerprints' shape: (50314, 10165)
+2024-12-12 17:23:53,478 - INFO - After cleaning, dataset 'Padel_Fingerprints' shape: (50314, 17)
+2024-12-12 17:23:53,488 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 17:23:53,774 - INFO - Processing file 'Padel_Descriptors'...
+2024-12-12 17:23:53,931 - INFO - Appended SMILES column to 'Padel_Descriptors'.
+2024-12-12 17:23:55,293 - INFO - Merged dataset 'Padel_Descriptors' shape: (50314, 1464)
+2024-12-12 17:23:55,926 - INFO - After cleaning, dataset 'Padel_Descriptors' shape: (50314, 17)
+2024-12-12 17:23:55,942 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 17:23:56,209 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 17:23:56,623 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (50314, 46)
+2024-12-12 17:23:56,715 - INFO - After cleaning, dataset 'Physicochemical_PubChem' shape: (50314, 34)
+2024-12-12 17:23:56,733 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 17:23:56,999 - INFO - Processing file 'Descriptors'...
+2024-12-12 17:23:57,344 - INFO - Merged dataset 'Descriptors' shape: (50314, 38)
+2024-12-12 17:23:57,428 - INFO - After cleaning, dataset 'Descriptors' shape: (50314, 36)
+2024-12-12 17:23:57,439 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 17:23:57,689 - INFO - Processing file 'MACCS'...
+2024-12-12 17:24:06,400 - INFO - Merged dataset 'MACCS' shape: (50314, 2067)
+2024-12-12 17:24:06,637 - INFO - After cleaning, dataset 'MACCS' shape: (50314, 91)
+2024-12-12 17:24:06,657 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 17:24:06,966 - INFO - Processing file 'Morgan'...
+2024-12-12 17:24:15,271 - INFO - Merged dataset 'Morgan' shape: (50314, 2067)
+2024-12-12 17:24:16,528 - INFO - After cleaning, dataset 'Morgan' shape: (50314, 157)
+2024-12-12 17:24:16,546 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 17:24:16,807 - INFO - Processing file 'RDKit'...
+2024-12-12 17:24:25,232 - INFO - Merged dataset 'RDKit' shape: (50314, 2067)
+2024-12-12 17:24:26,922 - INFO - After cleaning, dataset 'RDKit' shape: (50314, 1894)
+2024-12-12 17:24:27,063 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 17:24:27,483 - INFO - Processing file 'AtomPair'...
+2024-12-12 17:24:36,210 - INFO - Merged dataset 'AtomPair' shape: (50314, 2067)
+2024-12-12 17:24:37,475 - INFO - After cleaning, dataset 'AtomPair' shape: (50314, 587)
+2024-12-12 17:24:37,528 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 17:24:37,800 - INFO - Processing file 'Torsion'...
+2024-12-12 17:24:46,094 - INFO - Merged dataset 'Torsion' shape: (50314, 2067)
+2024-12-12 17:24:47,360 - INFO - After cleaning, dataset 'Torsion' shape: (50314, 189)
+2024-12-12 17:24:47,380 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 17:24:58,092 - ERROR - Error in load_and_merge_data: Unable to allocate 280. GiB for an array with shape (37565553844,) and data type int64
+2024-12-12 17:24:58,092 - ERROR - Error in run: Unable to allocate 280. GiB for an array with shape (37565553844,) and data type int64
+2024-12-12 17:28:28,104 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 17:28:28,104 - INFO - Workflow started.
+2024-12-12 17:28:28,258 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 17:28:28,263 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 17:28:28,263 - INFO - Processing file 'Physicochemical_OPERA'...
+2024-12-12 17:28:28,265 - INFO - Appended SMILES column to 'Physicochemical_OPERA'.
+2024-12-12 17:28:28,375 - INFO - Merged dataset 'Physicochemical_OPERA' shape: (50314, 75)
+2024-12-12 17:28:28,468 - INFO - After cleaning, dataset 'Physicochemical_OPERA' shape: (50314, 17)
+2024-12-12 17:28:28,484 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 17:28:28,786 - INFO - Processing file 'Padel_Fingerprints'...
+2024-12-12 17:28:29,656 - INFO - Appended SMILES column to 'Padel_Fingerprints'.
+2024-12-12 17:28:37,207 - INFO - Merged dataset 'Padel_Fingerprints' shape: (50314, 10165)
+2024-12-12 17:28:43,149 - INFO - After cleaning, dataset 'Padel_Fingerprints' shape: (50314, 17)
+2024-12-12 17:28:43,165 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 17:28:43,419 - INFO - Processing file 'Padel_Descriptors'...
+2024-12-12 17:28:43,551 - INFO - Appended SMILES column to 'Padel_Descriptors'.
+2024-12-12 17:28:44,781 - INFO - Merged dataset 'Padel_Descriptors' shape: (50314, 1464)
+2024-12-12 17:28:45,422 - INFO - After cleaning, dataset 'Padel_Descriptors' shape: (50314, 17)
+2024-12-12 17:28:45,444 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 17:28:45,689 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 17:28:46,097 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (50314, 46)
+2024-12-12 17:28:46,197 - INFO - After cleaning, dataset 'Physicochemical_PubChem' shape: (50314, 34)
+2024-12-12 17:28:46,220 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 17:28:46,485 - INFO - Processing file 'Descriptors'...
+2024-12-12 17:28:46,823 - INFO - Merged dataset 'Descriptors' shape: (50314, 38)
+2024-12-12 17:28:46,906 - INFO - After cleaning, dataset 'Descriptors' shape: (50314, 36)
+2024-12-12 17:28:46,916 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 17:28:47,224 - INFO - Processing file 'MACCS'...
+2024-12-12 17:28:56,040 - INFO - Merged dataset 'MACCS' shape: (50314, 2067)
+2024-12-12 17:28:56,278 - INFO - After cleaning, dataset 'MACCS' shape: (50314, 91)
+2024-12-12 17:28:56,295 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 17:28:56,562 - INFO - Processing file 'Morgan'...
+2024-12-12 17:29:04,721 - INFO - Merged dataset 'Morgan' shape: (50314, 2067)
+2024-12-12 17:29:05,946 - INFO - After cleaning, dataset 'Morgan' shape: (50314, 157)
+2024-12-12 17:29:05,973 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 17:29:06,248 - INFO - Processing file 'RDKit'...
+2024-12-12 17:29:15,002 - INFO - Merged dataset 'RDKit' shape: (50314, 2067)
+2024-12-12 17:29:16,350 - INFO - After cleaning, dataset 'RDKit' shape: (50314, 1894)
+2024-12-12 17:29:16,473 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 17:29:16,724 - INFO - Processing file 'AtomPair'...
+2024-12-12 17:29:24,876 - INFO - Merged dataset 'AtomPair' shape: (50314, 2067)
+2024-12-12 17:29:26,081 - INFO - After cleaning, dataset 'AtomPair' shape: (50314, 587)
+2024-12-12 17:29:26,133 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 17:29:26,385 - INFO - Processing file 'Torsion'...
+2024-12-12 17:29:34,448 - INFO - Merged dataset 'Torsion' shape: (50314, 2067)
+2024-12-12 17:29:35,779 - INFO - After cleaning, dataset 'Torsion' shape: (50314, 189)
+2024-12-12 17:29:35,800 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 17:29:46,780 - ERROR - Error in load_and_merge_data: Unable to allocate 280. GiB for an array with shape (37565553844,) and data type int64
+2024-12-12 17:29:46,780 - ERROR - Error in run: Unable to allocate 280. GiB for an array with shape (37565553844,) and data type int64
+2024-12-12 18:10:05,520 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 18:10:05,520 - INFO - Workflow started.
+2024-12-12 18:10:05,733 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 18:10:05,733 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 18:10:05,733 - INFO - Processing file 'Physicochemical_OPERA'...
+2024-12-12 18:10:05,755 - INFO - Appended SMILES column to 'Physicochemical_OPERA'.
+2024-12-12 18:10:05,884 - INFO - Merged dataset 'Physicochemical_OPERA' shape: (50314, 75)
+2024-12-12 18:10:05,992 - INFO - After cleaning, dataset 'Physicochemical_OPERA' shape: (50314, 17)
+2024-12-12 18:10:06,011 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:10:06,409 - INFO - Processing file 'Padel_Fingerprints'...
+2024-12-12 18:10:07,367 - INFO - Appended SMILES column to 'Padel_Fingerprints'.
+2024-12-12 18:10:14,900 - INFO - Merged dataset 'Padel_Fingerprints' shape: (50314, 10165)
+2024-12-12 18:10:21,195 - INFO - After cleaning, dataset 'Padel_Fingerprints' shape: (50314, 17)
+2024-12-12 18:10:21,211 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:10:21,450 - INFO - Processing file 'Padel_Descriptors'...
+2024-12-12 18:10:21,628 - INFO - Appended SMILES column to 'Padel_Descriptors'.
+2024-12-12 18:10:22,972 - INFO - Merged dataset 'Padel_Descriptors' shape: (50314, 1464)
+2024-12-12 18:10:23,670 - INFO - After cleaning, dataset 'Padel_Descriptors' shape: (50314, 17)
+2024-12-12 18:10:23,685 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:10:23,986 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 18:10:24,417 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (50314, 46)
+2024-12-12 18:10:24,510 - INFO - After cleaning, dataset 'Physicochemical_PubChem' shape: (50314, 34)
+2024-12-12 18:10:24,526 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:10:24,828 - INFO - Processing file 'Descriptors'...
+2024-12-12 18:10:25,257 - INFO - Merged dataset 'Descriptors' shape: (50314, 38)
+2024-12-12 18:10:25,352 - INFO - After cleaning, dataset 'Descriptors' shape: (50314, 36)
+2024-12-12 18:10:25,370 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:10:25,686 - INFO - Processing file 'MACCS'...
+2024-12-12 18:10:38,803 - INFO - Merged dataset 'MACCS' shape: (50314, 2067)
+2024-12-12 18:10:39,304 - INFO - After cleaning, dataset 'MACCS' shape: (50314, 91)
+2024-12-12 18:10:39,350 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:10:40,490 - INFO - Processing file 'Morgan'...
+2024-12-12 18:11:01,188 - INFO - Merged dataset 'Morgan' shape: (50314, 2067)
+2024-12-12 18:11:04,648 - INFO - After cleaning, dataset 'Morgan' shape: (50314, 157)
+2024-12-12 18:11:04,748 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:11:06,032 - INFO - Processing file 'RDKit'...
+2024-12-12 18:11:28,954 - INFO - Merged dataset 'RDKit' shape: (50314, 2067)
+2024-12-12 18:11:32,844 - INFO - After cleaning, dataset 'RDKit' shape: (50314, 1894)
+2024-12-12 18:11:33,130 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:11:34,173 - INFO - Processing file 'AtomPair'...
+2024-12-12 18:11:56,938 - INFO - Merged dataset 'AtomPair' shape: (50314, 2067)
+2024-12-12 18:11:59,714 - INFO - After cleaning, dataset 'AtomPair' shape: (50314, 587)
+2024-12-12 18:11:59,804 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:12:00,704 - INFO - Processing file 'Torsion'...
+2024-12-12 18:12:17,515 - INFO - Merged dataset 'Torsion' shape: (50314, 2067)
+2024-12-12 18:12:21,025 - INFO - After cleaning, dataset 'Torsion' shape: (50314, 189)
+2024-12-12 18:12:21,043 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:13:09,853 - ERROR - Error in load_and_merge_data: Passing 'suffixes' which cause duplicate columns {'Species Group_x', 'Species Scientific Name_x', 'Species Common Name_x', 'Organism Lifestage_x', 'Standardized_InChI_x', 'CAS Number_x', 'Broad Lifestage Group_x', 'Activity_Cluster_x', 'Effect Measurement_x', 'Conc 1 Mean (Standardized)_x', 'Endpoint_x', 'Effect_x', 'Observed Duration Mean (Days)_x', 'Exposure Type_x', 'Media Type_x', 'Chemical Name_x'} is not allowed.
+2024-12-12 18:13:09,853 - ERROR - Error in run: Passing 'suffixes' which cause duplicate columns {'Species Group_x', 'Species Scientific Name_x', 'Species Common Name_x', 'Organism Lifestage_x', 'Standardized_InChI_x', 'CAS Number_x', 'Broad Lifestage Group_x', 'Activity_Cluster_x', 'Effect Measurement_x', 'Conc 1 Mean (Standardized)_x', 'Endpoint_x', 'Effect_x', 'Observed Duration Mean (Days)_x', 'Exposure Type_x', 'Media Type_x', 'Chemical Name_x'} is not allowed.
+2024-12-12 18:17:21,998 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 18:17:21,998 - INFO - Workflow started.
+2024-12-12 18:17:22,163 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 18:17:22,168 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 18:17:22,168 - INFO - Processing file 'Physicochemical_OPERA'...
+2024-12-12 18:17:22,179 - INFO - Appended SMILES column to 'Physicochemical_OPERA'.
+2024-12-12 18:17:22,355 - INFO - Merged dataset 'Physicochemical_OPERA' shape: (50314, 75)
+2024-12-12 18:17:22,459 - INFO - After cleaning, dataset 'Physicochemical_OPERA' shape: (50314, 17)
+2024-12-12 18:17:22,478 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:17:22,990 - INFO - Processing file 'Padel_Fingerprints'...
+2024-12-12 18:17:23,992 - INFO - Appended SMILES column to 'Padel_Fingerprints'.
+2024-12-12 18:17:32,629 - INFO - Merged dataset 'Padel_Fingerprints' shape: (50314, 10165)
+2024-12-12 18:17:38,973 - INFO - After cleaning, dataset 'Padel_Fingerprints' shape: (50314, 17)
+2024-12-12 18:17:38,987 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:17:39,290 - INFO - Processing file 'Padel_Descriptors'...
+2024-12-12 18:17:39,482 - INFO - Appended SMILES column to 'Padel_Descriptors'.
+2024-12-12 18:17:40,723 - INFO - Merged dataset 'Padel_Descriptors' shape: (50314, 1464)
+2024-12-12 18:17:41,333 - INFO - After cleaning, dataset 'Padel_Descriptors' shape: (50314, 17)
+2024-12-12 18:17:41,348 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:17:41,631 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 18:17:42,034 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (50314, 46)
+2024-12-12 18:17:42,177 - INFO - After cleaning, dataset 'Physicochemical_PubChem' shape: (50314, 34)
+2024-12-12 18:17:42,193 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:17:42,464 - INFO - Processing file 'Descriptors'...
+2024-12-12 18:17:42,889 - INFO - Merged dataset 'Descriptors' shape: (50314, 38)
+2024-12-12 18:17:42,970 - INFO - After cleaning, dataset 'Descriptors' shape: (50314, 36)
+2024-12-12 18:17:42,986 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:17:43,302 - INFO - Processing file 'MACCS'...
+2024-12-12 18:17:51,615 - INFO - Merged dataset 'MACCS' shape: (50314, 2067)
+2024-12-12 18:17:51,884 - INFO - After cleaning, dataset 'MACCS' shape: (50314, 91)
+2024-12-12 18:17:51,901 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:17:52,184 - INFO - Processing file 'Morgan'...
+2024-12-12 18:18:00,826 - INFO - Merged dataset 'Morgan' shape: (50314, 2067)
+2024-12-12 18:18:02,154 - INFO - After cleaning, dataset 'Morgan' shape: (50314, 157)
+2024-12-12 18:18:02,174 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:18:02,534 - INFO - Processing file 'RDKit'...
+2024-12-12 18:18:11,478 - INFO - Merged dataset 'RDKit' shape: (50314, 2067)
+2024-12-12 18:18:12,846 - INFO - After cleaning, dataset 'RDKit' shape: (50314, 1894)
+2024-12-12 18:18:12,991 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:18:13,368 - INFO - Processing file 'AtomPair'...
+2024-12-12 18:18:17,112 - INFO - Initialized MultiFeatureRegression class.
+2024-12-12 18:18:17,112 - INFO - Workflow started.
+2024-12-12 18:18:17,282 - INFO - Loaded curated data with shape (50329, 20).
+2024-12-12 18:18:17,288 - INFO - Curated data after renaming and deduplication: (50329, 19)
+2024-12-12 18:18:17,288 - INFO - Processing file 'Physicochemical_OPERA'...
+2024-12-12 18:18:17,303 - INFO - Appended SMILES column to 'Physicochemical_OPERA'.
+2024-12-12 18:18:17,426 - INFO - Merged dataset 'Physicochemical_OPERA' shape: (50314, 75)
+2024-12-12 18:18:17,542 - INFO - After cleaning, dataset 'Physicochemical_OPERA' shape: (50314, 17)
+2024-12-12 18:18:17,558 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:18:17,889 - INFO - Processing file 'Padel_Fingerprints'...
+2024-12-12 18:18:18,638 - INFO - Appended SMILES column to 'Padel_Fingerprints'.
+2024-12-12 18:18:33,589 - INFO - Merged dataset 'Padel_Fingerprints' shape: (50314, 10165)
+2024-12-12 18:18:51,421 - INFO - After cleaning, dataset 'Padel_Fingerprints' shape: (50314, 17)
+2024-12-12 18:18:51,464 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:18:53,037 - INFO - Processing file 'Padel_Descriptors'...
+2024-12-12 18:18:53,486 - INFO - Appended SMILES column to 'Padel_Descriptors'.
+2024-12-12 18:18:57,121 - INFO - Merged dataset 'Padel_Descriptors' shape: (50314, 1464)
+2024-12-12 18:18:59,057 - INFO - After cleaning, dataset 'Padel_Descriptors' shape: (50314, 17)
+2024-12-12 18:18:59,170 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:19:00,293 - INFO - Processing file 'Physicochemical_PubChem'...
+2024-12-12 18:19:01,365 - INFO - Merged dataset 'Physicochemical_PubChem' shape: (50314, 46)
+2024-12-12 18:19:01,541 - INFO - After cleaning, dataset 'Physicochemical_PubChem' shape: (50314, 34)
+2024-12-12 18:19:01,571 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:19:02,650 - INFO - Processing file 'Descriptors'...
+2024-12-12 18:19:03,570 - INFO - Merged dataset 'Descriptors' shape: (50314, 38)
+2024-12-12 18:19:03,882 - INFO - After cleaning, dataset 'Descriptors' shape: (50314, 36)
+2024-12-12 18:19:03,914 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:19:04,712 - INFO - Processing file 'MACCS'...
+2024-12-12 18:19:30,945 - INFO - Merged dataset 'MACCS' shape: (50314, 2067)
+2024-12-12 18:19:31,783 - INFO - After cleaning, dataset 'MACCS' shape: (50314, 91)
+2024-12-12 18:19:31,833 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:19:33,073 - INFO - Processing file 'Morgan'...
+2024-12-12 18:19:54,939 - INFO - Merged dataset 'Morgan' shape: (50314, 2067)
+2024-12-12 18:19:58,071 - INFO - After cleaning, dataset 'Morgan' shape: (50314, 157)
+2024-12-12 18:19:58,119 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:19:59,125 - INFO - Processing file 'RDKit'...
+2024-12-12 18:20:19,791 - INFO - Merged dataset 'RDKit' shape: (50314, 2067)
+2024-12-12 18:20:22,877 - INFO - After cleaning, dataset 'RDKit' shape: (50314, 1894)
+2024-12-12 18:20:23,107 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:20:24,066 - INFO - Processing file 'AtomPair'...
+2024-12-12 18:20:46,189 - INFO - Merged dataset 'AtomPair' shape: (50314, 2067)
+2024-12-12 18:20:50,290 - INFO - After cleaning, dataset 'AtomPair' shape: (50314, 587)
+2024-12-12 18:20:50,588 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:20:51,807 - INFO - Processing file 'Torsion'...
+2024-12-12 18:21:16,359 - INFO - Merged dataset 'Torsion' shape: (50314, 2067)
+2024-12-12 18:21:21,584 - INFO - After cleaning, dataset 'Torsion' shape: (50314, 189)
+2024-12-12 18:21:21,792 - INFO - Shape after dropping columns with >70% missing values: (50314, 17)
+2024-12-12 18:21:48,823 - ERROR - Error in load_and_merge_data: Unable to allocate 280. GiB for an array with shape (37565553844,) and data type int64
+2024-12-12 18:21:48,823 - ERROR - Error in run: Unable to allocate 280. GiB for an array with shape (37565553844,) and data type int64
